@@ -23,10 +23,10 @@
 		{/each}
 	</ul>
 
-	<div class="copyright">
-		<p>Copyright &copy; {new Date().getFullYear()} All rights reversed.</p>
+	<p class="copyright">
+		<span>Copyright &copy; {new Date().getFullYear()} 校大学生科协.</span>
 		<a href="https://beian.miit.gov.cn" target="_blank">苏ICP备2022032826号</a>
-	</div>
+	</p>
 </footer>
 
 <style lang="postcss">

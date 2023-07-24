@@ -17,6 +17,6 @@ func main() {
 	routes.AdminRoute(api)
 	routes.ApplicantsRoute(api)
 
-	app.Static("/", "./public")
+	app.Static("/", "./public", fiber.Static{MaxAge: 60 * 60 * 24})
 	app.Listen(":4000")
 }

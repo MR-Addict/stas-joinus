@@ -53,7 +53,6 @@ func ApplicantCreate(c *fiber.Ctx) error {
 
 func ApplicantGetAll(c *fiber.Ctx) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	var applicants []models.Applicant
 	defer cancel()
 
 	pageNumber, _ := strconv.Atoi(c.Query("page", "1"))
@@ -67,8 +66,9 @@ func ApplicantGetAll(c *fiber.Ctx) error {
 	if err != nil {
 		return c.Status(500).JSON(models.Response{Success: false, Message: "服务器内部错误", Data: err.Error()})
 	}
-
 	defer results.Close(ctx)
+
+	var applicants []models.Applicant
 	for results.Next(ctx) {
 		var singleApplicant models.Applicant
 		if err = results.Decode(&singleApplicant); err != nil {
@@ -77,18 +77,14 @@ func ApplicantGetAll(c *fiber.Ctx) error {
 		applicants = append(applicants, singleApplicant)
 	}
 
-	if len(applicants) == 0 {
-		return c.Status(200).JSON(models.Response{Success: true, Message: "数据读取成功", Data: []models.Applicant{}, Pagination: models.Pagination{Page: pageNumber, Page_Size: pageSize, Total_Pages: 1}})
-	}
-
-	totalApplicantsCount, err := applicantCollection.CountDocuments(ctx, bson.M{})
+	total, err := applicantCollection.CountDocuments(ctx, bson.M{})
 	if err != nil {
 		return c.Status(500).JSON(models.Response{Success: false, Message: "服务器内部错误", Data: err.Error()})
 	}
-	totalPages := totalApplicantsCount / int64(pageSize)
-	if totalApplicantsCount%int64(pageSize) != 0 {
-		totalPages++
+
+	if len(applicants) == 0 {
+		return c.Status(200).JSON(models.Response{Success: true, Message: "数据读取成功", Data: []models.Applicant{}, Pagination: models.Pagination{Page: pageNumber, Total: total, Page_Size: pageSize}})
 	}
 
-	return c.Status(200).JSON(models.Response{Success: true, Message: "数据读取成功", Data: applicants, Pagination: models.Pagination{Page: pageNumber, Page_Size: pageSize, Total_Pages: totalPages}})
+	return c.Status(200).JSON(models.Response{Success: true, Message: "数据读取成功", Data: applicants, Pagination: models.Pagination{Page: pageNumber, Total: total, Page_Size: pageSize}})
 }
