@@ -15,5 +15,6 @@ func main() {
 
 	routes.ApplicantsRoute(app)
 
+	app.Static("/", "./public")
 	app.Listen(":4000")
 }
