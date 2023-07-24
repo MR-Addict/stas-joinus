@@ -7,10 +7,7 @@ const config = {
 	preprocess: vitePreprocess(),
 
 	kit: {
-		adapter: adapter({
-			pages: "public",
-			assets: "public"
-		}),
+		adapter: adapter(),
 		alias: {
 			$lib: path.resolve('./src/lib'),
 			$hooks: path.resolve('./src/hooks'),
