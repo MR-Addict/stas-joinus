@@ -1,4 +1,4 @@
-# 校大学生科协报名表单
+# 校大学生科协报名表单 ![docker](https://github.com/MR-Addict/stas-joinus/actions/workflows/docker.yml/badge.svg)
 
 本项目采用 monorepo 的形式，将前后端放在一个 git 仓库当中。
 

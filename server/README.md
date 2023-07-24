@@ -18,4 +18,4 @@ go run main.go
 
 ## 2. 部署项目
 
-如何部署项目请参考根目录的 [README](../README.md)
+如何部署项目请阅读根目录的 [README](../README.md)
