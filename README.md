@@ -6,12 +6,12 @@
 
 ## 1. 部署项目
 
-### 1.1 直接使用 Docker 命令
+### 1.1 使用 Docker 命令
 
 使用下面的 Docker 命令：
 
 ```sh
-docker run -d --name joinus -p 4000:4000 -e ADMIN_USERNAME=admin_username -e ADMIN_PASSWORD=admin_password -e MONGODB_URI=mongodb://admin:password@example.com mraddict063/stas-joinus
+docker run -d --name joinus -p 4000:4000 -e ADMIN_USERNAME=admin_username -e ADMIN_PASSWORD=admin_password -e JWT_SECRET=jwt_secret -e MONGODB_URI=mongodb://admin:password@example.com mraddict063/stas-joinus
 ```
 
 ### 1.2 使用 Docker-Compose（推荐）
@@ -27,6 +27,7 @@ services:
     ports:
       - 4000:4000
     environment:
+      - JWT_SECRET=jwt_secret
       - ADMIN_USERNAME=admin_username
       - ADMIN_PASSWORD=admin_password
       - MONGODB_URI=mongodb://admin:password@example.com
