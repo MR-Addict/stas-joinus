@@ -9,6 +9,7 @@ type Pagination struct {
 type Response struct {
 	Success    bool        `json:"success"`
 	Message    string      `json:"message,omitempty"`
+	Token      string      `json:"token,omitempty"`
 	Data       interface{} `json:"data,omitempty"`
 	Pagination interface{} `json:"pagination,omitempty"`
 }

@@ -12,8 +12,10 @@ func main() {
 	defer configs.DisconnectDB()
 
 	app := fiber.New()
+	api := app.Group("/api")
 
-	routes.ApplicantsRoute(app)
+	routes.AdminRoute(api)
+	routes.ApplicantsRoute(api)
 
 	app.Static("/", "./public")
 	app.Listen(":4000")
