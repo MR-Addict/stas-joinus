@@ -17,6 +17,5 @@ RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-s -w" -trimpath -o app
 FROM scratch
 COPY --from=go-builder /app/app /app
 COPY --from=go-builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
-COPY --from=svelte-builder /app/build /app/public
-
+COPY --from=svelte-builder /app/public /app
 ENTRYPOINT ["/app"]

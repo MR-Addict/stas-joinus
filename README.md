@@ -17,8 +17,8 @@ docker build -t joinus .
 ```yaml
 version: "3"
 services:
-  joinus-backend:
-    image: joinus-backend
+  joinus:
+    image: joinus
     restart: unless-stopped
     ports:
       - 4000:4000
