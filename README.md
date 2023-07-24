@@ -1,13 +1,13 @@
 # 校大学生科协报名表单
 
-后端是 **GO**，前端是 **Svelte**，分别放在了 `server` 和 `client` 两个目录中。
+本项目采用 monorepo 的形式，将前后端放在一个 git 仓库当中。后端是 **GO**，前端是 **Svelte**，分别放在了 `server` 和 `client` 两个目录中。
 
 ## 1. 编译项目
 
 编译 Docker 镜像：
 
 ```sh
-docker build -t stas-joinus .
+docker build -t joinus .
 ```
 
 ## 2. 部署项目
@@ -23,8 +23,8 @@ services:
     ports:
       - 4000:4000
     environment:
-      - USERNAME:dashboard_username
-      - PASSWORD:dashboard_password
+      - USERNAME=dashboard_username
+      - PASSWORD=dashboard_password
       - MONGODB_URI=mongodb://admin:password@example.com
 ```
 

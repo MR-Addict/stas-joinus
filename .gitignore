@@ -1,7 +1,0 @@
-bin
-.env
-
-build
-node_modules
-
-docker-compose.yaml
