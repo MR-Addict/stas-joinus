@@ -2,7 +2,7 @@
 	import User from '$components/Icons/User/User.svelte';
 </script>
 
-<nav class="px-4 md:px-20 py-4 border-b border-b-gray-300">
+<nav>
 	<a href="/" class="flex flex-row items-center gap-1">
 		<img src="/favicon.png" alt="logo" class="w-7" />
 		<h1 class="font-semibold text-gray-800">校大学生科协</h1>
@@ -15,6 +15,7 @@
 
 <style lang="postcss">
 	nav {
-		@apply flex flex-row items-center justify-between;
+		height: 60px;
+		@apply flex flex-row items-center justify-between px-4 md:px-20 border-b border-b-gray-300;
 	}
 </style>
