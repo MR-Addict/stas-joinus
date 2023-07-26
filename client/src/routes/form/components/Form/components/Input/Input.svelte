@@ -16,14 +16,12 @@
 	</h1>
 	<label for={name}>{description}</label>
 	<input required id={name} {name} {type} placeholder={title} on:change={handleChange} />
-	{#if error}
-		<p>{error}</p>
-	{/if}
+	<p class:active={error !== undefined}>{error}</p>
 </div>
 
 <style lang="postcss">
 	.wrapper {
-		@apply w-full bg-white p-5 rounded-md flex flex-col gap-2 border border-gray-300;
+		@apply w-full bg-white p-5 rounded-md flex flex-col gap-2 border border-gray-200;
 	}
 	h1 {
 		@apply font-semibold;
@@ -38,6 +36,11 @@
 		}
 	}
 	p {
-		@apply text-xs text-red-600;
+		@apply text-xs max-h-0 overflow-hidden text-white;
+		transition: max-height 0.25s ease-out;
+		&.active {
+			@apply text-red-600 max-h-10;
+			transition: max-height 0.25s ease-in;
+		}
 	}
 </style>

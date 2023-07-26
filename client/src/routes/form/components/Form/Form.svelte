@@ -1,4 +1,8 @@
 <script lang="ts">
+	import z from 'zod';
+	import { toasts } from '$stores/toasts';
+	import { SubmitApplicant } from '$types/applicant';
+
 	import Input from './components/Input/Input.svelte';
 	import Select from './components/Select/Select.svelte';
 	import Header from './components/Header/Header.svelte';
@@ -6,11 +10,34 @@
 	import SubmitButton from './components/SubmitButton/SubmitButton.svelte';
 
 	let disabled = false;
-	const firstOptions = ['技术开发部', '科普活动部', '组织策划部', '新闻宣传部', '对外联络部', '双创联合服务部'];
-	const secondOptions = ['科普活动部', '技术开发部', '组织策划部', '新闻宣传部', '对外联络部', '双创联合服务部'];
 
 	async function handleSubmit(event: SubmitEvent) {
-		new FormData(event.target as HTMLFormElement);
+		const data: any = {};
+		new FormData(event.target as HTMLFormElement).forEach((value, key) => {
+			data[key] = value;
+		});
+		const parsedData = SubmitApplicant.safeParse(data);
+		if (!parsedData.success) {
+			toasts.add('表单内容不合法', 'failed');
+			return;
+		}
+
+		disabled = true;
+		try {
+			const res = await fetch('/api/applicant', {
+				method: 'POST',
+				body: JSON.stringify(parsedData.data),
+				headers: { 'Content-Type': 'application/json' }
+			}).then((res) => res.json());
+			const result = z.object({ success: z.boolean(), message: z.string() }).parse(res);
+			if (!result.success) toasts.add(result.message, 'failed');
+			else toasts.add(result.message, 'success');
+		} catch (err) {
+			console.error(err);
+			toasts.add('提交失败', 'failed');
+		} finally {
+			disabled = false;
+		}
 	}
 </script>
 
@@ -94,7 +121,7 @@
 		title="第一志愿"
 		description="校科协你最想加入的部门，我们会优先考虑你的第一志愿"
 		name="first_choice"
-		options={firstOptions}
+		options={['技术开发部', '科普活动部', '组织策划部', '新闻宣传部', '对外联络部', '双创联合服务部']}
 		validate={(value) => {
 			// @ts-expect-error
 			if (value === document.getElementById('second_choice')?.value) return '志愿重复，请修改你的志愿';
@@ -104,7 +131,7 @@
 		title="第二志愿"
 		description="校科协你还想加入的部门，请勿与第一志愿相同"
 		name="second_choice"
-		options={secondOptions}
+		options={['科普活动部', '技术开发部', '组织策划部', '新闻宣传部', '对外联络部', '双创联合服务部']}
 		validate={(value) => {
 			// @ts-expect-error
 			if (value === document.getElementById('first_choice')?.value) return '志愿重复，请修改你的志愿';
