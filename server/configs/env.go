@@ -15,10 +15,9 @@ var Env = loadEnv()
 func loadEnv() models.Env {
 	godotenv.Load()
 	env := models.Env{
-		JWT_SECRET:     os.Getenv("JWT_SECRET"),
-		MONGODB_URI:    os.Getenv("MONGODB_URI"),
-		ADMIN_USERNAME: os.Getenv("ADMIN_USERNAME"),
-		ADMIN_PASSWORD: os.Getenv("ADMIN_PASSWORD"),
+		PASSWORD:    os.Getenv("PASSWORD"),
+		JWT_SECRET:  os.Getenv("JWT_SECRET"),
+		MONGODB_URI: os.Getenv("MONGODB_URI"),
 	}
 
 	var validate = validator.New()

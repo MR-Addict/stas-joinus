@@ -14,14 +14,18 @@ func UserPing(c *fiber.Ctx) error {
 }
 
 func UserLogin(c *fiber.Ctx) error {
-	var user models.LoginCrential
+	type LoginCrential struct {
+		Password string `json:"password"`
+	}
+
+	var user LoginCrential
 
 	if err := c.BodyParser(&user); err != nil {
 		return c.Status(400).JSON(models.Response{Success: false, Message: "无效的请求体"})
 	}
 
-	if user.Username != configs.Env.ADMIN_USERNAME || user.Password != configs.Env.ADMIN_PASSWORD {
-		return c.Status(400).JSON(models.Response{Success: false, Message: "用户名或密码错误"})
+	if user.Password != configs.Env.PASSWORD {
+		return c.Status(400).JSON(models.Response{Success: false, Message: "管理员密码错误"})
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{"exp": time.Now().Add(time.Hour * 24 * 30).Unix()})

@@ -2,8 +2,10 @@
 	export let title: string;
 	export let description: string;
 	export let name: string;
-	export let minlength: number | undefined = undefined;
-	export let maxlength: number | undefined = undefined;
+	export let validate: (value: string) => string | undefined;
+
+	let error: string | undefined = undefined;
+	const handleChange = (event: Event) => (error = validate((event.target as HTMLTextAreaElement).value));
 </script>
 
 <div class="wrapper">
@@ -12,7 +14,10 @@
 		<span class="text-red-600">*</span>
 	</h1>
 	<label for={name}>{description}</label>
-	<textarea id={name} {minlength} {maxlength} required {name} placeholder={title} />
+	<textarea required id={name} {name} placeholder={title} on:change={handleChange} />
+	{#if error}
+		<p>{error}</p>
+	{/if}
 </div>
 
 <style lang="postcss">
@@ -30,5 +35,8 @@
 		&:focus {
 			@apply border-teal-600;
 		}
+	}
+	p {
+		@apply text-xs text-red-600;
 	}
 </style>

@@ -3,8 +3,10 @@
 	export let description: string;
 	export let name: string;
 	export let type: 'text' | 'number' | 'email';
-	export let minlength: number | undefined = undefined;
-	export let maxlength: number | undefined = undefined;
+	export let validate: (value: string) => string | undefined;
+
+	let error: string | undefined = undefined;
+	const handleChange = (event: Event) => (error = validate((event.target as HTMLInputElement).value));
 </script>
 
 <div class="wrapper">
@@ -13,7 +15,10 @@
 		<span class="text-red-600">*</span>
 	</h1>
 	<label for={name}>{description}</label>
-	<input id={name} {minlength} {maxlength} required {type} {name} placeholder={title} />
+	<input required id={name} {name} {type} placeholder={title} on:change={handleChange} />
+	{#if error}
+		<p>{error}</p>
+	{/if}
 </div>
 
 <style lang="postcss">
@@ -27,9 +32,12 @@
 		@apply text-sm text-gray-500;
 	}
 	input {
-		@apply bg-white text-sm outline-none pt-1 border-b border-b-gray-400;
+		@apply rounded-none bg-white text-sm outline-none pt-1 border-b border-b-gray-400;
 		&:focus {
 			@apply border-b-teal-600;
 		}
+	}
+	p {
+		@apply text-xs text-red-600;
 	}
 </style>
