@@ -1,0 +1,36 @@
+.form {
+	@apply w-full bg-white p-5 rounded-md flex flex-col gap-2 border border-gray-200;
+}
+.title {
+	@apply font-semibold;
+}
+.label {
+	@apply text-sm text-gray-500;
+}
+
+:is(.input, .textarea) {
+	@apply bg-white text-sm outline-none;
+}
+
+.input {
+	@apply rounded-none pt-1 border-b border-b-gray-400;
+	&:focus {
+		@apply border-b-teal-600;
+	}
+}
+
+.textarea {
+	@apply h-32 p-2 border border-gray-400 rounded-sm;
+	&:focus {
+		@apply border-teal-600;
+	}
+}
+
+.err-msg {
+	@apply text-xs max-h-0 overflow-hidden text-white;
+	transition: max-height 0.25s ease-out;
+	&.active {
+		@apply text-red-600 max-h-10;
+		transition: max-height 0.25s ease-in;
+	}
+}
