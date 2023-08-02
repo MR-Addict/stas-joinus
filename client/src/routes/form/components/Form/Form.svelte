@@ -26,7 +26,10 @@
 		else {
 			pending = true;
 			const success = await submitForm(new FormData(event.target as HTMLFormElement));
-			openForm(!success);
+			if (success) {
+				openForm(false);
+				window.scrollTo({ top: 0 });
+			}
 			pending = false;
 		}
 	}

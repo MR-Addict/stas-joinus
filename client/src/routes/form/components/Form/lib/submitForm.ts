@@ -4,10 +4,11 @@ import { toasts } from '$stores/toasts';
 
 export default async function submitForm(formData: FormData) {
 	try {
-		const res = await fetch('/api/applicant', { method: 'POST', body: formData }).then((res) => res.json());
+		const res = await fetch('https://joinus.mraddict.top/api/applicant', { method: 'POST', body: formData }).then(
+			(res) => res.json()
+		);
 		const result = z.object({ success: z.boolean(), message: z.string() }).parse(res);
 		if (!result.success) toasts.add(result.message, 'failed');
-		else toasts.add(result.message, 'success');
 		return result.success;
 	} catch (err) {
 		console.error(err);
