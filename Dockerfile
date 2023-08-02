@@ -9,11 +9,10 @@ RUN npm run build
 FROM golang:1.20.6-alpine AS go-builder
 WORKDIR /server
 COPY server .
-RUN apk add --no-cache ca-certificates
+RUN apk update && apk add --no-cache ca-certificates && apk add --no-cache upx
 RUN go mod download
 RUN GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -trimpath -o app
-RUN apt update && apt install upx-ucl -y
-RUN upx --best app
+RUN upx -9 app
 
 # production image
 FROM scratch
