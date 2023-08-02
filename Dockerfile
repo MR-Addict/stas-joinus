@@ -9,14 +9,14 @@ RUN npm run build
 FROM golang:1.20.6-alpine AS go-builder
 WORKDIR /server
 COPY server .
-RUN apk update && apk add --no-cache ca-certificates && apk add --no-cache upx
+COPY --from=svelte-builder /client/build/ .
 RUN go mod download
 RUN GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -trimpath -o app
+RUN apk update && apk add --no-cache ca-certificates && apk add --no-cache upx
 RUN upx -9 app
 
 # production image
 FROM scratch
 COPY --from=go-builder /server/app /
-COPY --from=svelte-builder /client/build /public/
 COPY --from=go-builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 ENTRYPOINT ["/app"]

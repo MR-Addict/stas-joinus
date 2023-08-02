@@ -7,7 +7,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func ApplicantsRoute(app fiber.Router) {
+func ApplicantsRoute(app *fiber.App) {
 	app.Post("/api/applicant", middlewares.Limitter, controllers.ApplicantCreate)
 	app.Get("/api/applicants", middlewares.Auth, controllers.ApplicantGetAll)
 }
