@@ -27,10 +27,9 @@
 }
 
 .err-msg {
-	@apply text-xs max-h-0 overflow-hidden text-white;
 	transition: max-height 0.25s ease-out;
+	@apply text-xs max-h-0 overflow-hidden text-white;
 	&.active {
 		@apply text-red-600 max-h-10;
-		transition: max-height 0.25s ease-in;
 	}
 }

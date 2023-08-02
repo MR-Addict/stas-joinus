@@ -11,7 +11,9 @@ WORKDIR /server
 COPY server .
 RUN apk add --no-cache ca-certificates
 RUN go mod download
-RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-s -w" -trimpath -o app
+RUN GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -trimpath -o app
+RUN apt update && apt install upx-ucl -y
+RUN upx --best app
 
 # production image
 FROM scratch

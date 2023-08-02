@@ -8,6 +8,6 @@ import (
 )
 
 func ApplicantsRoute(app fiber.Router) {
-	app.Post("/applicant", middlewares.Limitter, controllers.ApplicantCreate)
-	app.Get("/applicants", middlewares.Auth, controllers.ApplicantGetAll)
+	app.Post("/api/applicant", middlewares.Limitter, controllers.ApplicantCreate)
+	app.Get("/api/applicants", middlewares.Auth, controllers.ApplicantGetAll)
 }
