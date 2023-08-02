@@ -18,9 +18,9 @@
 		@apply w-3.5 h-3.5 fill-blue-600 animate-spin;
 	}
 	button {
-		@apply flex flex-row items-center gap-1 bg-teal-600 text-white py-2 px-6 rounded-md duration-300;
+		@apply flex flex-row items-center gap-1 bg-green-700 text-white py-2 px-6 rounded-md duration-300;
 		&:hover {
-			@apply bg-teal-700;
+			@apply bg-green-800;
 		}
 		&:disabled {
 			@apply bg-gray-200 cursor-not-allowed;

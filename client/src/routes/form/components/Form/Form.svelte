@@ -17,13 +17,16 @@
 	import ChoiceSelect from './components/ChoiceSelect/ChoiceSelect.svelte';
 	import IntroductionInput from './components/IntroductionInput/IntroductionInput.svelte';
 
+	export let openForm: (value: boolean) => void;
+
 	let pending = false;
 
 	async function handleSubmit(event: SubmitEvent) {
 		if ($errorElements.length > 0) scrollToFirstError();
 		else {
 			pending = true;
-			await submitForm(new FormData(event.target as HTMLFormElement));
+			const success = await submitForm(new FormData(event.target as HTMLFormElement));
+			openForm(!success);
 			pending = false;
 		}
 	}

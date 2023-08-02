@@ -8,8 +8,10 @@ export default async function submitForm(formData: FormData) {
 		const result = z.object({ success: z.boolean(), message: z.string() }).parse(res);
 		if (!result.success) toasts.add(result.message, 'failed');
 		else toasts.add(result.message, 'success');
+		return result.success;
 	} catch (err) {
 		console.error(err);
-		toasts.add('提交失败，未知错误', 'failed');
+		toasts.add('提交失败，未知错误，请稍后重试或联系我们', 'failed');
+		return false;
 	}
 }

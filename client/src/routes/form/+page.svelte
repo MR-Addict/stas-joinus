@@ -1,5 +1,10 @@
 <script lang="ts">
 	import Form from './components/Form/Form.svelte';
+	import Success from './components/Success/Success.svelte';
+
+	let isFormOpen = true;
+
+	const openForm = (value: boolean) => (isFormOpen = value);
 </script>
 
 <svelte:head>
@@ -7,7 +12,11 @@
 </svelte:head>
 
 <main>
-	<Form />
+	{#if isFormOpen}
+		<Form {openForm} />
+	{:else}
+		<Success />
+	{/if}
 </main>
 
 <style lang="postcss">
