@@ -34,5 +34,16 @@ func UserLogin(c *fiber.Ctx) error {
 		return c.Status(500).JSON(models.Response{Success: false, Message: "无法生成token"})
 	}
 
-	return c.Status(200).JSON(models.Response{Success: true, Message: "登录成功", Data: "Bearer " + s})
+	cookie := fiber.Cookie{
+		Name:     "joinus_token",
+		Value:    s,
+		Path:     "/",
+		HTTPOnly: true,
+		Secure:   true,
+		MaxAge:   60 * 60 * 24 * 30,
+	}
+
+	c.Cookie(&cookie)
+
+	return c.Status(200).JSON(models.Response{Success: true, Message: "登录成功", Data: s})
 }
