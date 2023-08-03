@@ -13,6 +13,11 @@ func UserPing(c *fiber.Ctx) error {
 	return c.Status(200).JSON(models.Response{Success: true, Message: "ok"})
 }
 
+func UserLogout(c *fiber.Ctx) error {
+	c.ClearCookie("joinus_token")
+	return c.Status(200).JSON(models.Response{Success: true, Message: "退出成功"})
+}
+
 func UserLogin(c *fiber.Ctx) error {
 	type LoginCrential struct {
 		Password string `json:"password"`
@@ -25,7 +30,7 @@ func UserLogin(c *fiber.Ctx) error {
 	}
 
 	if user.Password != configs.Env.PASSWORD {
-		return c.Status(400).JSON(models.Response{Success: false, Message: "管理员密码错误"})
+		return c.Status(400).JSON(models.Response{Success: false, Message: "登录密码错误"})
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{"exp": time.Now().Add(time.Hour * 24 * 30).Unix()})
@@ -38,6 +43,7 @@ func UserLogin(c *fiber.Ctx) error {
 		Name:     "joinus_token",
 		Value:    s,
 		Path:     "/",
+		SameSite: "Lax",
 		HTTPOnly: true,
 		Secure:   true,
 		MaxAge:   60 * 60 * 24 * 30,

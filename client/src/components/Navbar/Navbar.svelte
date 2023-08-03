@@ -1,5 +1,12 @@
 <script lang="ts">
-	import User from '$components/Icons/User/User.svelte';
+	import auth from '$stores/auth';
+	import { page } from '$app/stores';
+
+	import Menu from './components/Menu/Menu.svelte';
+
+	let pathname = '/';
+
+	$: pathname = $page.url.pathname.split('/').slice(0, 2).join('/');
 </script>
 
 <nav>
@@ -8,14 +15,26 @@
 		<h1 class="font-semibold text-gray-800">校大学生科协</h1>
 	</a>
 
-	<div class="flex items-center justify-center">
-		<button type="button" class="w-6 text-gray-700 duration-300 hover:text-black"><User /></button>
+	<div class="ml-auto space-x-2">
+		{#if $auth}
+			<a href="/" class="link" class:active={pathname === '/'}>表格</a>
+			<a href="/" class="link" class:active={pathname === '/'}>统计</a>
+		{/if}
 	</div>
+
+	<Menu />
 </nav>
 
 <style lang="postcss">
 	nav {
 		height: 60px;
-		@apply flex flex-row items-center justify-between px-4 md:px-20 border-b border-b-gray-300;
+		@apply flex flex-row items-center gap-4 px-4 md:px-20 border-b border-b-gray-300;
+	}
+	.link {
+		@apply text-sm text-gray-500 duration-300;
+		&:hover,
+		&.active {
+			@apply text-black;
+		}
 	}
 </style>

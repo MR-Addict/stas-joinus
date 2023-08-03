@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import FormIcon from '$components/Icons/FormIcon/FormIcon.svelte';
 </script>
 

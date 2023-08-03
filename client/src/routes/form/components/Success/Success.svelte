@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import Flower from '$components/Icons/Flower/Flower.svelte';
 </script>
 
