@@ -20,7 +20,7 @@
 	}
 </script>
 
-<div class="form">
+<div class="form" class:error>
 	<h1 class="title">
 		<span>学号</span>
 		<span class="text-red-600">*</span>
@@ -34,5 +34,5 @@
 		placeholder="输入你的学号"
 		on:change={handleChange}
 	/>
-	<p class="err-msg" class:active={error}>{error}</p>
+	<p class="err-msg">{error}</p>
 </div>

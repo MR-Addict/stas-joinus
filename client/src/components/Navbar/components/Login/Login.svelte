@@ -60,7 +60,7 @@
 		@apply text-sm text-gray-500;
 	}
 	.input {
-		@apply w-full flex flex-row items-center gap-2;
+		@apply bg-white w-full flex flex-row items-center gap-2;
 		@apply py-2 px-2 rounded-md border border-gray-400 outline-none;
 		& input {
 			@apply w-full outline-none;

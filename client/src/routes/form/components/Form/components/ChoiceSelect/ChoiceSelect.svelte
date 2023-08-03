@@ -17,12 +17,12 @@
 
 	function validate(value: string) {
 		const [first, second] = value.split(',');
-		if (first === second) return '志愿重复，请修改第一或第二志愿';
+		if (first && second && first === second) return '志愿重复，请修改第一或第二志愿';
 		else return '';
 	}
 </script>
 
-<div class="form">
+<div class="form" class:error>
 	<h1 class="title">
 		<span>第一志愿</span>
 		<span class="text-red-600">*</span>
@@ -36,10 +36,10 @@
 		<option value="对外联络部">对外联络部</option>
 		<option value="双创联合服务部">双创联合服务部</option>
 	</select>
-	<p class="err-msg" class:active={error}>{error}</p>
+	<p class="err-msg">{error}</p>
 </div>
 
-<div class="form">
+<div class="form" class:error>
 	<h1 class="title">
 		<span>第二志愿</span>
 		<span class="text-red-600">*</span>
@@ -53,5 +53,5 @@
 		<option value="对外联络部">对外联络部</option>
 		<option value="双创联合服务部">双创联合服务部</option>
 	</select>
-	<p class="err-msg" class:active={error}>{error}</p>
+	<p class="err-msg">{error}</p>
 </div>

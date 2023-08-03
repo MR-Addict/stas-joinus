@@ -59,6 +59,7 @@
 		}
 	}
 	.menu {
+		box-shadow: 0 0 5px #d1d5db;
 		@apply mt-1.5 bg-white py-3 px-5 rounded-md border border-gray-300;
 	}
 	.btn {

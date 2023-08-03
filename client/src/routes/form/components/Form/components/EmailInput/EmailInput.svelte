@@ -21,12 +21,12 @@
 	}
 </script>
 
-<div class="form">
+<div class="form" class:error>
 	<h1 class="title">
 		<span>邮箱</span>
 		<span class="text-red-600">*</span>
 	</h1>
 	<label for="email" class="label">我们会将面试信息以及面试结果通过邮件的形式发送给你</label>
 	<input id="email" name="email" type="email" class="input" placeholder="输入你的邮箱" on:change={handleChange} />
-	<p class="err-msg" class:active={error}>{error}</p>
+	<p class="err-msg">{error}</p>
 </div>

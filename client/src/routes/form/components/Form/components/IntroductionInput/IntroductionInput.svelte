@@ -21,7 +21,7 @@
 	}
 </script>
 
-<div class="form">
+<div class="form" class:error>
 	<h1 class="title">
 		<span>自我介绍</span>
 		<span class="text-red-600">*</span>
@@ -30,9 +30,9 @@
 	<textarea
 		id="introduction"
 		name="introduction"
-		class="textarea"
+		class="input h-32"
 		placeholder="输入你的姓名"
 		on:change={handleChange}
 	/>
-	<p class="err-msg" class:active={error}>{error}</p>
+	<p class="err-msg">{error}</p>
 </div>

@@ -21,12 +21,12 @@
 	}
 </script>
 
-<div class="form">
+<div class="form" class:error>
 	<h1 class="title">
 		<span>QQ</span>
 		<span class="text-red-600">*</span>
 	</h1>
 	<label for="qq" class="label">我们联系你的备用方案</label>
 	<input id="qq" name="qq" type="number" class="input" placeholder="输入你的QQ号" on:change={handleChange} />
-	<p class="err-msg" class:active={error}>{error}</p>
+	<p class="err-msg">{error}</p>
 </div>

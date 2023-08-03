@@ -21,12 +21,12 @@
 	}
 </script>
 
-<div class="form">
+<div class="form" class:error>
 	<h1 class="title">
 		<span>姓名</span>
 		<span class="text-red-600">*</span>
 	</h1>
 	<label for="name" class="label">你的姓名</label>
 	<input id="name" name="name" type="text" class="input" placeholder="输入你的姓名" on:change={handleChange} />
-	<p class="err-msg" class:active={error}>{error}</p>
+	<p class="err-msg">{error}</p>
 </div>

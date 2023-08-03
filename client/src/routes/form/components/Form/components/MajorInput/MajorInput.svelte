@@ -20,12 +20,12 @@
 	}
 </script>
 
-<div class="form">
+<div class="form" class:error>
 	<h1 class="title">
 		<span>专业</span>
 		<span class="text-red-600">*</span>
 	</h1>
 	<label for="major" class="label">你现在的专业</label>
 	<input id="major" name="major" type="text" class="input" placeholder="输入你的专业" on:change={handleChange} />
-	<p class="err-msg" class:active={error}>{error}</p>
+	<p class="err-msg">{error}</p>
 </div>
