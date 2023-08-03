@@ -14,7 +14,18 @@ func UserPing(c *fiber.Ctx) error {
 }
 
 func UserLogout(c *fiber.Ctx) error {
-	c.ClearCookie("joinus_token")
+	cookie := fiber.Cookie{
+		Name:     "joinus_token",
+		Value:    "",
+		Path:     "/",
+		SameSite: "Lax",
+		HTTPOnly: true,
+		Secure:   true,
+		Expires:  time.Now().Add(-time.Hour),
+	}
+
+	c.Cookie(&cookie)
+
 	return c.Status(200).JSON(models.Response{Success: true, Message: "退出成功"})
 }
 
