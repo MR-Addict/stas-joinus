@@ -1,38 +1,28 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
+
 	export let showModal: boolean;
 
-	let dialog: HTMLDialogElement;
-
-	function openModal() {
-		dialog.showModal();
-		showModal = true;
-		document.body.style.overflowY = 'hidden';
-	}
-
-	function closeModal() {
-		dialog.close();
-		showModal = false;
-		document.body.style.overflowY = 'auto';
-	}
-
-	$: if (dialog) {
-		if (showModal) openModal();
-		else closeModal();
-	}
+	$: if (browser) document.body.style.overflowY = showModal ? 'hidden' : 'auto';
 </script>
 
-<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-noninteractive-element-interactions -->
-<dialog bind:this={dialog} on:click|self={closeModal}>
-	<slot />
-</dialog>
+{#if showModal}
+	<div class="backdrop">
+		<!-- svelte-ignore a11y-no-static-element-interactions -->
+		<!-- svelte-ignore a11y-click-events-have-key-events -->
+		<div class="modal" on:click|self={() => (showModal = false)}>
+			<slot />
+		</div>
+	</div>
+{/if}
 
 <style>
-	dialog {
-		background-color: transparent;
-		animation: zoom 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+	.backdrop {
+		@apply bg-black/30 fixed inset-0;
 	}
-	dialog::backdrop {
-		background: rgba(0, 0, 0, 0.3);
+	.modal {
+		@apply w-full h-full flex flex-col items-center justify-center;
+		animation: zoom 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
 	}
 	@keyframes zoom {
 		from {

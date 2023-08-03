@@ -1,6 +1,6 @@
 <script lang="ts">
+	import inputs from '$stores/inputs';
 	import submitForm from './lib/submitForm';
-	import errorElements from '$stores/errorElements';
 	import scrollToFirstError from './lib/scrollToFirstError';
 
 	import Header from './components/Header/Header.svelte';
@@ -22,7 +22,7 @@
 	let pending = false;
 
 	async function handleSubmit(event: SubmitEvent) {
-		if ($errorElements.length > 0) scrollToFirstError();
+		if (inputs.validateAll()) scrollToFirstError();
 		else {
 			pending = true;
 			const success = await submitForm(new FormData(event.target as HTMLFormElement));

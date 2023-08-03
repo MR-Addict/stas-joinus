@@ -1,12 +1,14 @@
 <script lang="ts">
 	import auth from '$stores/auth';
 	import { toasts } from '$stores/toasts';
+	import clickOutside from '$hooks/clickOutside';
 
 	import Login from '../Login/Login.svelte';
 	import User from '$components/Icons/User/User.svelte';
 	import Spinner from '$components/Spinner/Spinner.svelte';
 
 	let pending = false;
+	let showMenu = false;
 	let showModal = false;
 
 	async function handleLogout() {
@@ -19,12 +21,12 @@
 
 <Login bind:showModal />
 
-<div class="wrapper">
-	<button type="button" aria-label="profile" class="w-6 text-gray-700 duration-300 hover:text-black">
+<div use:clickOutside={() => (showMenu = false)} class="wrapper">
+	<button type="button" aria-label="profile" class="avatar" on:click={() => (showMenu = !showMenu)}>
 		<User />
 	</button>
 
-	<div class="menu-wrapper">
+	<div class="menu-wrapper" class:active={showMenu}>
 		<div class="menu">
 			{#if $auth}
 				<button disabled={pending} type="button" class="btn" on:click={handleLogout}>
@@ -34,7 +36,7 @@
 					<span>退出登录</span>
 				</button>
 			{:else}
-				<button type="button" class="btn" on:click={() => (showModal = true)}>登录后台</button>
+				<button type="button" class="btn" on:click={() => (showModal = true) && (showMenu = false)}>登录后台</button>
 			{/if}
 		</div>
 	</div>
@@ -43,12 +45,18 @@
 <style lang="postcss">
 	.wrapper {
 		@apply relative flex items-center justify-center;
-		&:hover .menu-wrapper {
-			@apply block;
+	}
+	.avatar {
+		@apply w-6 text-gray-700 duration-300;
+		&:hover {
+			@apply text-black;
 		}
 	}
 	.menu-wrapper {
 		@apply hidden absolute top-full right-0 md:right-1/2 md:translate-x-1/2;
+		&.active {
+			@apply block;
+		}
 	}
 	.menu {
 		@apply mt-1.5 bg-white py-3 px-5 rounded-md border border-gray-300;

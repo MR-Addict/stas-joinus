@@ -1,17 +1,23 @@
 <script lang="ts">
 	import '../form.css';
-	import errorElements from '$stores/errorElements';
+	import { onMount } from 'svelte';
+	import inputs from '$stores/inputs';
 
 	let error = '';
+	$: error = $inputs.find((input) => input.id === 'email')?.error || '';
 
-	$: error = $errorElements.find((element) => element.id === 'email')?.error || '';
+	onMount(() => inputs.register('email', validate));
 
 	function handleChange(event: Event) {
 		const value = (event.target as HTMLInputElement).value;
-		if (value.length === 0) errorElements.upsert('email', '邮箱不能为空');
-		else if (value.length > 320) errorElements.upsert('email', '你的邮箱太长啦');
-		else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) errorElements.upsert('email', '请输入正确格式的邮箱');
-		else errorElements.remove('email');
+		inputs.update('email', value);
+	}
+
+	function validate(value: string) {
+		if (value.length === 0) return '邮箱不能为空';
+		else if (value.length > 320) return '你的邮箱太长啦';
+		else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return '请输入正确格式的邮箱';
+		else return '';
 	}
 </script>
 
@@ -21,15 +27,6 @@
 		<span class="text-red-600">*</span>
 	</h1>
 	<label for="email" class="label">我们会将面试信息以及面试结果通过邮件的形式发送给你</label>
-	<input
-		required
-		id="email"
-		name="email"
-		type="email"
-		class="input"
-		maxlength="320"
-		placeholder="输入你的邮箱"
-		on:change={handleChange}
-	/>
+	<input id="email" name="email" type="email" class="input" placeholder="输入你的邮箱" on:change={handleChange} />
 	<p class="err-msg" class:active={error}>{error}</p>
 </div>

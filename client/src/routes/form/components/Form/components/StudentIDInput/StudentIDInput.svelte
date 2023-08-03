@@ -1,16 +1,22 @@
 <script lang="ts">
 	import '../form.css';
-	import errorElements from '$stores/errorElements';
+	import { onMount } from 'svelte';
+	import inputs from '$stores/inputs';
 
 	let error = '';
+	$: error = $inputs.find((input) => input.id === 'student_id')?.error || '';
 
-	$: error = $errorElements.find((element) => element.id === 'student_id')?.error || '';
+	onMount(() => inputs.register('student_id', validate));
 
 	function handleChange(event: Event) {
 		const value = (event.target as HTMLInputElement).value;
-		if (value.length === 0) errorElements.upsert('student_id', '学号不能为空');
-		else if (value.length != 12) errorElements.upsert('student_id', '学号应该是11位');
-		else errorElements.remove('student_id');
+		inputs.update('student_id', value);
+	}
+
+	function validate(value: string) {
+		if (value.length === 0) return '学号不能为空';
+		else if (value.length != 12) return '学号应该是11位';
+		else return '';
 	}
 </script>
 
@@ -21,7 +27,6 @@
 	</h1>
 	<label for="student_id" class="label">你的学号</label>
 	<input
-		required
 		id="student_id"
 		name="student_id"
 		type="number"

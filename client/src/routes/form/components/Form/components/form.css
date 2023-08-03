@@ -9,7 +9,7 @@
 }
 
 :is(.input, .textarea) {
-	@apply bg-white text-sm outline-none;
+	@apply bg-white outline-none;
 }
 
 .input {

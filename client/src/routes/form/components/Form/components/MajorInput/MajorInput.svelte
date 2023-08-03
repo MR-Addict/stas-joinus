@@ -1,16 +1,22 @@
 <script lang="ts">
 	import '../form.css';
-	import errorElements from '$stores/errorElements';
+	import { onMount } from 'svelte';
+	import inputs from '$stores/inputs';
 
 	let error = '';
+	$: error = $inputs.find((input) => input.id === 'major')?.error || '';
 
-	$: error = $errorElements.find((element) => element.id === 'major')?.error || '';
+	onMount(() => inputs.register('major', validate));
 
 	function handleChange(event: Event) {
 		const value = (event.target as HTMLInputElement).value;
-		if (value.length === 0) errorElements.upsert('major', '专业不能为空');
-		else if (value.length > 50) errorElements.upsert('major', '你的专业名字太长啦');
-		else errorElements.remove('major');
+		inputs.update('major', value);
+	}
+
+	function validate(value: string) {
+		if (value.length === 0) return '专业不能为空';
+		else if (value.length > 50) return '你的专业名字太长啦';
+		else return '';
 	}
 </script>
 
@@ -20,15 +26,6 @@
 		<span class="text-red-600">*</span>
 	</h1>
 	<label for="major" class="label">你现在的专业</label>
-	<input
-		required
-		id="major"
-		name="major"
-		type="text"
-		class="input"
-		maxlength="50"
-		placeholder="输入你的专业"
-		on:change={handleChange}
-	/>
+	<input id="major" name="major" type="text" class="input" placeholder="输入你的专业" on:change={handleChange} />
 	<p class="err-msg" class:active={error}>{error}</p>
 </div>

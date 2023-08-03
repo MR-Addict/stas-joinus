@@ -47,7 +47,7 @@
 	ul {
 		max-height: 60vh;
 		max-height: 60svh;
-		@apply top-10 z-20 fixed right-2.5 flex flex-col gap-4 overflow-y-auto overflow-x-hidden p-1.5;
+		@apply top-10 z-10 fixed right-2.5 flex flex-col gap-4 overflow-y-auto overflow-x-hidden p-1.5;
 	}
 	ul::-webkit-scrollbar {
 		display: none;

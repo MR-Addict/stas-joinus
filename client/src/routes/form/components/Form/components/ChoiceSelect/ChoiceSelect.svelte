@@ -1,16 +1,24 @@
 <script lang="ts">
 	import '../form.css';
-	import errorElements from '$stores/errorElements';
+	import { onMount } from 'svelte';
+	import inputs from '$stores/inputs';
 
 	let error = '';
 	let first_choice = '技术开发部';
 	let second_choice = '科普活动部';
 
-	$: error = $errorElements.find((element) => element.id === 'first_choice')?.error || '';
+	$: error = $inputs.find((input) => input.id === 'first_choice')?.error || '';
+
+	onMount(() => inputs.register('first_choice', validate));
 
 	function handleChange() {
-		if (first_choice === second_choice) errorElements.upsert('first_choice', '志愿重复，请修改第一或第二志愿');
-		else errorElements.remove('first_choice');
+		inputs.update('first_choice', first_choice + ',' + second_choice);
+	}
+
+	function validate(value: string) {
+		const [first, second] = value.split(',');
+		if (first === second) return '志愿重复，请修改第一或第二志愿';
+		else return '';
 	}
 </script>
 
