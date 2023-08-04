@@ -9,6 +9,7 @@
 	import Table from './components/Table/Table.svelte';
 	import Header from './components/Header/Header.svelte';
 	import Pagination from './components/Pagination/Pagination.svelte';
+	import applicants from '$stores/applicants';
 
 	let tableFilter: TableFilter = {
 		name: true,
@@ -37,9 +38,13 @@
 </svelte:head>
 
 <main>
-	<Header bind:tableFilter />
-	<Table {tableFilter} />
-	<Pagination />
+	{#if $applicants.length > 0}
+		<Header bind:tableFilter />
+		<Table {tableFilter} />
+		<Pagination />
+	{:else}
+		<p>Woops！没有任何数据</p>
+	{/if}
 </main>
 
 <style lang="postcss">
@@ -47,5 +52,8 @@
 		min-height: calc(100vh - 60px);
 		min-height: calc(100svh - 60px);
 		@apply py-5 md:py-10 px-4 md:px-20 flex flex-col gap-2;
+	}
+	p {
+		@apply w-full flex-1 flex items-center justify-center;
 	}
 </style>
