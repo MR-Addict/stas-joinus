@@ -20,7 +20,7 @@
 		@apply max-w-xs text-center text-gray-500;
 	}
 	a {
-		@apply text-gray-500 text-sm py-1 px-2 rounded-3xl border border-gray-400 duration-300;
+		@apply text-gray-500 text-sm rounded-3xl duration-300;
 		&:hover {
 			@apply text-gray-700 border-gray-500;
 		}

@@ -25,22 +25,24 @@
 	}
 </script>
 
-<div class="wrapper">
-	<p>{page}/{totalPages}页(共{total}记录)</p>
-	<div class="flex flex-row gap-2">
-		{#each { length: totalPages } as item, index (index)}
-			{@const display = index + 1}
-			<button
-				type="button"
-				class:active={page === display}
-				on:click={() => handleClick(display)}
-				disabled={page === display || pending}
-			>
-				{display}
-			</button>
-		{/each}
+{#if totalPages > 1}
+	<div class="wrapper">
+		<p>{page}/{totalPages}页(共{total}记录)</p>
+		<div class="flex flex-row gap-2">
+			{#each { length: totalPages } as item, index (index)}
+				{@const display = index + 1}
+				<button
+					type="button"
+					class:active={page === display}
+					on:click={() => handleClick(display)}
+					disabled={page === display || pending}
+				>
+					{display}
+				</button>
+			{/each}
+		</div>
 	</div>
-</div>
+{/if}
 
 <style lang="postcss">
 	.wrapper {

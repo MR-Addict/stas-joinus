@@ -43,7 +43,7 @@
 		<Table {tableFilter} />
 		<Pagination />
 	{:else}
-		<p>Woops！没有任何数据</p>
+		<p>Woops！还没有任何数据哦</p>
 	{/if}
 </main>
 

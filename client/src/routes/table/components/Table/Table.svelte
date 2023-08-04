@@ -100,14 +100,14 @@
 	table {
 		@apply w-full border border-gray-300;
 	}
-	table thead th {
-		@apply text-gray-800 bg-gray-200;
-	}
 	table tr {
-		@apply text-left;
+		@apply text-left align-text-top;
 	}
-	table :is(th, td) {
-		@apply p-2;
+	table th {
+		@apply text-gray-800 bg-gray-200 px-2 py-3;
+	}
+	table td {
+		@apply text-gray-700 p-2;
 	}
 	table tr :is(th, td:not(:last-of-type)) {
 		@apply whitespace-nowrap;
