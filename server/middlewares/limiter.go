@@ -13,6 +13,6 @@ var Limitter = limiter.New(limiter.Config{
 	Expiration:        10 * time.Second,
 	LimiterMiddleware: limiter.SlidingWindow{},
 	LimitReached: func(c *fiber.Ctx) error {
-		return c.Status(429).JSON(models.Response{Success: false, Message: "您提交太频繁啦，请稍后再试"})
+		return c.Status(429).JSON(models.Response{Success: false, Message: "您访问太频繁啦，请稍后再试"})
 	},
 })

@@ -16,7 +16,7 @@ const SubmitApplicant = z.object({
 	introduction: z.string().min(4).max(500)
 });
 
-const Applicant = z.object({ id: z.string(), created: z.number() }).merge(SubmitApplicant);
+const Applicant = z.object({ id: z.string(), create_at: z.number() }).merge(SubmitApplicant);
 
 type ApplicantType = z.TypeOf<typeof Applicant>;
 

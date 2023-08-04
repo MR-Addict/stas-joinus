@@ -1,4 +1,4 @@
-import { writable, derived, get } from 'svelte/store';
+import { writable, derived } from 'svelte/store';
 
 import type { ToastStatusType, ToastType } from '$types/toast';
 
@@ -11,32 +11,31 @@ function createStore() {
 
 	const derivedStore = derived(store, ($store) => ({
 		all: $store,
-		finished: $store.filter((item) => item.status !== 'pending')
+		finished: $store.filter((toast) => toast.status !== 'pending')
 	}));
 
 	function add(message: string, status: ToastStatusType) {
-		store.update((items) => [...items, { id: uuid(), message, status }]);
+		const id = uuid();
+		store.update((toasts) => toasts.concat({ id, message, status }));
+		return id;
 	}
 
-	function update(id: string, callback: (toast: ToastType) => ToastType) {
-		const toast = get(store).find((item) => item.id === id);
-		if (toast) {
-			const updatedToast = callback(toast);
-			store.update((items) => {
-				items[items.findIndex((item) => item.id === updatedToast.id)] = updatedToast;
-				return items;
-			});
-		}
+	function update(id: string, update: Partial<ToastType>) {
+		store.update((toasts) => {
+			const toastId = toasts.findIndex((toast) => toast.id === id);
+			if (toastId !== -1) Object.assign(toasts[toastId], update);
+			return toasts;
+		});
 	}
 
 	function remove(id: string) {
-		store.update((items) => items.filter((item) => item.id !== id));
+		store.update((toasts) => toasts.filter((toast) => toast.id !== id));
 	}
 
 	return {
-		add: add,
-		update: update,
-		remove: remove,
+		add,
+		update,
+		remove,
 		subscribe: derivedStore.subscribe
 	};
 }
