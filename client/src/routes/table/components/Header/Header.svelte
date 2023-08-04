@@ -27,10 +27,10 @@
 		<button disabled={pending} type="button" on:click={handleRefresh}><MdRefresh /></button>
 	</h1>
 
-	<button type="button" class="ml-auto btn">
+	<a href="/api/applicants/download" type="button" class="ml-auto btn">
 		<div><MdFileDownload /></div>
 		<span>下载表格</span>
-	</button>
+	</a>
 
 	<div class="relative" use:clickOutside={() => (showFilter = false)}>
 		<button type="button" class="btn" on:click={() => (showFilter = !showFilter)}>
@@ -52,12 +52,12 @@
 				<label for="phone">手机</label>
 			</div>
 			<div class="option">
-				<input type="checkbox" id="qq" bind:checked={tableFilter.qq} />
-				<label for="qq">QQ</label>
-			</div>
-			<div class="option">
 				<input type="checkbox" id="email" bind:checked={tableFilter.email} />
 				<label for="email">邮箱</label>
+			</div>
+			<div class="option">
+				<input type="checkbox" id="qq" bind:checked={tableFilter.qq} />
+				<label for="qq">QQ</label>
 			</div>
 			<div class="option">
 				<input type="checkbox" id="student_id" bind:checked={tableFilter.student_id} />
@@ -69,7 +69,7 @@
 			</div>
 			<div class="option">
 				<input type="checkbox" id="major" bind:checked={tableFilter.major} />
-				<label for="major">学院</label>
+				<label for="major">专业</label>
 			</div>
 			<div class="option">
 				<input type="checkbox" id="created_at" bind:checked={tableFilter.created_at} />

@@ -11,7 +11,7 @@
 	<table>
 		<thead>
 			<tr>
-				<th>ID</th>
+				<th>序号</th>
 				{#if tableFilter.name}
 					<th>姓名</th>
 				{/if}
@@ -63,11 +63,11 @@
 					{#if tableFilter.phone}
 						<td>{applicant.phone}</td>
 					{/if}
-					{#if tableFilter.qq}
-						<td>{applicant.qq}</td>
-					{/if}
 					{#if tableFilter.email}
 						<td>{applicant.email}</td>
+					{/if}
+					{#if tableFilter.qq}
+						<td>{applicant.qq}</td>
 					{/if}
 					{#if tableFilter.student_id}
 						<td>{applicant.student_id}</td>
@@ -79,7 +79,7 @@
 						<td>{applicant.major}</td>
 					{/if}
 					{#if tableFilter.created_at}
-						<td>{formatDate(applicant.create_at, true)}</td>
+						<td>{formatDate(applicant.create_at)}</td>
 					{/if}
 					{#if tableFilter.first_choice}
 						<td>{applicant.first_choice}</td>

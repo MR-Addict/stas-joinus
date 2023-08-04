@@ -10,4 +10,5 @@ import (
 func ApplicantsRoute(app *fiber.App) {
 	app.Post("/api/applicant", middlewares.Limitter, controllers.ApplicantCreate)
 	app.Get("/api/applicants", middlewares.Auth, controllers.ApplicantGetAll)
+	app.Get("/api/applicants/download", middlewares.Auth, controllers.ApplicantDownload)
 }
