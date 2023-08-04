@@ -17,8 +17,9 @@
 
 	<div class="ml-auto space-x-2">
 		{#if $auth}
+			<a href="/" class="link" class:active={pathname === '/'}>首页</a>
 			<a href="/table" class="link" class:active={pathname === '/table'}>表格</a>
-			<a href="/" class="link" class:active={pathname === '/'}>统计</a>
+			<a href="/table" class="link" class:active={pathname === '/table'}>统计</a>
 		{/if}
 	</div>
 

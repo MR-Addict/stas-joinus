@@ -1,5 +1,7 @@
 <script lang="ts">
 	import auth from '$stores/auth';
+	import { page } from '$app/stores';
+	import { goto } from '$app/navigation';
 	import { toasts } from '$stores/toasts';
 	import clickOutside from '$hooks/clickOutside';
 
@@ -10,11 +12,13 @@
 	let pending = false;
 	let showMenu = false;
 	let showModal = false;
-
 	async function handleLogout() {
 		pending = true;
-		if (await auth.logout()) showMenu = false;
-		else toasts.add('退出失败，请稍后重试或联系我们', 'failed');
+		if (await auth.logout()) {
+			showMenu = false;
+			const pathname = $page.url.pathname.split('/').slice(0, 2).join('/');
+			if (pathname === '/table' || pathname === '/analytics') goto('/');
+		} else toasts.add('退出失败，请稍后重试或联系我们', 'failed');
 		pending = false;
 	}
 </script>

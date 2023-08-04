@@ -114,7 +114,7 @@
 	.filter {
 		box-shadow: 0 0 5px #d1d5db;
 		@apply hidden flex-col border border-gray-300;
-		@apply rounded-md py-1 px-2.5 bg-white mt-1 absolute left-1/2 -translate-x-1/2 top-full;
+		@apply rounded-md py-1 px-2.5 bg-white mt-1 absolute right-0 md:right-1/2 md:translate-x-1/2 top-full;
 		&.active {
 			@apply flex;
 		}
