@@ -13,7 +13,7 @@
 		@apply flex flex-col items-center justify-center px-4;
 	}
 	img {
-		box-shadow: 0 0 20px #b6bac0;
+		box-shadow: 0 0 20px #d1d5db;
 		@apply rounded-xl w-full max-w-[270px] md:max-w-xs;
 	}
 </style>

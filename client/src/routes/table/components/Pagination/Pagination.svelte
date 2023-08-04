@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { toasts } from '$stores/toasts';
+	import toasts from '$stores/toasts';
 	import pagination from '$stores/pagination';
 	import fetchApplicants from '$lib/applicant/fetchApplicants';
 
@@ -19,8 +19,8 @@
 
 	async function handleClick(page: number) {
 		pending = true;
-		const id = toasts.add('数据刷新中', 'pending');
-		if (await fetchApplicants(page)) toasts.update(id, { message: '刷新成功', status: 'success' });
+		const toastId = toasts.add('数据刷新中', 'pending');
+		if (await fetchApplicants(page)) toasts.update(toastId, { message: '刷新成功', status: 'success' });
 		pending = false;
 	}
 </script>

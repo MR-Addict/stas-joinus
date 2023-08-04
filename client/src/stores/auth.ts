@@ -1,3 +1,4 @@
+import url from '$lib/utils/url';
 import { writable } from 'svelte/store';
 import { Response } from '$types/response';
 
@@ -6,8 +7,7 @@ function createStore() {
 
 	async function ping() {
 		try {
-			const path = '/api/user';
-			const res = await fetch(path, { credentials: 'include' }).then((res) => res.json());
+			const res = await fetch(url('/api/user'), { credentials: 'include' }).then((res) => res.json());
 			const { success } = Response.parse(res);
 			authorized.set(success);
 			return success;
@@ -20,7 +20,7 @@ function createStore() {
 
 	async function logout() {
 		try {
-			await fetch('/api/user/logout');
+			await fetch(url('/api/user/logout'));
 			const success = await ping();
 			if (!success) authorized.set(false);
 			return !success;

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import auth from '$stores/auth';
-	import { toasts } from '$stores/toasts';
+	import url from '$lib/utils/url';
+	import toasts from '$stores/toasts';
 	import { Response } from '$types/response';
 
 	import Modal from '$components/Modal/Modal.svelte';
@@ -16,8 +17,7 @@
 
 		pending = true;
 		try {
-			const path = '/api/user/login';
-			const res = await fetch(path, { method: 'POST', body: formData }).then((res) => res.json());
+			const res = await fetch(url('/api/user/login'), { method: 'POST', body: formData }).then((res) => res.json());
 			const { success, message } = Response.parse(res);
 			if (!success) toasts.add(message, 'failed');
 			else if (await auth.ping()) showModal = false;

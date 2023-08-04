@@ -1,7 +1,9 @@
 <script lang="ts">
-	import { toasts } from '$stores/toasts';
+	import url from '$lib/utils/url';
 	import clickOutside from '$hooks/clickOutside';
 	import fetchApplicants from '$lib/applicant/fetchApplicants';
+
+	import toasts from '$stores/toasts';
 	import type { TableFilter } from '$types/tableFilter';
 
 	import TiFilter from 'svelte-icons/ti/TiFilter.svelte';
@@ -15,8 +17,8 @@
 
 	async function handleRefresh() {
 		pending = true;
-		const id = toasts.add('数据刷新中', 'pending');
-		if (await fetchApplicants()) toasts.update(id, { message: '刷新成功', status: 'success' });
+		const toastId = toasts.add('数据刷新中', 'pending');
+		if (await fetchApplicants()) toasts.update(toastId, { message: '刷新成功', status: 'success' });
 		pending = false;
 	}
 </script>
@@ -27,7 +29,7 @@
 		<button disabled={pending} type="button" on:click={handleRefresh}><MdRefresh /></button>
 	</h1>
 
-	<a href="/api/applicants/download" type="button" class="ml-auto btn">
+	<a href={url('/api/applicants/download')} rel="external" download class="ml-auto btn">
 		<div><MdFileDownload /></div>
 		<span>下载表格</span>
 	</a>
@@ -122,15 +124,18 @@
 		& input {
 			appearance: none;
 			@apply relative;
-			@apply w-4 h-4 border border-gray-500 rounded-sm cursor-pointer;
+			@apply w-4 h-4 bg-gray-300 rounded-sm cursor-pointer;
 			&::before {
 				content: '';
-				@apply block w-2.5 h-2.5 bg-blue-600 scale-0 duration-100;
+				@apply block w-2.5 h-2.5 bg-white scale-0 duration-100;
 				@apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
 				clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
 			}
-			&:checked::before {
-				@apply scale-100;
+			&:checked {
+				@apply bg-blue-600;
+				&::before {
+					@apply scale-100;
+				}
 			}
 		}
 	}

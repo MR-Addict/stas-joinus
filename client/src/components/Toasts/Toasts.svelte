@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { fly } from 'svelte/transition';
-	import { toasts } from '$stores/toasts';
+	import toasts from '$stores/toasts';
 
 	import GoInfo from 'svelte-icons/go/GoInfo.svelte';
 	import MdClose from 'svelte-icons/md/MdClose.svelte';
@@ -53,7 +53,7 @@
 		display: none;
 	}
 	.toast {
-		box-shadow: 0 0 5px #b9bcc1;
+		box-shadow: 0 0 5px #d1d5db;
 		@apply bg-white border-b-4 border-b-blue-600;
 		@apply w-full py-4 px-4 rounded-md flex flex-row items-center justify-between gap-2;
 	}

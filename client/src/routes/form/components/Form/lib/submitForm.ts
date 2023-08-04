@@ -1,16 +1,18 @@
 import z from 'zod';
 
-import { toasts } from '$stores/toasts';
+import url from '$lib/utils/url';
+import toasts from '$stores/toasts';
 
 export default async function submitForm(formData: FormData) {
+	const toastId = toasts.add('表单提交中，请耐心等待', 'pending');
 	try {
-		const res = await fetch('/api/applicant', { method: 'POST', body: formData }).then((res) => res.json());
-		const result = z.object({ success: z.boolean(), message: z.string() }).parse(res);
-		if (!result.success) toasts.add(result.message, 'failed');
-		return result.success;
+		const res = await fetch(url('/api/applicant'), { method: 'POST', body: formData }).then((res) => res.json());
+		const { message, success } = z.object({ success: z.boolean(), message: z.string() }).parse(res);
+		toasts.update(toastId, { message, status: success ? 'success' : 'failed' });
+		return success;
 	} catch (err) {
 		console.error(err);
-		toasts.add('提交失败，请稍后重试或联系我们', 'failed');
+		toasts.update(toastId, { message: '提交失败，请稍后重试或联系我们', status: 'failed' });
 		return false;
 	}
 }

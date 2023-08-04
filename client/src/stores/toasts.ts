@@ -40,4 +40,6 @@ function createStore() {
 	};
 }
 
-export const toasts = createStore();
+const toasts = createStore();
+
+export default toasts;

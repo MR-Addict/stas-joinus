@@ -20,7 +20,7 @@
 		student_id: true,
 		college: true,
 		major: true,
-		created_at: true,
+		created_at: false,
 		first_choice: true,
 		second_choice: true,
 		introduction: true

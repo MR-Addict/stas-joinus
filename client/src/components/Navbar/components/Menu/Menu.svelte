@@ -2,7 +2,7 @@
 	import auth from '$stores/auth';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
-	import { toasts } from '$stores/toasts';
+	import toasts from '$stores/toasts';
 	import clickOutside from '$hooks/clickOutside';
 
 	import Login from '../Login/Login.svelte';

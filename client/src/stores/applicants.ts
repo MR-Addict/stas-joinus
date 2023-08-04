@@ -1,5 +1,5 @@
-import type { ApplicantType } from '$types/applicant';
 import { writable } from 'svelte/store';
+import type { ApplicantType } from '$types/applicant';
 
 function createStore() {
 	const store = writable<ApplicantType[]>([]);

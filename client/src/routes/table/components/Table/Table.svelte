@@ -98,13 +98,16 @@
 
 <style lang="postcss">
 	table {
-		@apply w-full border border-gray-300;
-	}
-	table tr {
-		@apply text-left align-text-top;
+		@apply w-full;
 	}
 	table th {
 		@apply text-gray-800 bg-gray-200 px-2 py-3;
+	}
+	table tr {
+		@apply text-left align-text-top border-b border-b-gray-300;
+		&:hover {
+			@apply bg-gray-100;
+		}
 	}
 	table td {
 		@apply text-gray-700 p-2;
@@ -115,8 +118,5 @@
 	table tr td:last-of-type {
 		width: 600px;
 		min-width: 300px;
-	}
-	table tbody tr:nth-of-type(even) {
-		@apply bg-gray-200;
 	}
 </style>

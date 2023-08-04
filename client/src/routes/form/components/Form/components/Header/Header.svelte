@@ -9,7 +9,7 @@
 
 <style lang="postcss">
 	header {
-		@apply w-full bg-white p-5 rounded-md flex flex-row items-center justify-center gap-2 border border-gray-200;
+		@apply w-full my-3 flex flex-row items-center justify-center gap-2;
 	}
 	h1 {
 		@apply text-2xl font-semibold text-gray-800;

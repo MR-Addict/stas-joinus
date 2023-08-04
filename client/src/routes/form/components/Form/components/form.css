@@ -1,5 +1,6 @@
 .form {
-	@apply w-full bg-white p-5 rounded-md flex flex-col gap-2 border border-gray-200;
+	box-shadow: 0 0 5px #d1d5db;
+	@apply w-full bg-white p-5 rounded-md flex flex-col gap-2 border border-gray-100;
 }
 
 .form .title {
@@ -11,7 +12,7 @@
 }
 
 .form .input {
-	@apply outline-none bg-gray-100 rounded-none px-2 py-2 border-b-2 border-b-gray-400;
+	@apply outline-none bg-gray-100 rounded-none px-2 py-2 border-b-2 border-b-gray-500;
 	&:focus {
 		@apply border-b-blue-600;
 	}
