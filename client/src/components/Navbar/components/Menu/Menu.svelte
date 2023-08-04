@@ -13,8 +13,8 @@
 
 	async function handleLogout() {
 		pending = true;
-		const success = await auth.logout();
-		if (!success) toasts.add('退出失败，请稍后重试或联系我们', 'failed');
+		if (await auth.logout()) showMenu = false;
+		else toasts.add('退出失败，请稍后重试或联系我们', 'failed');
 		pending = false;
 	}
 </script>
