@@ -19,7 +19,7 @@
 
 因此理论上本项目是不需要 Docker 就可以部署的，但是使用 Docker 可以方便管理和部署，如果你想了解如何编译的话可以参考本项目的 [Dockerfile](Dockerfile)。
 
-新建一个 docker-compose.yaml 文件，根据需要修改 PASSWORD 和 JWT_SECRET 即可：
+新建一个 docker-compose.yaml 文件，根据需要修改 PASSWORD：
 
 ```yaml
 version: "3"
@@ -31,7 +31,6 @@ services:
       - 4000:4000
     environment:
       - PASSWORD=password
-      - JWT_SECRET=jwt_secret
     volumes:
       - ./data:/data
 ```

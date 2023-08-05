@@ -12,7 +12,7 @@ import (
 var staticFiles embed.FS
 
 func main() {
-	configs.LoadEnv()
+	configs.LoadConfig()
 	configs.ConnectDb()
 
 	app := fiber.New()
