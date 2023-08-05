@@ -11,8 +11,12 @@ function createStore() {
 	const store = writable<InputElement[]>([]);
 
 	function register(id: string, validate: (vale: string) => string) {
-		if (get(store).find((input) => input.id === id)) return;
-		store.update((inputs) => inputs.concat({ id, value: '', error: '', validate }));
+		store.update((inputs) => {
+			const inputIndex = inputs.findIndex((input) => input.id === id);
+			if (inputIndex !== -1) inputs[inputIndex] = { id, value: '', error: '', validate };
+			else inputs.push({ id, value: '', error: '', validate });
+			return inputs;
+		});
 	}
 
 	function update(id: string, value: string) {
