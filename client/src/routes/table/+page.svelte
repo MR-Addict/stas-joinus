@@ -3,13 +3,13 @@
 	import { goto } from '$app/navigation';
 
 	import auth from '$stores/auth';
+	import applicants from '$stores/applicants';
 	import fetchApplicants from '$lib/applicant/fetchApplicants';
 	import type { TableFilter } from '$types/tableFilter';
 
 	import Table from './components/Table/Table.svelte';
 	import Header from './components/Header/Header.svelte';
 	import Pagination from './components/Pagination/Pagination.svelte';
-	import applicants from '$stores/applicants';
 
 	let tableFilter: TableFilter = {
 		name: true,
@@ -26,10 +26,12 @@
 		introduction: true
 	};
 
+	let loading = true;
+
 	onMount(async () => {
 		const success = await auth.ping();
 		if (!success) goto('/', { replaceState: true });
-		else fetchApplicants();
+		else fetchApplicants().then(() => (loading = false));
 	});
 </script>
 
@@ -42,6 +44,8 @@
 		<Header bind:tableFilter />
 		<Table {tableFilter} />
 		<Pagination />
+	{:else if loading}
+		<p>数据加载中...</p>
 	{:else}
 		<p>Woops！还没有任何数据哦</p>
 	{/if}

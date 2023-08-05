@@ -3,7 +3,7 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"dev": "vite dev --host",
+		"dev": "vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
@@ -16,7 +16,7 @@
 		"@sveltejs/kit": "^1.22.4",
 		"autoprefixer": "^10.4.14",
 		"postcss": "^8.4.27",
-		"prettier": "^3.0.0",
+		"prettier": "^3.0.1",
 		"prettier-plugin-svelte": "^3.0.3",
 		"svelte": "^4.1.2",
 		"svelte-check": "^3.4.6",

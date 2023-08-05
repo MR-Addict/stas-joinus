@@ -106,7 +106,7 @@
 	table tr {
 		@apply text-left align-text-top border-b border-b-gray-300;
 		&:hover {
-			@apply bg-gray-100;
+			@apply md:bg-gray-100;
 		}
 	}
 	table td {

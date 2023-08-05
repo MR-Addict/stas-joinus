@@ -112,10 +112,11 @@
 
 	.filter {
 		box-shadow: 0 0 5px #d1d5db;
-		@apply hidden flex-col border border-gray-300;
+		@apply z-10 flex flex-col border border-gray-300;
+		@apply origin-top invisible opacity-0 duration-200 scale-y-95;
 		@apply rounded-md py-2.5 px-4 bg-white mt-1 absolute right-0 md:right-1/2 md:translate-x-1/2 top-full;
 		&.active {
-			@apply flex;
+			@apply visible opacity-100 scale-y-100;
 		}
 	}
 

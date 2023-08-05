@@ -18,8 +18,8 @@ export const links = [
 	{
 		group: '友链',
 		items: [
-			{ name: 'Mars工作室', path: 'https://studio.online.njtech.edu.cn' },
-			{ name: '远景实验室', path: 'https://www.vistalab.top' }
+			{ name: '远景实验室', path: 'https://www.vistalab.top' },
+			{ name: 'Mars工作室', path: 'https://studio.online.njtech.edu.cn' }
 		]
 	}
 ];

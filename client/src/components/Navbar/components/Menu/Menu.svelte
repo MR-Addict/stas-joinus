@@ -1,7 +1,6 @@
 <script lang="ts">
-	import auth from '$stores/auth';
-	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
+	import auth from '$stores/auth';
 	import toasts from '$stores/toasts';
 	import clickOutside from '$hooks/clickOutside';
 
@@ -14,11 +13,9 @@
 	let showModal = false;
 	async function handleLogout() {
 		pending = true;
-		if (await auth.logout()) {
-			showMenu = false;
-			const pathname = $page.url.pathname.split('/').slice(0, 2).join('/');
-			if (pathname === '/table' || pathname === '/analytics') goto('/');
-		} else toasts.add('退出失败，请稍后重试或联系我们', 'failed');
+		if (await auth.logout()) goto('/');
+		else toasts.add('退出失败，请稍后重试或联系我们', 'failed');
+		showMenu = false;
 		pending = false;
 	}
 </script>
@@ -57,9 +54,10 @@
 		}
 	}
 	.menu-wrapper {
-		@apply hidden absolute top-full right-0 md:right-1/2 md:translate-x-1/2;
+		@apply origin-top scale-y-95 invisible opacity-0 duration-200;
+		@apply z-10 absolute top-full right-0 md:right-1/2 md:translate-x-1/2;
 		&.active {
-			@apply block;
+			@apply scale-y-100 visible opacity-100;
 		}
 	}
 	.menu {

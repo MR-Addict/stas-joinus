@@ -2,6 +2,10 @@
 	import { page } from '$app/stores';
 </script>
 
+<svelte:head>
+	<title>欢迎加入校科协 • 页面错误</title>
+</svelte:head>
+
 <main>{$page.status} | {$page.error?.message || 'Error'}</main>
 
 <style lang="postcss">

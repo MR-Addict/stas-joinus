@@ -34,7 +34,7 @@
 				{/if}
 			</div>
 
-			<p title={toast.message} class="message">{toast.message}</p>
+			<p class="message">{toast.message}</p>
 
 			<button type="button" title="隐藏" on:click={() => toasts.remove(toast.id)}>
 				<div class="w-5 h-5 text-gray-500 p-0.5 rounded-full hover:bg-black/10 hover:text-gray-700"><MdClose /></div>
@@ -47,7 +47,7 @@
 	ul {
 		max-height: 60vh;
 		max-height: 60svh;
-		@apply top-10 z-10 fixed right-2.5 flex flex-col gap-4 overflow-y-auto overflow-x-hidden p-1.5;
+		@apply top-12 z-10 fixed right-2.5 flex flex-col gap-4 overflow-y-auto overflow-x-hidden p-1.5;
 	}
 	ul::-webkit-scrollbar {
 		display: none;
