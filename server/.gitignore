@@ -1,4 +1,4 @@
-*.db
-*.exe
 .env
+*.exe
+data
 build

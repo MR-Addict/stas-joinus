@@ -29,9 +29,8 @@
 	let loading = true;
 
 	onMount(async () => {
-		const success = await auth.ping();
-		if (!success) goto('/', { replaceState: true });
-		else fetchApplicants().then(() => (loading = false));
+		if ($auth || (await auth.ping())) fetchApplicants().then(() => (loading = false));
+		else goto('/', { replaceState: true });
 	});
 </script>
 
