@@ -79,7 +79,7 @@
 						<td>{applicant.major}</td>
 					{/if}
 					{#if tableFilter.created_at}
-						<td>{formatDate(applicant.create_at)}</td>
+						<td>{formatDate(applicant.submitted_at)}</td>
 					{/if}
 					{#if tableFilter.first_choice}
 						<td>{applicant.first_choice}</td>

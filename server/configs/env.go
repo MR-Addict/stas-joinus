@@ -4,20 +4,22 @@ import (
 	"log"
 	"os"
 
-	"server/models"
-
 	"github.com/go-playground/validator/v10"
 	"github.com/joho/godotenv"
 )
 
-var Env = loadEnv()
+var Env EnvType
 
-func loadEnv() models.Env {
+type EnvType struct {
+	JWT_SECRET string `validate:"required"`
+	PASSWORD   string `validate:"required"`
+}
+
+func LoadEnv() {
 	godotenv.Load()
-	env := models.Env{
-		PASSWORD:    os.Getenv("PASSWORD"),
-		JWT_SECRET:  os.Getenv("JWT_SECRET"),
-		MONGODB_URI: os.Getenv("MONGODB_URI"),
+	env := EnvType{
+		PASSWORD:   os.Getenv("PASSWORD"),
+		JWT_SECRET: os.Getenv("JWT_SECRET"),
 	}
 
 	var validate = validator.New()
@@ -25,5 +27,5 @@ func loadEnv() models.Env {
 		log.Fatal(err)
 	}
 
-	return env
+	Env = env
 }

@@ -12,8 +12,8 @@ import (
 var staticFiles embed.FS
 
 func main() {
-	configs.ConnectDB()
-	defer configs.DisconnectDB()
+	configs.LoadEnv()
+	configs.ConnectDb()
 
 	app := fiber.New()
 

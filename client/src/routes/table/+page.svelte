@@ -44,9 +44,7 @@
 		<Header bind:tableFilter />
 		<Table {tableFilter} />
 		<Pagination />
-	{:else if loading}
-		<p>数据加载中...</p>
-	{:else}
+	{:else if !loading}
 		<p>Woops！还没有任何数据哦</p>
 	{/if}
 </main>

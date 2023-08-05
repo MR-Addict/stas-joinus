@@ -8,11 +8,10 @@
 
 本项目用到了以下三个环境变量：
 
-| 变量名      | 解释                                                       |
-| :---------- | :--------------------------------------------------------- |
-| PASSWORD    | 用来登录后台管理的管理员密码                               |
-| JWT_SECRET  | JWT 用来加密使用的，可以随便设置一个安全的字符串           |
-| MONGODB_URI | mongodb 数据库的地址，使用 docker-compose 可以很方便地部署 |
+| 变量名     | 解释                                             |
+| :--------- | :----------------------------------------------- |
+| PASSWORD   | 用来登录后台管理的管理员密码                     |
+| JWT_SECRET | JWT 用来加密使用的，可以随便设置一个安全的字符串 |
 
 ## 2. 部署项目
 
@@ -20,7 +19,7 @@
 
 因此理论上本项目是不需要 Docker 就可以部署的，但是使用 Docker 可以方便管理，如果你想了解如何编译的话可以参考本项目的 [Dockerfile](Dockerfile)。
 
-新建一个 docker-compose.yaml 文件，根据需要修改 PASSWORD 和 JWT_SECRET 即可，不要修改 MONGODB_URI：
+新建一个 docker-compose.yaml 文件，根据需要修改 PASSWORD 和 JWT_SECRET 即可：
 
 ```yaml
 version: "3"
@@ -33,15 +32,8 @@ services:
     environment:
       - PASSWORD=password
       - JWT_SECRET=jwt_secret
-      - MONGODB_URI=mongodb://mongodb:27017
-    depends_on:
-      - mongodb
-
-  mongodb:
-    image: mongo
-    restart: unless-stopped
     volumes:
-      - ./db:/data/db
+      - ./db:/data.db
 ```
 
 然后使用下面的命令启动项目即可：

@@ -1,32 +1,24 @@
 package controllers
 
 import (
-	"context"
 	"fmt"
-	"strconv"
-	"time"
-
 	"server/configs"
 	"server/models"
-	"server/utils"
+	"strconv"
+	"time"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
 	"github.com/xuri/excelize/v2"
-	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/bson/primitive"
-	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 var validate = validator.New()
-var applicantCollection = configs.GetCollection("applicant")
 
 func ApplicantCreate(c *fiber.Ctx) error {
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	var applicant models.Applicant
-	defer cancel()
+	applicant.Submitted_At = time.Now()
 
+	// parse request body
 	if err := c.BodyParser(&applicant); err != nil {
 		return c.Status(400).JSON(models.Response{Success: false, Message: "无效的请求体"})
 	}
@@ -35,80 +27,50 @@ func ApplicantCreate(c *fiber.Ctx) error {
 		return c.Status(400).JSON(models.Response{Success: false, Message: "表单内容不合法", Data: err.Error()})
 	}
 
-	applicant.ID = primitive.NewObjectID()
-	applicant.Create_At = time.Now().UnixMilli()
+	var duplicatedUser models.Applicant
+	findOptions := &models.Applicant{Name: applicant.Name, Student_ID: applicant.Student_ID}
+	findResult := configs.Db.Where(findOptions).Limit(1).Find(&duplicatedUser)
 
-	var duplicatedApplicant models.Applicant
-	filter := bson.M{"name": applicant.Name, "student_id": applicant.Student_ID}
-	err := applicantCollection.FindOne(ctx, filter).Decode(&duplicatedApplicant)
-	if err == mongo.ErrNoDocuments {
-		if _, err := applicantCollection.InsertOne(ctx, applicant); err != nil {
-			return c.Status(500).JSON(models.Response{Success: false, Message: "服务器内部错误", Data: err.Error()})
-		}
-		return c.Status(201).JSON(models.Response{Success: true, Message: "表单提交成功", Data: applicant})
-	} else if err != nil {
-		return c.Status(500).JSON(models.Response{Success: false, Message: "服务器内部错误", Data: err.Error()})
-	} else {
-		return c.Status(200).JSON(models.Response{Success: false, Message: "你已经提交过啦，请勿重复提交"})
+	// check whether applicant has already exists
+	if findResult.Error != nil {
+		return c.Status(500).JSON(models.Response{Success: false, Message: "服务器内部错误", Data: findResult.Error.Error()})
+	} else if findResult.RowsAffected > 0 {
+		return c.Status(400).JSON(models.Response{Success: false, Message: "你已经提交过啦，请勿重复提交"})
 	}
+
+	// add new record
+	addResult := configs.Db.Create(&applicant)
+	if addResult.Error != nil {
+		return c.Status(500).JSON(models.Response{Success: false, Message: "服务器内部错误", Data: addResult.Error.Error()})
+	} else if addResult.RowsAffected > 0 {
+		return c.Status(201).JSON(models.Response{Success: true, Message: "表单提交成功", Data: applicant})
+	}
+
+	return c.Status(500).JSON(models.Response{Success: false, Message: "服务器内部错误"})
 }
 
-func ApplicantGetAll(c *fiber.Ctx) error {
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	defer cancel()
-
-	pageNumber, _ := strconv.Atoi(c.Query("page", "1"))
-	pageSize, _ := strconv.Atoi(c.Query("page_size", "20"))
-	findOptions := options.Find()
-	findOptions.SetSkip(int64((pageNumber - 1) * pageSize))
-	findOptions.SetLimit(int64(pageSize))
-	findOptions.SetSort(bson.D{{Key: "create_at", Value: -1}})
-
-	results, err := applicantCollection.Find(ctx, bson.D{}, findOptions)
-	if err != nil {
-		return c.Status(500).JSON(models.Response{Success: false, Message: "服务器内部错误", Data: err.Error()})
-	}
-	defer results.Close(ctx)
-
+func ApplicantQuery(c *fiber.Ctx) error {
 	var applicants []models.Applicant
-	for results.Next(ctx) {
-		var singleApplicant models.Applicant
-		if err = results.Decode(&singleApplicant); err != nil {
-			return c.Status(500).JSON(models.Response{Success: false, Message: "服务器内部错误", Data: err.Error()})
-		}
-		applicants = append(applicants, singleApplicant)
-	}
+	page, _ := strconv.Atoi(c.Query("page", "1"))
+	pageSize, _ := strconv.Atoi(c.Query("page_size", "20"))
 
-	total, err := applicantCollection.CountDocuments(ctx, bson.M{})
-	if err != nil {
-		return c.Status(500).JSON(models.Response{Success: false, Message: "服务器内部错误", Data: err.Error()})
-	}
+	var total int64
+	configs.Db.Model(&models.Applicant{}).Count(&total)
 
-	if len(applicants) == 0 {
-		return c.Status(200).JSON(models.Response{Success: true, Message: "数据读取成功", Data: []models.Applicant{}, Pagination: models.Pagination{Page: pageNumber, Total: total, Page_Size: pageSize}})
+	findResult := configs.Db.Order("submitted_at desc").Offset((page - 1) * pageSize).Limit(pageSize).Find(&applicants)
+	if findResult.Error != nil {
+		return c.Status(500).JSON(models.Response{Success: false, Message: "服务器内部错误", Data: findResult.Error.Error()})
+	} else {
+		return c.Status(200).JSON(models.Response{Success: true, Message: "数据读取成功", Data: applicants, Pagination: models.Pagination{Page: page, Total: total, Page_Size: pageSize}})
 	}
-
-	return c.Status(200).JSON(models.Response{Success: true, Message: "数据读取成功", Data: applicants, Pagination: models.Pagination{Page: pageNumber, Total: total, Page_Size: pageSize}})
 }
 
 func ApplicantDownload(c *fiber.Ctx) error {
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	defer cancel()
-
-	results, err := applicantCollection.Find(ctx, bson.D{})
-	if err != nil {
-		return c.Status(500).JSON(models.Response{Success: false, Message: "服务器内部错误", Data: err.Error()})
-	}
-	defer results.Close(ctx)
-
 	// query databse
 	var applicants []models.Applicant
-	for results.Next(ctx) {
-		var singleApplicant models.Applicant
-		if err = results.Decode(&singleApplicant); err != nil {
-			return c.Status(500).JSON(models.Response{Success: false, Message: "服务器内部错误", Data: err.Error()})
-		}
-		applicants = append(applicants, singleApplicant)
+	findResul := configs.Db.Find(&applicants)
+	if findResul.Error != nil {
+		return c.Status(500).JSON(models.Response{Success: false, Message: "服务器内部错误", Data: findResul.Error.Error()})
 	}
 
 	name := "科协报名表单"
@@ -143,7 +105,7 @@ func ApplicantDownload(c *fiber.Ctx) error {
 		file.SetCellValue(name, "G"+fmt.Sprintf("%d", row), d.Student_ID)
 		file.SetCellValue(name, "H"+fmt.Sprintf("%d", row), d.College)
 		file.SetCellValue(name, "I"+fmt.Sprintf("%d", row), d.Major)
-		file.SetCellValue(name, "J"+fmt.Sprintf("%d", row), utils.FormatDate(d.Create_At))
+		file.SetCellValue(name, "J"+fmt.Sprintf("%d", row), d.Submitted_At.Format("2006-01-02 15:04:05"))
 		file.SetCellValue(name, "K"+fmt.Sprintf("%d", row), d.First_Choice)
 		file.SetCellValue(name, "L"+fmt.Sprintf("%d", row), d.Second_Choice)
 		file.SetCellValue(name, "M"+fmt.Sprintf("%d", row), d.Introduction)
