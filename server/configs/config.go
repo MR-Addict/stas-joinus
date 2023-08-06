@@ -2,7 +2,6 @@ package configs
 
 import (
 	"flag"
-	"fmt"
 	"os"
 	"server/models"
 	"strconv"
@@ -13,10 +12,17 @@ import (
 var Config models.ConfigType
 
 func LoadConfig() {
+	flagHelp := flag.Bool("help", false, "Print help message")
 	flagPort := flag.Int("port", 4000, "Provide a port number")
 	flagPassword := flag.String("pass", "", "Provide a login password")
 	flag.Parse()
 	godotenv.Load()
+
+	// print help message
+	if *flagHelp {
+		flag.PrintDefaults()
+		os.Exit(1)
+	}
 
 	// parse port
 	if envPort, err := strconv.Atoi(os.Getenv("PORT")); err == nil {
@@ -31,7 +37,7 @@ func LoadConfig() {
 	} else if *flagPassword != "" {
 		Config.Password = *flagPassword
 	} else {
-		fmt.Println("You need to provide a login password")
+		flag.PrintDefaults()
 		os.Exit(1)
 	}
 }
