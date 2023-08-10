@@ -4,7 +4,7 @@ import url from '$lib/utils/url';
 import toasts from '$stores/toasts';
 
 export default async function submitForm(formData: FormData) {
-	const toastId = toasts.add('表单提交中，请耐心等待', 'pending');
+	const toastId = toasts.add('表单提交中，请稍后...', 'pending');
 	try {
 		const res = await fetch(url('/api/applicant'), { method: 'POST', body: formData }).then((res) => res.json());
 		const { message, success } = z.object({ success: z.boolean(), message: z.string() }).parse(res);

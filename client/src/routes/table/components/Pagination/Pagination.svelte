@@ -19,7 +19,7 @@
 
 	async function handleClick(page: number) {
 		pending = true;
-		const toastId = toasts.add('数据刷新中', 'pending');
+		const toastId = toasts.add('数据刷新中，请稍后...', 'pending');
 		if (await fetchApplicants(page)) toasts.update(toastId, { message: '刷新成功', status: 'success' });
 		pending = false;
 	}

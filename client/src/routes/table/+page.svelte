@@ -17,7 +17,7 @@
 		phone: false,
 		qq: false,
 		email: false,
-		student_id: true,
+		student_id: false,
 		college: true,
 		major: true,
 		created_at: false,
@@ -45,6 +45,8 @@
 		{:else}
 			<p>Woops！还没有任何数据哦</p>
 		{/if}
+	{:else}
+		<p>数据加载中，请稍后...</p>
 	{/if}
 </main>
 
