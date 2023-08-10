@@ -26,10 +26,8 @@
 		introduction: true
 	};
 
-	let loading = true;
-
 	onMount(async () => {
-		if ($auth || (await auth.ping())) fetchApplicants().then(() => (loading = false));
+		if ($auth || (await auth.ping())) fetchApplicants();
 		else goto('/', { replaceState: true });
 	});
 </script>
@@ -39,12 +37,14 @@
 </svelte:head>
 
 <main>
-	{#if $applicants.length > 0}
-		<Header bind:tableFilter />
-		<Table {tableFilter} />
-		<Pagination />
-	{:else if !loading}
-		<p>Woops！还没有任何数据哦</p>
+	{#if $applicants}
+		{#if $applicants.length > 0}
+			<Header bind:tableFilter />
+			<Table {tableFilter} />
+			<Pagination />
+		{:else}
+			<p>Woops！还没有任何数据哦</p>
+		{/if}
 	{/if}
 </main>
 

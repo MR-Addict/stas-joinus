@@ -18,6 +18,7 @@ export default async function fetchApplicants(page?: number) {
 		return true;
 	} catch (err) {
 		console.error(err);
+		applicants.set([]);
 		return false;
 	}
 }

@@ -13,6 +13,6 @@ func ServeStatic(app *fiber.App, staticFiles embed.FS) {
 		Root:       http.FS(staticFiles),
 		PathPrefix: "build",
 		Browse:     true,
-		MaxAge:     60 * 60 * 24,
+		MaxAge:     60 * 60 * 24 * 30,
 	}))
 }

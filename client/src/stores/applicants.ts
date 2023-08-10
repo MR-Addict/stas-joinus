@@ -2,7 +2,7 @@ import { writable } from 'svelte/store';
 import type { ApplicantType } from '$types/applicant';
 
 function createStore() {
-	const store = writable<ApplicantType[]>([]);
+	const store = writable<ApplicantType[] | null>(null);
 
 	return {
 		set: store.set,
