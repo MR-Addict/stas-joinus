@@ -15,7 +15,7 @@
 
 	function validate(value: string) {
 		if (value.length === 0) return '学号不能为空';
-		else if (value.length != 12) return '学号应该是11位';
+		else if (value.length != 12) return '学号应该是12位';
 		else return '';
 	}
 </script>
