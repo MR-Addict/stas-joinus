@@ -11,7 +11,7 @@
 
 <nav>
 	<a href="/" class="flex flex-row items-center gap-1">
-		<img src="/favicon.png" alt="logo" class="w-7" />
+		<img src="/favicon.ico" alt="logo" class="w-7" />
 		<h1 class="font-semibold text-gray-800">校大学生科协</h1>
 	</a>
 

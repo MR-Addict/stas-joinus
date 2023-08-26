@@ -1,9 +1,13 @@
+<script lang="ts">
+	import qrcode from './qrcode.png';
+</script>
+
 <svelte:head>
 	<title>欢迎加入校科协 • 加群了解</title>
 </svelte:head>
 
 <main>
-	<img src="/qrcode.png" alt="qrcode" />
+	<img src={qrcode} alt="qrcode" />
 </main>
 
 <style lang="postcss">
