@@ -16,7 +16,7 @@
 	</div>
 {/if}
 
-<style>
+<style lang="postcss">
 	.backdrop {
 		@apply bg-black/30 fixed inset-0;
 	}

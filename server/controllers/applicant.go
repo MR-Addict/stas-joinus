@@ -68,7 +68,7 @@ func ApplicantQuery(c *fiber.Ctx) error {
 func ApplicantDownload(c *fiber.Ctx) error {
 	// query databse
 	var applicants []models.Applicant
-	findResul := configs.Db.Find(&applicants)
+	findResul := configs.Db.Order("submitted_at desc").Find(&applicants)
 	if findResul.Error != nil {
 		return c.Status(500).JSON(models.Response{Success: false, Message: "服务器内部错误", Data: findResul.Error.Error()})
 	}
