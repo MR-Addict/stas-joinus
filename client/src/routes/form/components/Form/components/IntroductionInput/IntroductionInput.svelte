@@ -26,12 +26,14 @@
 		<span>自我介绍</span>
 		<span class="text-red-600">*</span>
 	</h1>
-	<label for="introduction" class="label">写写你擅长的领域、个人爱好、取得的成就等等，让我们对你有更好的了解</label>
+	<label for="introduction" class="label">
+		写写你擅长的领域、个人爱好、取得的成就，个人主页等等，让我们对你有更好的了解
+	</label>
 	<textarea
 		id="introduction"
 		name="introduction"
 		class="input h-32"
-		placeholder="输入你的姓名"
+		placeholder="写写你的自我介绍"
 		on:change={handleChange}
 	/>
 	<p class="err-msg">{error}</p>
