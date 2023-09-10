@@ -1,10 +1,11 @@
 <script lang="ts">
-	import applicants from '$stores/applicants';
 	import pagination from '$stores/pagination';
 	import formatDate from '$lib/utils/formatDate';
 	import type { TableFilter } from '$types/tableFilter';
+	import type { ApplicantType } from '$types/applicant';
 
 	export let tableFilter: TableFilter;
+	export let applicants: ApplicantType[];
 </script>
 
 <div class="w-full overflow-x-auto">
@@ -21,11 +22,11 @@
 				{#if tableFilter.phone}
 					<th>手机</th>
 				{/if}
-				{#if tableFilter.qq}
-					<th>QQ</th>
-				{/if}
 				{#if tableFilter.email}
 					<th>邮箱</th>
+				{/if}
+				{#if tableFilter.qq}
+					<th>QQ</th>
 				{/if}
 				{#if tableFilter.student_id}
 					<th>学号</th>
@@ -51,7 +52,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			{#each $applicants as applicant, index (applicant.id)}
+			{#each applicants as applicant, index (applicant.id)}
 				<tr>
 					<td>{index + 1 + ($pagination.page - 1) * $pagination.page_size}</td>
 					{#if tableFilter.name}
@@ -88,7 +89,7 @@
 						<td>{applicant.second_choice}</td>
 					{/if}
 					{#if tableFilter.introduction}
-						<td>{applicant.introduction}</td>
+						<td class="whitespace-pre-wrap">{applicant.introduction}</td>
 					{/if}
 				</tr>
 			{/each}

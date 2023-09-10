@@ -40,7 +40,7 @@
 	{#if $applicants}
 		{#if $applicants.length > 0}
 			<Header bind:tableFilter />
-			<Table {tableFilter} />
+			<Table applicants={$applicants} {tableFilter} />
 			<Pagination />
 		{:else}
 			<p>Woops！还没有任何数据哦</p>
