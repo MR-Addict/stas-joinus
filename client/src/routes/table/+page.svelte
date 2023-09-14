@@ -33,7 +33,7 @@
 </script>
 
 <svelte:head>
-	<title>欢迎加入校科协 • 后台管理</title>
+	<title>校大学生科协 • 后台管理</title>
 </svelte:head>
 
 <main>

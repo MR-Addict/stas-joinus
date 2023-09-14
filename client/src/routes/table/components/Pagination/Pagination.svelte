@@ -28,7 +28,7 @@
 {#if totalPages > 1}
 	<div class="wrapper">
 		<p>{page}/{totalPages}页(共{total}记录)</p>
-		<div class="flex flex-row gap-2">
+		<div class="flex flex-row flex-wrap gap-2">
 			{#each { length: totalPages } as item, index (index)}
 				{@const display = index + 1}
 				<button
@@ -46,7 +46,7 @@
 
 <style lang="postcss">
 	.wrapper {
-		@apply w-full flex flex-row items-center justify-between text-sm text-gray-600;
+		@apply w-full flex flex-row items-center flex-wrap justify-between gap-2 text-sm text-gray-600;
 	}
 	button {
 		@apply w-6 h-6 flex items-center justify-center border border-gray-400;

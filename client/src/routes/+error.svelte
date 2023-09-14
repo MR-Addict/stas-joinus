@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-	<title>欢迎加入校科协 • 页面错误</title>
+	<title>校大学生科协 • 页面错误</title>
 </svelte:head>
 
 <main>{$page.status} | {$page.error?.message || 'Error'}</main>

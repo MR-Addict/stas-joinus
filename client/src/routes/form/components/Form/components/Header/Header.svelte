@@ -4,7 +4,7 @@
 
 <header>
 	<FormIcon />
-	<h1>校科协报名表单</h1>
+	<h1>校大学生科协报名表单</h1>
 </header>
 
 <style lang="postcss">

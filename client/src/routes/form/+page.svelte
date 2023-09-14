@@ -8,7 +8,7 @@
 </script>
 
 <svelte:head>
-	<title>欢迎加入校科协 • 参与报名</title>
+	<title>校大学生科协 • 参与报名</title>
 </svelte:head>
 
 <main>

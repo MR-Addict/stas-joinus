@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-	<title>欢迎加入校科协 • 加群了解</title>
+	<title>校大学生科协 • 加群了解</title>
 </svelte:head>
 
 <main>
