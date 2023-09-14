@@ -27,7 +27,7 @@
 		<span>第一志愿</span>
 		<span class="text-red-600">*</span>
 	</h1>
-	<label for="first_choice" class="label">校科协你最想加入的部门，我们会优先考虑你的第一志愿</label>
+	<label for="first_choice" class="label">校大学生科协你最想加入的部门，我们会优先考虑你的第一志愿</label>
 	<select id="first_choice" name="first_choice" class="input" bind:value={first_choice} on:change={handleChange}>
 		<option value="技术开发部">技术开发部</option>
 		<option value="科普活动部">科普活动部</option>
@@ -44,7 +44,7 @@
 		<span>第二志愿</span>
 		<span class="text-red-600">*</span>
 	</h1>
-	<label for="second_choice" class="label">校科协你还想加入的部门，请勿与第一志愿相同</label>
+	<label for="second_choice" class="label">校大学生科协你还想加入的部门，请勿与第一志愿相同</label>
 	<select id="second_choice" name="second_choice" class="input" bind:value={second_choice} on:change={handleChange}>
 		<option value="科普活动部">科普活动部</option>
 		<option value="技术开发部">技术开发部</option>

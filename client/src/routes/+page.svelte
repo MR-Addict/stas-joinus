@@ -3,13 +3,13 @@
 </script>
 
 <svelte:head>
-	<title>欢迎加入校科协</title>
+	<title>校大学生科协</title>
 </svelte:head>
 
 <main>
 	<div class="w-36"><Fireworks /></div>
 
-	<h1 class="text-3xl font-semibold mt-2 mb-3">欢迎加入校科协</h1>
+	<h1 class="text-3xl font-semibold mt-2 mb-3">欢迎加入校大学生科协</h1>
 
 	<p class="text-gray-700 max-w-md">
 		欢迎2023级的新生来到我们南京工业大学，如果你对校大学生科协技术协会感兴趣，想和我们一起度过一个充实且精彩的大学生活，可以填写以下表单加入我们，或者加群和我们互动交流
