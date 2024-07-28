@@ -4,7 +4,6 @@ import (
 	"embed"
 	"server/configs"
 	"server/routes"
-	"strconv"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -13,14 +12,15 @@ import (
 var staticFiles embed.FS
 
 func main() {
+	app := fiber.New()
+
 	configs.LoadConfig()
 	configs.ConnectDb()
-
-	app := fiber.New()
+	configs.SetupCors(app)
 
 	routes.AdminRoute(app)
 	routes.ApplicantsRoute(app)
 	routes.ServeStatic(app, staticFiles)
 
-	app.Listen(":" + strconv.Itoa(configs.Config.Port))
+	app.Listen(":" + configs.Config.Port)
 }

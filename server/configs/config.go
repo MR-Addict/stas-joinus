@@ -1,43 +1,42 @@
 package configs
 
 import (
-	"flag"
+	"log"
 	"os"
 	"server/models"
-	"strconv"
 
+	"github.com/go-playground/validator/v10"
 	"github.com/joho/godotenv"
+
+	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 )
 
 var Config models.ConfigType
 
 func LoadConfig() {
-	flagHelp := flag.Bool("help", false, "Print help message")
-	flagPort := flag.Int("port", 4000, "Provide a port number")
-	flagPassword := flag.String("pass", "", "Provide a login password")
-	flag.Parse()
 	godotenv.Load()
 
-	// print help message
-	if *flagHelp {
-		flag.PrintDefaults()
-		os.Exit(1)
+	Config = models.ConfigType{
+		Port:          os.Getenv("PORT"),
+		Cors:          os.Getenv("CORS"),
+		AdminPassword: os.Getenv("ADMIN_PASS"),
 	}
 
-	// parse port
-	if envPort, err := strconv.Atoi(os.Getenv("PORT")); err == nil {
-		Config.Port = envPort
-	} else {
-		Config.Port = *flagPort
+	if Config.Port == "" {
+		Config.Port = "4000"
 	}
 
-	// parse password
-	if envPassowrd := os.Getenv("PASSWORD"); envPassowrd != "" {
-		Config.Password = envPassowrd
-	} else if *flagPassword != "" {
-		Config.Password = *flagPassword
-	} else {
-		flag.PrintDefaults()
-		os.Exit(1)
+	if err := validator.New().Struct(&Config); err != nil {
+		log.Fatal(err)
+	}
+}
+
+func SetupCors(app *fiber.App) {
+	if Config.Cors != "" {
+		app.Use(cors.New(cors.Config{
+			AllowCredentials: true,
+			AllowOrigins:     Config.Cors,
+		}))
 	}
 }

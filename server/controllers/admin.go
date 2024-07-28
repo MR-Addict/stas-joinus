@@ -39,12 +39,12 @@ func UserLogin(c *fiber.Ctx) error {
 		return c.Status(400).JSON(models.Response{Success: false, Message: "无效的请求体"})
 	}
 
-	if user.Password != configs.Config.Password {
+	if user.Password != configs.Config.AdminPassword {
 		return c.Status(400).JSON(models.Response{Success: false, Message: "登录密码错误"})
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{"exp": time.Now().Add(time.Hour * 24 * 30).Unix()})
-	s, err := token.SignedString([]byte(configs.Config.Password))
+	s, err := token.SignedString([]byte(configs.Config.AdminPassword))
 	if err != nil {
 		return c.Status(500).JSON(models.Response{Success: false, Message: "无法生成token"})
 	}

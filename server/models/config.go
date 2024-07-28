@@ -1,6 +1,7 @@
 package models
 
 type ConfigType struct {
-	Port     int
-	Password string
+	Port          string `validate:"required"`
+	Cors          string `validate:"omitempty"`
+	AdminPassword string `validate:"required"`
 }
