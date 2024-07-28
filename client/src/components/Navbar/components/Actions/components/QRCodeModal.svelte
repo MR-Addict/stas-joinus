@@ -16,6 +16,6 @@
 		@apply w-full h-full pointer-events-none flex items-center justify-center p-10;
 	}
 	img {
-		@apply max-h-full object-contain rounded-md;
+		@apply max-h-full object-contain rounded-2xl;
 	}
 </style>

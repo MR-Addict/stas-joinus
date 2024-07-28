@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Fireworks from '$components/Icons/Fireworks/Fireworks.svelte';
+	import billboard from './images/billboard.png';
 </script>
 
 <svelte:head>
@@ -7,41 +7,34 @@
 </svelte:head>
 
 <main>
-	<div class="w-36"><Fireworks /></div>
+	<img src={billboard} alt="billboard" />
 
-	<h1 class="text-3xl font-semibold mt-2 mb-3">欢迎加入校大学生科协</h1>
+	<h1 class="text-2xl font-semibold my-5">欢迎加入校大学生科协</h1>
 
-	<p class="text-gray-700 max-w-md">
-		欢迎2023级的新生来到我们南京工业大学，如果你对校大学生科协技术协会感兴趣，想和我们一起度过一个充实且精彩的大学生活，可以填写以下表单加入我们，或者加群和我们互动交流
+	<p class="text-lg text-gray-700 max-w-sm text-center" style="text-wrap: balance;">
+		欢迎2024级新生来到南京工业大学，填写下面的表单加入校大学生科协技术协会，和我们一起度过一个精彩的大学生活吧
 	</p>
 
-	<p class="text-gray-500 mt-1 mb-3">报名时间：2023-09-04至2023-09-15</p>
+	<p class="text-gray-500 mt-1 mb-3">报名时间：2024-09-04至2024-09-15</p>
 
-	<div class="flex flex-row gap-5">
-		<a href="/contact">加群了解</a>
-		<a href="/form">参与报名</a>
-	</div>
+	<a href="/form">立即报名</a>
 </main>
 
 <style lang="postcss">
 	main {
-		min-height: calc(100vh - 60px);
-		min-height: calc(100svh - 60px);
-		@apply flex flex-col items-center justify-center text-center px-4;
+		min-height: calc(100vh - 4rem);
+		min-height: calc(100dvh - 4rem);
+		@apply flex flex-col items-center justify-center px-4;
+	}
+	img {
+		@apply max-w-sm w-full;
 	}
 	a {
-		@apply font-semibold py-2.5 px-7 rounded-full duration-300;
-	}
-	a:first-of-type {
-		@apply border-2 border-teal-800 text-gray-800;
+		@apply text-lg bg-yellow-400 border-2 border-black;
+		@apply font-semibold py-2.5 px-7 rounded-md duration-300;
+
 		&:hover {
-			@apply text-teal-800;
-		}
-	}
-	a:last-of-type {
-		@apply text-white bg-teal-800;
-		&:hover {
-			@apply bg-teal-900;
+			@apply bg-yellow-500;
 		}
 	}
 </style>

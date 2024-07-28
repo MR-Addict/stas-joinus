@@ -23,7 +23,11 @@
 </script>
 
 <div class="menu-wrapper">
-	<button type="button" class="text-gray-600" on:click={() => !$auth && (showModal = true)}>
+	<button
+		type="button"
+		class="text-gray-600 hover:bg-black/10 rounded-full p-1 duration-300"
+		on:click={() => !$auth && (showModal = true)}
+	>
 		{#if $auth}
 			<User />
 		{:else}

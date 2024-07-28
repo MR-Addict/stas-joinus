@@ -5,7 +5,7 @@
 </script>
 
 <footer>
-	<ul class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+	<ul class="w-full grid grid-cols-2 md:grid-cols-3 gap-5">
 		{#each links as category (category.group)}
 			<li class="space-y-2">
 				<h1 class="font-semibold text-gray-200">{category.group}</h1>
