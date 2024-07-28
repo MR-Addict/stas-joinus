@@ -2,6 +2,7 @@ import { get, writable } from 'svelte/store';
 
 interface InputElement {
 	id: string;
+	ref: HTMLDivElement;
 	value: string;
 	error: string;
 	validate: (vale: string) => string;
@@ -10,11 +11,11 @@ interface InputElement {
 function createStore() {
 	const store = writable<InputElement[]>([]);
 
-	function register(id: string, validate: (vale: string) => string) {
+	function register(id: string, ref: HTMLDivElement, validate: (vale: string) => string) {
 		store.update((inputs) => {
 			const inputIndex = inputs.findIndex((input) => input.id === id);
-			if (inputIndex !== -1) inputs[inputIndex] = { id, value: '', error: '', validate };
-			else inputs.push({ id, value: '', error: '', validate });
+			if (inputIndex !== -1) inputs[inputIndex] = { id, ref, value: '', error: '', validate };
+			else inputs.push({ id, ref, value: '', error: '', validate });
 			return inputs;
 		});
 	}
@@ -23,8 +24,8 @@ function createStore() {
 		store.update((inputs) => {
 			for (const input of inputs) {
 				if (input.id === id) {
-					input.value = value;
-					input.error = input.validate(value);
+					input.value = value.toString();
+					input.error = input.validate(input.value);
 				}
 			}
 			return inputs;
@@ -40,7 +41,16 @@ function createStore() {
 			}
 			return inputs;
 		});
+		if (hasError) scrollToFirstError();
 		return hasError;
+	}
+
+	function scrollToFirstError() {
+		get(inputs)
+			.filter((input) => input.error !== '')
+			.sort((a, b) => a.ref.offsetTop - b.ref.offsetTop)
+			.at(0)
+			?.ref.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
 	}
 
 	return {

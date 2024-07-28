@@ -1,0 +1,33 @@
+.form {
+	box-shadow: 0 0 5px #d1d5db;
+	@apply w-full p-5 rounded-md flex flex-col gap-2 border border-gray-300;
+}
+
+.form .title {
+	@apply font-semibold flex flex-row items-center gap-1;
+}
+
+.form .label {
+	@apply text-sm text-gray-500;
+}
+
+.form .input {
+	@apply outline-none bg-gray-100 rounded-none px-2 py-2 border-b-2 border-b-gray-400;
+	&:focus {
+		@apply border-b-teal-600;
+	}
+}
+
+.form .err-msg {
+	transition: max-height 0.25s ease-out;
+	@apply text-xs max-h-0 overflow-hidden text-white;
+}
+
+.form.error {
+	& .input {
+		@apply border-b-red-600;
+	}
+	& .err-msg {
+		@apply text-red-600 max-h-10;
+	}
+}

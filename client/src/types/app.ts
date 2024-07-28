@@ -1,3 +1,5 @@
+import { z } from 'zod';
+
 type ApiResultType<T = undefined> =
 	| ({
 			readonly success: true;
@@ -7,4 +9,12 @@ type ApiResultType<T = undefined> =
 			readonly message: string;
 	  };
 
-export type { ApiResultType };
+const AppConfig = z.object({
+	start_time: z.string().transform((value) => new Date(value)),
+	end_time: z.string().transform((value) => new Date(value))
+});
+
+type AppConfigType = z.infer<typeof AppConfig>;
+
+export { AppConfig };
+export type { ApiResultType, AppConfigType };

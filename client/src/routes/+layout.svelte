@@ -7,11 +7,25 @@
 
 	import Footer from '$components/Footer/Footer.svelte';
 	import Navbar from '$components/Navbar/Navbar.svelte';
+	import config from '$stores/config';
 
-	onMount(auth.ping);
+	onMount(() => {
+		auth.ping();
+		config.ping();
+	});
 </script>
 
-<Navbar />
-<slot />
+<div>
+	<Navbar />
+	<slot />
+</div>
 <Footer />
 <Toaster />
+
+<style lang="postcss">
+	div {
+		min-height: 100vh;
+		min-height: 100dvh;
+		@apply flex flex-col;
+	}
+</style>

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import toast from 'svelte-french-toast';
+	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 	import { ChartArea, GripVertical, LogOut, Table, User } from 'lucide-svelte';
 
@@ -15,8 +16,9 @@
 		pending = true;
 
 		const res = await auth.logout();
-		if (res.success) goto('/');
-		else toast.error(res.message);
+		if (res.success) {
+			if ($page.url.pathname !== '/' && $page.url.pathname !== '/submit/') goto('/');
+		} else toast.error(res.message);
 
 		pending = false;
 	}
@@ -29,9 +31,9 @@
 		on:click={() => !$auth && (showModal = true)}
 	>
 		{#if $auth}
-			<User />
-		{:else}
 			<GripVertical />
+		{:else}
+			<User />
 		{/if}
 	</button>
 
