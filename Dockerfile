@@ -17,6 +17,7 @@ RUN upx --best app
 
 # production image
 FROM scratch
+EXPOSE 4000
 COPY --from=go-builder /server/app /
 COPY --from=go-builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 ENTRYPOINT ["/app"]
