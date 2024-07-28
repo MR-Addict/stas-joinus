@@ -6,7 +6,7 @@ RUN npm install
 RUN npm run build
 
 # builder for go
-FROM golang:1.20.6-alpine AS go-builder
+FROM golang:1.20-alpine AS go-builder
 WORKDIR /server
 COPY server .
 COPY --from=svelte-builder /client/build/ build/

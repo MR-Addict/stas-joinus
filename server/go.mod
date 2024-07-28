@@ -1,6 +1,6 @@
 module server
 
-go 1.22.2
+go 1.20
 
 require (
 	github.com/glebarez/sqlite v1.11.0
