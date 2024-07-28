@@ -14,7 +14,7 @@ var Auth = keyauth.New(keyauth.Config{
 	KeyLookup: "cookie:joinus_token",
 	Validator: func(c *fiber.Ctx, key string) (bool, error) {
 		token, err := jwt.Parse(key, func(token *jwt.Token) (interface{}, error) {
-			return []byte(configs.Config.AdminPassword), nil
+			return []byte(configs.Config.Server.AdminPassword), nil
 		})
 		if err != nil {
 			return false, keyauth.ErrMissingOrMalformedAPIKey

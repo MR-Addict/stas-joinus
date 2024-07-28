@@ -18,13 +18,20 @@ func LoadConfig() {
 	godotenv.Load()
 
 	Config = models.ConfigType{
-		Port:          os.Getenv("PORT"),
-		Cors:          os.Getenv("CORS"),
-		AdminPassword: os.Getenv("ADMIN_PASS"),
+		App: models.AppConfig{
+			StartTime: os.Getenv("START_TIME"),
+			EndTime:   os.Getenv("END_TIME"),
+		},
+
+		Server: models.ServerConfig{
+			Port:          os.Getenv("PORT"),
+			Cors:          os.Getenv("CORS"),
+			AdminPassword: os.Getenv("ADMIN_PASS"),
+		},
 	}
 
-	if Config.Port == "" {
-		Config.Port = "4000"
+	if Config.Server.Port == "" {
+		Config.Server.Port = "4000"
 	}
 
 	if err := validator.New().Struct(&Config); err != nil {
@@ -33,10 +40,10 @@ func LoadConfig() {
 }
 
 func SetupCors(app *fiber.App) {
-	if Config.Cors != "" {
+	if Config.Server.Cors != "" {
 		app.Use(cors.New(cors.Config{
 			AllowCredentials: true,
-			AllowOrigins:     Config.Cors,
+			AllowOrigins:     Config.Server.Cors,
 		}))
 	}
 }

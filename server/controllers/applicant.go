@@ -18,6 +18,22 @@ func ApplicantCreate(c *fiber.Ctx) error {
 	var applicant models.Applicant
 	applicant.Submitted_At = time.Now()
 
+	// parse time from config
+	startTime, err := time.Parse(time.RFC3339, configs.Config.App.StartTime)
+	if err != nil {
+		return c.Status(500).JSON(models.Response{Success: false, Message: "服务器内部错误", Data: err.Error()})
+	}
+
+	endTime, err := time.Parse(time.RFC3339, configs.Config.App.EndTime)
+	if err != nil {
+		return c.Status(500).JSON(models.Response{Success: false, Message: "服务器内部错误", Data: err.Error()})
+	}
+
+	// check if the application is still open
+	if applicant.Submitted_At.Before(startTime) || applicant.Submitted_At.After(endTime) {
+		return c.Status(400).JSON(models.Response{Success: false, Message: "不在报名时间内无法提交"})
+	}
+
 	// parse request body
 	if err := c.BodyParser(&applicant); err != nil {
 		return c.Status(400).JSON(models.Response{Success: false, Message: "无效的请求体"})

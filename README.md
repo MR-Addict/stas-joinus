@@ -10,9 +10,11 @@
 
 | 变量名     | 解释                     | 备注                 |
 | :--------- | :----------------------- | :------------------- |
+| START_TIME | 报名开始时间             | 必需                 |
+| END_TIME   | 报名结束时间             | 必需                 |
+| ADMIN_PASS | 用来登录后台的管理员密码 | 必需                 |
 | CORS       | 跨域域名设置             | 可选，默认不允许跨域 |
 | PORT       | 项目监听端口             | 可选，默认为 4000    |
-| ADMIN_PASS | 用来登录后台的管理员密码 | 必需                 |
 
 ## 2. 部署项目
 
@@ -25,7 +27,6 @@
 新建一个 docker-compose.yaml 文件，根据需要修改 ADMIN_PASS 环境变量：
 
 ```yaml
-version: "3"
 services:
   joinus:
     image: mraddict063/stas-joinus
@@ -34,6 +35,8 @@ services:
       - 4000:4000
     environment:
       - ADMIN_PASS=password
+      - START_TIME=2024-09-03T16:00:00.000Z
+      - END_TIME=2024-09-15T15:59:59.000Z
     volumes:
       - ./data:/data
 ```

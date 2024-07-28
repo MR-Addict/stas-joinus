@@ -14,11 +14,16 @@ func UserPing(c *fiber.Ctx) error {
 }
 
 func UserLogout(c *fiber.Ctx) error {
+	sameSite := "Lax"
+	if configs.Config.Server.Cors != "" {
+		sameSite = "None"
+	}
+
 	cookie := fiber.Cookie{
 		Name:     "joinus_token",
 		Value:    "",
 		Path:     "/",
-		SameSite: "Lax",
+		SameSite: sameSite,
 		HTTPOnly: true,
 		Expires:  time.Now().Add(-time.Hour),
 	}
@@ -39,21 +44,26 @@ func UserLogin(c *fiber.Ctx) error {
 		return c.Status(400).JSON(models.Response{Success: false, Message: "无效的请求体"})
 	}
 
-	if user.Password != configs.Config.AdminPassword {
+	if user.Password != configs.Config.Server.AdminPassword {
 		return c.Status(400).JSON(models.Response{Success: false, Message: "登录密码错误"})
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{"exp": time.Now().Add(time.Hour * 24 * 30).Unix()})
-	s, err := token.SignedString([]byte(configs.Config.AdminPassword))
+	s, err := token.SignedString([]byte(configs.Config.Server.AdminPassword))
 	if err != nil {
 		return c.Status(500).JSON(models.Response{Success: false, Message: "无法生成token"})
+	}
+
+	sameSite := "Lax"
+	if configs.Config.Server.Cors != "" {
+		sameSite = "None"
 	}
 
 	cookie := fiber.Cookie{
 		Name:     "joinus_token",
 		Value:    s,
 		Path:     "/",
-		SameSite: "Lax",
+		SameSite: sameSite,
 		HTTPOnly: true,
 		MaxAge:   60 * 60 * 24 * 30,
 	}

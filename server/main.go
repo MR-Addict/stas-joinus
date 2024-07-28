@@ -18,9 +18,10 @@ func main() {
 	configs.ConnectDb()
 	configs.SetupCors(app)
 
+	routes.AppRoute(app)
 	routes.AdminRoute(app)
 	routes.ApplicantsRoute(app)
 	routes.ServeStatic(app, staticFiles)
 
-	app.Listen(":" + configs.Config.Port)
+	app.Listen(":" + configs.Config.Server.Port)
 }
