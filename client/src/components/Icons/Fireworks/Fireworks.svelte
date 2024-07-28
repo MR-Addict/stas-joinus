@@ -10,25 +10,16 @@
 	<rect x="208" y="112" width="96" height="216" style="fill:#c44235" />
 	<polygon points="304 328 272 328 272 136 208 136 208 112 304 112 304 328" style="fill:#912e23" />
 	<polygon points="320 120 192 120 256 24 320 120" style="fill:#df391d" />
-	<path
-		d="M256,24l18.807,47.016A24.052,24.052,0,0,1,252.476,104H202.667L192,120H320Z"
-		style="fill:#912e23"
-	/>
+	<path d="M256,24l18.807,47.016A24.052,24.052,0,0,1,252.476,104H202.667L192,120H320Z" style="fill:#912e23" />
 	<polygon points="208 160 268 120 304 120 304 152 208 216 208 160" style="fill:#fcd3cd" />
-	<polygon
-		points="268 120 244 136 272 136 272 173.333 304 152 304 120 268 120"
-		style="fill:#ef705f"
-	/>
+	<polygon points="268 120 244 136 272 136 272 173.333 304 152 304 120 268 120" style="fill:#ef705f" />
 	<polygon points="304 264 208 328 208 272 304 208 304 264" style="fill:#fcd3cd" />
 	<polygon points="272 229.333 272 285.333 304 264 304 208 272 229.333" style="fill:#ef705f" />
 	<rect x="360" y="224" width="80" height="144" style="fill:#eac654" />
 	<rect x="424" y="232" width="16" height="128" style="fill:#e0b329" />
 	<rect x="360" y="224" width="72" height="24" style="fill:#e0b329" />
 	<polygon points="456 232 344 232 400 176 456 232" style="fill:#fcdd69" />
-	<path
-		d="M400,176l10.546,17.577A14.806,14.806,0,0,1,397.85,216H360l-16,16H456Z"
-		style="fill:#eac654"
-	/>
+	<path d="M400,176l10.546,17.577A14.806,14.806,0,0,1,397.85,216H360l-16,16H456Z" style="fill:#eac654" />
 	<rect x="360" y="360" width="80" height="32" style="fill:#912e23" />
 	<rect x="360" y="360" width="24" height="32" style="fill:#df391d" />
 	<rect x="168" y="360" width="24" height="16" style="fill:#ef705f" />
@@ -55,10 +46,7 @@
 	<rect x="64" y="288" width="80" height="32" style="fill:#074349" />
 	<rect x="64" y="288" width="56" height="32" style="fill:#16696d" />
 	<polygon points="160 192 48 192 104 136 160 192" style="fill:#30a5a5" />
-	<path
-		d="M104,136l10.17,16.95A15.22,15.22,0,0,1,101.119,176H64L48,192H160Z"
-		style="fill:#16696d"
-	/>
+	<path d="M104,136l10.17,16.95A15.22,15.22,0,0,1,101.119,176H64L48,192H160Z" style="fill:#16696d" />
 	<rect x="64" y="224" width="80" height="32" style="fill:#074349" />
 	<rect x="64" y="224" width="56" height="32" style="fill:#16696d" />
 	<rect x="72" y="408" width="16" height="24" style="fill:#ef705f" />

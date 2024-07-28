@@ -7,5 +7,5 @@ export default function scrollToFirstError() {
 		.filter((input) => input.error !== '')
 		.map((input) => document.getElementById(input.id))
 		.map((input) => input?.offsetTop || 999999);
-	document.documentElement.scrollTop = Math.min(...offset);
+	window.scroll({ top: Math.min(...offset), behavior: 'smooth' });
 }

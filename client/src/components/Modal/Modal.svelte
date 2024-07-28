@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { scale } from 'svelte/transition';
 	import { browser } from '$app/environment';
 
 	export let showModal: boolean;
@@ -10,7 +11,11 @@
 	<div class="backdrop">
 		<!-- svelte-ignore a11y-no-static-element-interactions -->
 		<!-- svelte-ignore a11y-click-events-have-key-events -->
-		<div class="modal" on:click|self={() => (showModal = false)}>
+		<div
+			class="modal"
+			on:click|self={() => (showModal = false)}
+			transition:scale={{ duration: 400, start: 0.4, opacity: 0 }}
+		>
 			<slot />
 		</div>
 	</div>
@@ -18,18 +23,9 @@
 
 <style lang="postcss">
 	.backdrop {
-		@apply bg-black/30 fixed inset-0;
+		@apply backdrop-blur-sm bg-black/30 fixed inset-0 z-10;
 	}
 	.modal {
 		@apply w-full h-full flex flex-col items-center justify-center;
-		animation: zoom 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
-	}
-	@keyframes zoom {
-		from {
-			transform: scale(0.9);
-		}
-		to {
-			transform: scale(1);
-		}
 	}
 </style>

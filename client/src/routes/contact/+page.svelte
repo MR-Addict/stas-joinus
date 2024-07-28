@@ -18,6 +18,6 @@
 	}
 	img {
 		box-shadow: 0 0 20px #d1d5db;
-		@apply rounded-xl w-full max-w-[270px] md:max-w-xs;
+		@apply rounded-xl w-full max-w-[270px] sm:max-w-xs;
 	}
 </style>

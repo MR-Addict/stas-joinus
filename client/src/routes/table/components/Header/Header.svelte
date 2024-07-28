@@ -1,14 +1,12 @@
 <script lang="ts">
 	import url from '$lib/utils/url';
+	import toast from 'svelte-french-toast';
 	import clickOutside from '$hooks/clickOutside';
 	import fetchApplicants from '$lib/applicant/fetchApplicants';
 
-	import toasts from '$stores/toasts';
 	import type { TableFilter } from '$types/tableFilter';
 
-	import TiFilter from 'svelte-icons/ti/TiFilter.svelte';
-	import MdRefresh from 'svelte-icons/md/MdRefresh.svelte';
-	import MdFileDownload from 'svelte-icons/md/MdFileDownload.svelte';
+	import { ArrowDownToLine, Filter, RefreshCw } from 'lucide-svelte';
 
 	export let tableFilter: TableFilter;
 
@@ -17,8 +15,9 @@
 
 	async function handleRefresh() {
 		pending = true;
-		const toastId = toasts.add('数据刷新中，请稍后...', 'pending');
-		if (await fetchApplicants()) toasts.update(toastId, { message: '刷新成功', status: 'success' });
+		const toastId = toast('数据刷新中，请稍后...');
+		if (await fetchApplicants()) toast.success('数据刷新成功！', { id: toastId });
+		else toast.error('数据刷新失败！', { id: toastId });
 		pending = false;
 	}
 </script>
@@ -26,17 +25,17 @@
 <header>
 	<h1>
 		<span>所有提交</span>
-		<button disabled={pending} type="button" on:click={handleRefresh}><MdRefresh /></button>
+		<button disabled={pending} type="button" on:click={handleRefresh}><RefreshCw size={16} /></button>
 	</h1>
 
 	<a href={url('/api/applicants/download')} rel="external" download class="ml-auto btn">
-		<div><MdFileDownload /></div>
+		<div><ArrowDownToLine size={16} /></div>
 		<span>下载表格</span>
 	</a>
 
 	<div class="relative" use:clickOutside={() => (showFilter = false)}>
 		<button type="button" class="btn" on:click={() => (showFilter = !showFilter)}>
-			<div><TiFilter /></div>
+			<div><Filter size={16} /></div>
 			<span>筛选表格</span>
 		</button>
 
@@ -114,7 +113,7 @@
 		box-shadow: 0 0 5px #d1d5db;
 		@apply z-10 flex flex-col border border-gray-300;
 		@apply origin-top invisible opacity-0 duration-200 scale-y-95;
-		@apply rounded-md py-2.5 px-4 bg-white mt-1 absolute right-0 md:right-1/2 md:translate-x-1/2 top-full;
+		@apply rounded-md py-2.5 px-4 bg-white mt-1 absolute right-0 sm:right-1/2 sm:translate-x-1/2 top-full;
 		&.active {
 			@apply visible opacity-100 scale-y-100;
 		}

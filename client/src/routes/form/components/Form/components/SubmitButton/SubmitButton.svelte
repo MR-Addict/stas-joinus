@@ -18,7 +18,7 @@
 			@apply bg-blue-700;
 		}
 		&:disabled {
-			@apply bg-gray-200 cursor-not-allowed;
+			@apply bg-gray-300 text-gray-400 cursor-not-allowed;
 		}
 	}
 </style>

@@ -1,6 +1,6 @@
 export const links = [
 	{
-		group: '关于',
+		group: '关于技术部',
 		items: [
 			{ name: '值班笔记', path: 'https://punch.mraddict.top' },
 			{ name: '本站仓库', path: 'https://github.com/MR-Addict/stas-joinus' },
@@ -8,11 +8,11 @@ export const links = [
 		]
 	},
 	{
-		group: '资源',
+		group: '校内资源',
 		items: [
+			{ name: '南工OJ', path: 'https://acm.online.njtech.edu.cn' },
 			{ name: '南工在线', path: 'https://online.njtech.edu.cn' },
-			{ name: '南工快传', path: 'https://send.online.njtech.edu.cn' },
-			{ name: '南工镜像站', path: 'https://mirrors.njtech.edu.cn' }
+			{ name: '南工快传', path: 'https://send.online.njtech.edu.cn' }
 		]
 	},
 	{

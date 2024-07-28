@@ -1,11 +1,11 @@
 <script lang="ts">
-	import IoIosShareAlt from 'svelte-icons/io/IoIosShareAlt.svelte';
+	import { Forward } from 'lucide-svelte';
 
 	import { links } from './config';
 </script>
 
 <footer>
-	<ul class="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+	<ul class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
 		{#each links as category (category.group)}
 			<li class="space-y-2">
 				<h1 class="font-semibold text-gray-200">{category.group}</h1>
@@ -14,7 +14,7 @@
 						<li>
 							<a href={item.path} target="_blank">
 								<div>{item.name}</div>
-								<div class="icon"><IoIosShareAlt /></div>
+								<div class="icon"><Forward size={14} /></div>
 							</a>
 						</li>
 					{/each}
@@ -31,10 +31,11 @@
 
 <style lang="postcss">
 	footer {
-		@apply bg-slate-800 text-white px-4 md:px-32 py-10 flex flex-col gap-4;
+		@apply bg-slate-800 text-white px-4 sm:px-32 py-10 flex flex-col gap-4;
 	}
+
 	a {
-		@apply flex flex-row items-center gap-0.5 w-fit duration-300;
+		@apply flex flex-row items-center gap-1 w-fit duration-300;
 		&:hover {
 			@apply text-green-600;
 		}
@@ -43,6 +44,6 @@
 		}
 	}
 	.copyright {
-		@apply flex flex-col md:flex-row md:gap-2;
+		@apply flex flex-row flex-wrap gap-2;
 	}
 </style>

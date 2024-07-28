@@ -1,5 +1,5 @@
 <script lang="ts">
-	import toasts from '$stores/toasts';
+	import toast from 'svelte-french-toast';
 	import pagination from '$stores/pagination';
 	import fetchApplicants from '$lib/applicant/fetchApplicants';
 
@@ -20,7 +20,7 @@
 	async function handleClick(page: number) {
 		pending = true;
 		if (await fetchApplicants(page)) window.scrollTo({ top: 0 });
-		else toasts.add('无法加载下一页', 'failed');
+		else toast.error('无法加载下一页');
 		pending = false;
 	}
 </script>

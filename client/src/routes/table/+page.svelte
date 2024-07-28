@@ -54,7 +54,7 @@
 	main {
 		min-height: calc(100vh - 60px);
 		min-height: calc(100svh - 60px);
-		@apply py-5 md:py-10 px-4 md:px-20 flex flex-col gap-2;
+		@apply py-5 sm:py-10 px-4 sm:px-20 flex flex-col gap-2;
 	}
 	p {
 		@apply w-full flex-1 flex items-center justify-center;

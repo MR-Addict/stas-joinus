@@ -1,12 +1,11 @@
 <script lang="ts">
+	import toast from 'svelte-french-toast';
+	import { LockKeyhole } from 'lucide-svelte';
+
 	import auth from '$stores/auth';
-	import url from '$lib/utils/url';
-	import toasts from '$stores/toasts';
-	import { Response } from '$types/response';
 
 	import Modal from '$components/Modal/Modal.svelte';
 	import Spinner from '$components/Spinner/Spinner.svelte';
-	import MdLockOutline from 'svelte-icons/md/MdLockOutline.svelte';
 
 	export let showModal = false;
 
@@ -16,18 +15,12 @@
 		const formData = new FormData(event.target as HTMLFormElement);
 
 		pending = true;
-		try {
-			const res = await fetch(url('/api/user/login'), { method: 'POST', body: formData }).then((res) => res.json());
-			const { success, message } = Response.parse(res);
-			if (!success) toasts.add(message, 'failed');
-			else if (await auth.ping()) showModal = false;
-			else toasts.add('登录失败，请稍后尝试或联系我们', 'failed');
-		} catch (err) {
-			console.error(err);
-			toasts.add('登录失败，请稍后尝试或联系我们', 'failed');
-		} finally {
-			pending = false;
-		}
+
+		const loginRes = await auth.login(formData);
+		if (!loginRes.success) toast.error(loginRes.message);
+		else showModal = false;
+
+		pending = false;
 	}
 </script>
 
@@ -35,10 +28,12 @@
 	<form on:submit|preventDefault={handleSubmit}>
 		<h1>用户登录</h1>
 		<p>非管理员请勿尝试登录</p>
+
 		<div class="input">
-			<div class="w-5 text-gray-500"><MdLockOutline /></div>
+			<div class="text-gray-500"><LockKeyhole size={16} /></div>
 			<input required type="password" name="password" placeholder="输入密码" />
 		</div>
+
 		<button disabled={pending} type="submit">
 			{#if pending}
 				<Spinner />
@@ -72,11 +67,11 @@
 	button {
 		@apply flex flex-row items-center justify-center gap-1;
 		@apply mt-2 w-full py-2 rounded-md bg-teal-700 text-white duration-300;
-		&:hover {
+		&:enabled:hover {
 			@apply bg-teal-800;
 		}
 		&:disabled {
-			@apply bg-gray-200 cursor-not-allowed;
+			@apply bg-gray-300 text-gray-400 cursor-not-allowed;
 		}
 	}
 </style>

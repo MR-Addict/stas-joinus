@@ -3,7 +3,7 @@
 	import Success from './components/Success/Success.svelte';
 
 	let isFormOpen = true;
-	const endDate = new Date('2023-09-16T00:00:00.000Z');
+	const endDate = new Date('2024-09-16T00:00:00.000Z');
 	const openForm = (value: boolean) => (isFormOpen = value);
 </script>
 
@@ -25,6 +25,6 @@
 	main {
 		min-height: calc(100vh - 60px);
 		min-height: calc(100svh - 60px);
-		@apply bg-gray-100 flex flex-col items-center justify-center px-4 py-5 md:py-10;
+		@apply bg-gray-100 flex flex-col items-center justify-center px-4 py-5 sm:py-10;
 	}
 </style>
