@@ -44,7 +44,7 @@ func ApplicantCreate(c *fiber.Ctx) error {
 	}
 
 	var duplicatedUser models.Applicant
-	findOptions := &models.Applicant{Name: applicant.Name, Student_ID: applicant.Student_ID}
+	findOptions := &models.Applicant{Student_ID: applicant.Student_ID}
 	findResult := configs.Db.Where(findOptions).Limit(1).Find(&duplicatedUser)
 
 	// check whether applicant has already exists
