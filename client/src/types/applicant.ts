@@ -2,7 +2,13 @@ import z from 'zod';
 
 const Options = z.enum(['技术开发部', '组织策划部', '科普活动部', '新闻宣传部', '对外联络部', '双创联合服务部']);
 
-const SubmitApplicant = z.object({
+const ApplicantStats = z.object({
+	name: Options,
+	first_choice: z.object({ boy: z.number(), girl: z.number() }),
+	second_choice: z.object({ boy: z.number(), girl: z.number() })
+});
+
+const ApplicantSubmit = z.object({
 	name: z.string().min(2).max(20),
 	gender: z.enum(['boy', 'girl']),
 	phone: z.string().length(11),
@@ -16,9 +22,11 @@ const SubmitApplicant = z.object({
 	introduction: z.string().min(4).max(500)
 });
 
-const Applicant = z.object({ id: z.number(), submitted_at: z.string() }).merge(SubmitApplicant);
+const Applicant = z.object({ id: z.number(), modified: z.boolean(), submitted_at: z.string() }).merge(ApplicantSubmit);
 
+type ApplicantStatsType = z.TypeOf<typeof ApplicantStats>;
+type ApplicantSubmitType = z.TypeOf<typeof ApplicantSubmit>;
 type ApplicantType = z.TypeOf<typeof Applicant>;
 
-export { Applicant, SubmitApplicant };
-export type { ApplicantType };
+export { Applicant, ApplicantSubmit, ApplicantStats };
+export type { ApplicantType, ApplicantSubmitType, ApplicantStatsType };

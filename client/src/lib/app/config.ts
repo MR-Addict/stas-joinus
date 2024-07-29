@@ -9,8 +9,8 @@ export default async function fetchAppConfigApi(): Promise<ApiResultType<AppConf
 	try {
 		const path = url('/api/app/config');
 		const res = await fetch(path, { credentials: 'include' }).then((res) => res.json());
-		const parsed = z.object({ data: AppConfig }).safeParse(res);
-		if (parsed.success) return { success: true, data: parsed.data.data };
+		const parsed = z.object({ message: z.string(), data: AppConfig }).safeParse(res);
+		if (parsed.success) return { success: true, message: parsed.data.message, data: parsed.data.data };
 		else return { success: false, message: res.message || defaultMessage };
 	} catch (err) {
 		console.error(err);

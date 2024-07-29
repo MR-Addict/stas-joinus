@@ -3,17 +3,18 @@
 	import { CreditCard } from 'lucide-svelte';
 
 	import '../form.css';
+	import form from '$stores/form';
 	import inputs from '$stores/inputs';
 
 	const id = 'student_id';
 
-	let value = '';
 	let error = '';
 	let ref: HTMLDivElement;
+	let value = $form.localApplicant?.student_id || '';
 
 	$: error = $inputs.find((input) => input.id === id)?.error || '';
 
-	onMount(() => inputs.register(id, ref, validate));
+	onMount(() => inputs.register(id, value, ref, validate));
 
 	function handleChange() {
 		inputs.update(id, value);
@@ -32,6 +33,15 @@
 		<span>学号</span>
 	</h1>
 	<label for={id} class="label">你的学号</label>
-	<input {id} name={id} type="number" class="input" placeholder="你的学号" bind:value on:change={handleChange} />
+	<input
+		{id}
+		name={id}
+		type="number"
+		class="input"
+		placeholder="你的学号"
+		disabled={$form.localApplicant !== null}
+		bind:value
+		on:change={handleChange}
+	/>
 	<p class="err-msg">{error}</p>
 </div>

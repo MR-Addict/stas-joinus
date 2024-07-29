@@ -27,6 +27,7 @@
 <div class="menu-wrapper">
 	<button
 		type="button"
+		aria-label="action button"
 		class="text-gray-600 hover:bg-black/10 rounded-full p-1 duration-300"
 		on:click={() => !$auth && (showModal = true)}
 	>
@@ -76,13 +77,13 @@
 	}
 
 	.menu {
+		@apply w-44 absolute -bottom-2 right-1.5 translate-y-full;
 		@apply delay-100 origin-top-right duration-300 scale-50 opacity-0 invisible;
-		@apply w-36 absolute -bottom-3 right-0 translate-y-full;
 		@apply shadow-md bg-white border border-gray-300 rounded-md py-1;
 	}
 
 	.btn {
-		@apply flex flex-row items-center w-full py-1.5 px-4 text-sm;
+		@apply flex flex-row items-center w-full py-2 px-4;
 
 		&:not(:last-child) {
 			@apply border-b-[3px] border-gray-300;

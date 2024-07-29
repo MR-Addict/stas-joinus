@@ -23,9 +23,9 @@
 
 <style lang="postcss">
 	.backdrop {
-		@apply backdrop-blur-sm bg-black/30 fixed inset-0 z-10;
+		@apply backdrop-blur-sm bg-black/30 fixed inset-0 z-20;
 	}
 	.modal {
-		@apply w-full h-full flex flex-col items-center justify-center;
+		@apply w-full h-full flex flex-col items-center justify-center p-4;
 	}
 </style>

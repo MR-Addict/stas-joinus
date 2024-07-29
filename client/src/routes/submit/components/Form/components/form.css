@@ -13,8 +13,12 @@
 
 .form .input {
 	@apply outline-none bg-gray-100 rounded-none px-2 py-2 border-b-2 border-b-gray-400;
-	&:focus {
+
+	&:enabled:focus {
 		@apply border-b-teal-600;
+	}
+	&:disabled {
+		@apply text-gray-400 cursor-not-allowed;
 	}
 }
 

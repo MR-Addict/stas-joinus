@@ -1,6 +1,8 @@
 <script lang="ts">
-	import inputs from '$stores/inputs';
 	import toast from 'svelte-french-toast';
+
+	import form from '$stores/form';
+	import inputs from '$stores/inputs';
 	import submitApplicantApi from '$lib/applicant/submitApplicant';
 
 	import Header from './components/Header/Header.svelte';
@@ -17,20 +19,28 @@
 	import ChoiceSelect from './components/ChoiceSelect/ChoiceSelect.svelte';
 	import IntroductionInput from './components/IntroductionInput/IntroductionInput.svelte';
 
-	export let submitted: boolean;
-
 	let pending = false;
 
 	async function handleSubmit(event: SubmitEvent) {
-		if (inputs.validateAll()) return;
-
 		pending = true;
 
-		const res = await submitApplicantApi(new FormData(event.target as HTMLFormElement));
+		const formData = new FormData();
+		$inputs.forEach((input) => {
+			if (input.id === 'first_choice') {
+				const [first, second] = input.value.split(',');
+				formData.append('first_choice', first);
+				formData.append('second_choice', second);
+			} else formData.append(input.id, input.value);
+		});
+
+		const res = await submitApplicantApi(formData);
 		if (res.success) {
-			submitted = true;
+			toast.success(res.message);
 			window.scrollTo({ top: 0 });
 			localStorage.setItem('applicant', JSON.stringify(res.data));
+
+			form.updateShowForm(false);
+			form.refreshLocalApplicant();
 		} else toast.error(res.message);
 
 		pending = false;

@@ -1,9 +1,17 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
+
+	import form from '$stores/form';
+
 	import Form from './components/Form/Form.svelte';
 	import Success from './components/Success/Success.svelte';
 	import TimeValidation from './components/TimeValidation/TimeValidation.svelte';
 
-	let submitted = false;
+	onMount(() => {
+		const localApplicant = form.refreshLocalApplicant();
+		if (localApplicant) form.updateShowForm(false);
+		else form.updateShowForm(true);
+	});
 </script>
 
 <svelte:head>
@@ -12,10 +20,10 @@
 
 <main>
 	<TimeValidation>
-		{#if submitted}
-			<Success />
+		{#if $form.showForm}
+			<Form />
 		{:else}
-			<Form bind:submitted />
+			<Success />
 		{/if}
 	</TimeValidation>
 </main>

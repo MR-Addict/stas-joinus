@@ -10,8 +10,8 @@ export default async function submitApplicantApi(formData: FormData): Promise<Ap
 	try {
 		const path = url('/api/applicant');
 		const res = await fetch(path, { method: 'POST', body: formData }).then((res) => res.json());
-		const parsed = z.object({ data: Applicant }).safeParse(res);
-		if (parsed.success) return { success: true, data: parsed.data.data };
+		const parsed = z.object({ message: z.string(), data: Applicant }).safeParse(res);
+		if (parsed.success) return { success: true, message: parsed.data.message, data: parsed.data.data };
 		else return { success: false, message: res.message || defaultMessage };
 	} catch (err) {
 		console.error(err);

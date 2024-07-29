@@ -3,6 +3,7 @@
 	import { FlaskConical } from 'lucide-svelte';
 
 	import '../form.css';
+	import form from '$stores/form';
 	import inputs from '$stores/inputs';
 
 	const first_label = 'first_choice';
@@ -10,12 +11,12 @@
 
 	let error = '';
 	let ref: HTMLDivElement;
-	let first_choice = '';
-	let second_choice = '';
+	let first_choice = $form.localApplicant?.first_choice || '';
+	let second_choice = $form.localApplicant?.second_choice || '';
 
 	$: error = $inputs.find((input) => input.id === first_label)?.error || '';
 
-	onMount(() => inputs.register(first_label, ref, validate));
+	onMount(() => inputs.register(first_label, first_choice + ',' + second_choice, ref, validate));
 
 	function handleChange() {
 		inputs.update(first_label, first_choice + ',' + second_choice);
@@ -36,7 +37,14 @@
 		<span>第一志愿</span>
 	</h1>
 	<label for={first_label} class="label">校大学生科协你最想加入的部门，我们会优先考虑你的第一志愿</label>
-	<select id={first_label} name={first_label} class="input" bind:value={first_choice} on:change={handleChange}>
+	<select
+		id={first_label}
+		name={first_label}
+		class="input"
+		disabled={$form.localApplicant?.modified}
+		bind:value={first_choice}
+		on:change={handleChange}
+	>
 		<option disabled value="">--选择部门--</option>
 		<option value="技术开发部">技术开发部</option>
 		<option value="科普活动部">科普活动部</option>
@@ -56,7 +64,14 @@
 	<label for={second_label} class="label">
 		校大学生科协你同样感兴趣的部门，或是可以接受调剂的志愿，请勿与第一志愿相同
 	</label>
-	<select id={second_label} name={second_label} class="input" bind:value={second_choice} on:change={handleChange}>
+	<select
+		id={second_label}
+		name={second_label}
+		class="input"
+		disabled={$form.localApplicant?.modified}
+		bind:value={second_choice}
+		on:change={handleChange}
+	>
 		<option disabled value="">--选择部门--</option>
 		<option value="技术开发部">技术开发部</option>
 		<option value="科普活动部">科普活动部</option>

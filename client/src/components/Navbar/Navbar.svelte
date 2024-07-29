@@ -10,7 +10,7 @@
 
 <style lang="postcss">
 	nav {
-		@apply flex flex-row items-center justify-between gap-4;
+		@apply z-10 flex flex-row items-center justify-between gap-4;
 		@apply py-4 px-4 sm:px-10 border-b border-b-gray-300 sticky top-0 bg-white;
 	}
 </style>

@@ -3,17 +3,18 @@
 	import { User } from 'lucide-svelte';
 
 	import '../form.css';
+	import form from '$stores/form';
 	import inputs from '$stores/inputs';
 
 	const id = 'name';
 
-	let value = '';
 	let error = '';
 	let ref: HTMLDivElement;
+	let value = $form.localApplicant?.name || '';
 
 	$: error = $inputs.find((input) => input.id === id)?.error || '';
 
-	onMount(() => inputs.register(id, ref, validate));
+	onMount(() => inputs.register(id, value, ref, validate));
 
 	function handleChange() {
 		inputs.update(id, value);
@@ -33,6 +34,15 @@
 		<span>姓名</span>
 	</h1>
 	<label for={id} class="label">你的姓名</label>
-	<input {id} name={id} type="text" class="input" placeholder="你的姓名" bind:value on:change={handleChange} />
+	<input
+		{id}
+		name={id}
+		type="text"
+		class="input"
+		placeholder="你的姓名"
+		disabled={$form.localApplicant !== null}
+		bind:value
+		on:change={handleChange}
+	/>
 	<p class="err-msg">{error}</p>
 </div>

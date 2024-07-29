@@ -3,6 +3,7 @@ import { z } from 'zod';
 type ApiResultType<T = undefined> =
 	| ({
 			readonly success: true;
+			readonly message: string;
 	  } & (T extends undefined ? {} : { readonly data: NonNullable<T> }))
 	| {
 			readonly success: false;

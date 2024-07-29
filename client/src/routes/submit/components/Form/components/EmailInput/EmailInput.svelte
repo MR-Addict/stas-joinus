@@ -3,17 +3,18 @@
 	import { Mail } from 'lucide-svelte';
 
 	import '../form.css';
+	import form from '$stores/form';
 	import inputs from '$stores/inputs';
 
 	const id = 'email';
 
-	let value = '';
 	let error = '';
 	let ref: HTMLDivElement;
+	let value = $form.localApplicant?.email || '';
 
 	$: error = $inputs.find((input) => input.id === id)?.error || '';
 
-	onMount(() => inputs.register(id, ref, validate));
+	onMount(() => inputs.register(id, value, ref, validate));
 
 	function handleChange() {
 		inputs.update(id, value);
@@ -33,6 +34,15 @@
 		<span>邮箱</span>
 	</h1>
 	<label for={id} class="label">我们会将面试信息及面试结果通过邮件的形式发送给你</label>
-	<input {id} name={id} type="email" class="input" placeholder="你的邮箱" bind:value on:change={handleChange} />
+	<input
+		{id}
+		name={id}
+		type="email"
+		class="input"
+		placeholder="你的邮箱"
+		disabled={$form.localApplicant !== null}
+		bind:value
+		on:change={handleChange}
+	/>
 	<p class="err-msg">{error}</p>
 </div>

@@ -3,17 +3,18 @@
 	import { NotebookPen } from 'lucide-svelte';
 
 	import '../form.css';
+	import form from '$stores/form';
 	import inputs from '$stores/inputs';
 
 	const id = 'introduction';
 
-	let value = '';
 	let error = '';
 	let ref: HTMLDivElement;
+	let value = $form.localApplicant?.introduction || '';
 
 	$: error = $inputs.find((input) => input.id === id)?.error || '';
 
-	onMount(() => inputs.register(id, ref, validate));
+	onMount(() => inputs.register(id, value, ref, validate));
 
 	function handleChange() {
 		inputs.update(id, value);
@@ -35,6 +36,14 @@
 	<label for={id} class="label">
 		写写你的性格、爱好、特长、个人项目、取得的成就等等，尽量内容丰富，让我们对你有更好的了解
 	</label>
-	<textarea {id} name={id} class="input h-40" placeholder="你的自我介绍" bind:value on:change={handleChange} />
+	<textarea
+		{id}
+		name={id}
+		class="input h-40"
+		placeholder="你的自我介绍"
+		disabled={$form.localApplicant?.modified}
+		bind:value
+		on:change={handleChange}
+	/>
 	<p class="err-msg">{error}</p>
 </div>
