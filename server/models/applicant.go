@@ -4,9 +4,10 @@ import "time"
 
 type Applicant struct {
 	ID            uint      `json:"id" gorm:"primaryKey"`
-	Submitted_At  time.Time `json:"submitted_at"`
+	Modified      bool      `json:"modified" gorm:"default:false"`
+	Submitted_At  time.Time `json:"submitted_at" gorm:"autoCreateTime"`
 	Name          string    `json:"name" validate:"required,min=2,max=20"`
-	Gender        string    `json:"gender" validate:"required,oneof=男 女"`
+	Gender        string    `json:"gender" validate:"required,oneof=boy girl"`
 	Phone         string    `json:"phone" validate:"required,len=11,number"`
 	Email         string    `json:"email" validate:"required,email,max=320"`
 	QQ            string    `json:"qq" validate:"required,min=5,max=11,number"`

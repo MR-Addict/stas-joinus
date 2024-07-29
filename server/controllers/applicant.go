@@ -51,7 +51,23 @@ func ApplicantCreate(c *fiber.Ctx) error {
 	if findResult.Error != nil {
 		return c.Status(500).JSON(models.Response{Success: false, Message: "服务器内部错误", Data: findResult.Error.Error()})
 	} else if findResult.RowsAffected > 0 {
-		return c.Status(400).JSON(models.Response{Success: false, Message: "你已经提交过啦，请勿重复提交"})
+		// check if the applicant has been modified
+		if duplicatedUser.Modified {
+			return c.Status(400).JSON(models.Response{Success: false, Message: "抱歉，志愿仅能修改一次"})
+		}
+
+		// only update FirstChoice, SecondChoice, Introduction and set Modified to true
+		duplicatedUser.First_Choice = applicant.First_Choice
+		duplicatedUser.Second_Choice = applicant.Second_Choice
+		duplicatedUser.Introduction = applicant.Introduction
+		duplicatedUser.Modified = true
+
+		updateResult := configs.Db.Save(&duplicatedUser)
+		if updateResult.Error != nil {
+			return c.Status(500).JSON(models.Response{Success: false, Message: "服务器内部错误", Data: updateResult.Error.Error()})
+		} else if updateResult.RowsAffected > 0 {
+			return c.Status(200).JSON(models.Response{Success: true, Message: "恭喜，志愿更新成功", Data: duplicatedUser})
+		}
 	}
 
 	// add new record
@@ -59,7 +75,7 @@ func ApplicantCreate(c *fiber.Ctx) error {
 	if addResult.Error != nil {
 		return c.Status(500).JSON(models.Response{Success: false, Message: "服务器内部错误", Data: addResult.Error.Error()})
 	} else if addResult.RowsAffected > 0 {
-		return c.Status(201).JSON(models.Response{Success: true, Message: "表单提交成功", Data: applicant})
+		return c.Status(201).JSON(models.Response{Success: true, Message: "恭喜，报名成功", Data: applicant})
 	}
 
 	return c.Status(500).JSON(models.Response{Success: false, Message: "服务器内部错误"})
@@ -79,6 +95,59 @@ func ApplicantQuery(c *fiber.Ctx) error {
 	} else {
 		return c.Status(200).JSON(models.Response{Success: true, Message: "数据读取成功", Data: applicants, Pagination: models.Pagination{Page: page, Total: total, Page_Size: pageSize}})
 	}
+}
+
+func ApplicantStats(c *fiber.Ctx) error {
+	departments := []string{
+		"技术开发部", "科普活动部", "组织策划部", "新闻宣传部", "对外联络部", "双创联合服务部",
+	}
+
+	var results []struct {
+		Department string
+		Gender     string
+		Choice     string
+		Count      int
+	}
+
+	query := `
+			SELECT first_choice as department, gender, 'first' as choice, count(*) as count
+			FROM applicants
+			WHERE first_choice IN ?
+			GROUP BY first_choice, gender
+			UNION ALL
+			SELECT second_choice as department, gender, 'second' as choice, count(*) as count
+			FROM applicants
+			WHERE second_choice IN ?
+			GROUP BY second_choice, gender
+	`
+
+	configs.Db.Raw(query, departments, departments).Scan(&results)
+
+	statsMap := make(map[string]*models.StatsDepartment)
+	for _, department := range departments {
+		statsMap[department] = &models.StatsDepartment{Name: department}
+	}
+
+	for _, result := range results {
+		stats := statsMap[result.Department]
+		if result.Gender == "boy" {
+			stats.Boy += result.Count
+		} else if result.Gender == "girl" {
+			stats.Girl += result.Count
+		}
+		if result.Choice == "first" {
+			stats.First_Choice += result.Count
+		} else if result.Choice == "second" {
+			stats.Second_Choice += result.Count
+		}
+	}
+
+	var statsList []models.StatsDepartment
+	for _, stats := range statsMap {
+		statsList = append(statsList, *stats)
+	}
+
+	return c.Status(200).JSON(models.Response{Success: true, Message: "统计数据读取成功", Data: statsList})
 }
 
 func ApplicantDownload(c *fiber.Ctx) error {
