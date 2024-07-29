@@ -56,7 +56,7 @@ func ApplicantCreate(c *fiber.Ctx) error {
 			return c.Status(400).JSON(models.Response{Success: false, Message: "抱歉，志愿仅能修改一次"})
 		}
 
-		// only update FirstChoice, SecondChoice, Introduction and set Modified to true
+		// only update First_Choice, Second_Choice, Introduction and set Modified to true
 		duplicatedUser.First_Choice = applicant.First_Choice
 		duplicatedUser.Second_Choice = applicant.Second_Choice
 		duplicatedUser.Introduction = applicant.Introduction
@@ -109,45 +109,68 @@ func ApplicantStats(c *fiber.Ctx) error {
 		Count      int
 	}
 
+	// query database
 	query := `
-			SELECT first_choice as department, gender, 'first' as choice, count(*) as count
-			FROM applicants
-			WHERE first_choice IN ?
-			GROUP BY first_choice, gender
-			UNION ALL
-			SELECT second_choice as department, gender, 'second' as choice, count(*) as count
-			FROM applicants
-			WHERE second_choice IN ?
-			GROUP BY second_choice, gender
+		SELECT first_choice as department, gender, 'first' as choice, count(*) as count
+		FROM applicants
+		WHERE first_choice IN ?
+		GROUP BY first_choice, gender
+		UNION ALL
+		SELECT second_choice as department, gender, 'second' as choice, count(*) as count
+		FROM applicants
+		WHERE second_choice IN ?
+		GROUP BY second_choice, gender
 	`
 
 	configs.Db.Raw(query, departments, departments).Scan(&results)
 
+	// create stats map
 	statsMap := make(map[string]*models.StatsDepartment)
+	// initialize stats map
 	for _, department := range departments {
-		statsMap[department] = &models.StatsDepartment{Name: department}
+		statsMap[department] = &models.StatsDepartment{
+			Name: department,
+			First_Choice: models.Choice{
+				Boy:  0,
+				Girl: 0,
+			},
+			Second_Choice: models.Choice{
+				Boy:  0,
+				Girl: 0,
+			},
+		}
 	}
 
+	// fill stats map
 	for _, result := range results {
-		stats := statsMap[result.Department]
-		if result.Gender == "boy" {
-			stats.Boy += result.Count
-		} else if result.Gender == "girl" {
-			stats.Girl += result.Count
-		}
+		deptStats := statsMap[result.Department]
 		if result.Choice == "first" {
-			stats.First_Choice += result.Count
+			if result.Gender == "boy" {
+				deptStats.First_Choice.Boy = result.Count
+			} else if result.Gender == "girl" {
+				deptStats.First_Choice.Girl = result.Count
+			}
 		} else if result.Choice == "second" {
-			stats.Second_Choice += result.Count
+			if result.Gender == "boy" {
+				deptStats.Second_Choice.Boy = result.Count
+			} else if result.Gender == "girl" {
+				deptStats.Second_Choice.Girl = result.Count
+			}
 		}
 	}
 
-	var statsList []models.StatsDepartment
-	for _, stats := range statsMap {
-		statsList = append(statsList, *stats)
+	// convert stats map to stats slice
+	var stats []models.StatsDepartment
+	for _, stat := range statsMap {
+		stats = append(stats, *stat)
 	}
 
-	return c.Status(200).JSON(models.Response{Success: true, Message: "统计数据读取成功", Data: statsList})
+	// return stats
+	return c.Status(200).JSON(models.Response{
+		Success: true,
+		Message: "数据读取成功",
+		Data:    stats,
+	})
 }
 
 func ApplicantDownload(c *fiber.Ctx) error {
@@ -180,10 +203,18 @@ func ApplicantDownload(c *fiber.Ctx) error {
 
 	// write data to sheet
 	for i, d := range applicants {
+		// Map gender values
+		gender := d.Gender
+		if gender == "girl" {
+			gender = "女"
+		} else if gender == "boy" {
+			gender = "男"
+		}
+
 		row := i + 2
 		file.SetCellValue(name, "A"+fmt.Sprintf("%d", row), i+1)
 		file.SetCellValue(name, "B"+fmt.Sprintf("%d", row), d.Name)
-		file.SetCellValue(name, "C"+fmt.Sprintf("%d", row), d.Gender)
+		file.SetCellValue(name, "C"+fmt.Sprintf("%d", row), gender)
 		file.SetCellValue(name, "D"+fmt.Sprintf("%d", row), d.Phone)
 		file.SetCellValue(name, "E"+fmt.Sprintf("%d", row), d.Email)
 		file.SetCellValue(name, "F"+fmt.Sprintf("%d", row), d.QQ)

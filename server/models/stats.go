@@ -1,9 +1,12 @@
 package models
 
+type Choice struct {
+	Boy  int `json:"boy"`
+	Girl int `json:"girl"`
+}
+
 type StatsDepartment struct {
 	Name          string `json:"name"`
-	Boy           int    `json:"boy"`
-	Girl          int    `json:"girl"`
-	First_Choice  int    `json:"first_choice"`
-	Second_Choice int    `json:"second_choice"`
+	First_Choice  Choice `json:"first_choice"`
+	Second_Choice Choice `json:"second_choice"`
 }
