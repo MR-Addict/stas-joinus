@@ -4,7 +4,7 @@ const Options = z.enum(['技术开发部', '组织策划部', '科普活动部',
 
 const SubmitApplicant = z.object({
 	name: z.string().min(2).max(20),
-	gender: z.enum(['男', '女']),
+	gender: z.enum(['boy', 'girl']),
 	phone: z.string().length(11),
 	email: z.string().email().max(320),
 	qq: z.string().min(5).max(11),

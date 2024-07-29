@@ -33,8 +33,8 @@
 	<label for={id} class="label">你的性别</label>
 	<select {id} name={id} class="input" bind:value on:change={handleChange}>
 		<option disabled value="">--选择性别--</option>
-		<option value="男">男</option>
-		<option value="女">女</option>
+		<option value="boy">男</option>
+		<option value="girl">女</option>
 	</select>
 	<p class="err-msg">{error}</p>
 </div>
