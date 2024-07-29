@@ -56,6 +56,11 @@ func ApplicantCreate(c *fiber.Ctx) error {
 			return c.Status(400).JSON(models.Response{Success: false, Message: "抱歉，志愿仅能修改一次"})
 		}
 
+		// check First_Choice, Second_Choice and Introduction is same or not
+		if duplicatedUser.First_Choice == applicant.First_Choice && duplicatedUser.Second_Choice == applicant.Second_Choice && duplicatedUser.Introduction == applicant.Introduction {
+			return c.Status(400).JSON(models.Response{Success: false, Message: "志愿未发生变化"})
+		}
+
 		// only update First_Choice, Second_Choice, Introduction and set Modified to true
 		duplicatedUser.First_Choice = applicant.First_Choice
 		duplicatedUser.Second_Choice = applicant.Second_Choice
