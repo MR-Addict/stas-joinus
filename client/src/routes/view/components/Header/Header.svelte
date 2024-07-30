@@ -1,8 +1,8 @@
 <script lang="ts">
 	import url from '$lib/utils/url';
+	import view from '$stores/view';
 	import toast from 'svelte-french-toast';
 	import clickOutside from '$hooks/clickOutside';
-	import fetchApplicants from '$lib/applicant/fetchApplicants';
 
 	import type { TableFilter } from '$types/tableFilter';
 
@@ -11,32 +11,38 @@
 	export let tableFilter: TableFilter;
 
 	let pending = false;
+	let refreshed = false;
 	let showFilter = false;
 
 	async function handleRefresh() {
 		pending = true;
-		const toastId = toast('数据刷新中，请稍后...');
-		if (await fetchApplicants()) toast.success('数据刷新成功！', { id: toastId });
-		else toast.error('数据刷新失败！', { id: toastId });
+		refreshed = true;
+		setTimeout(() => (refreshed = false), 500);
+
+		const toastId = toast.loading('数据刷新中，请稍后...');
+		const res = await view.refersh();
+		if (res.success) toast.success(res.message, { id: toastId });
+		else toast.error(res.message, { id: toastId });
+
 		pending = false;
 	}
 </script>
 
 <header>
 	<h1>
-		<span>所有提交</span>
-		<button disabled={pending} type="button" on:click={handleRefresh}><RefreshCw size={16} /></button>
+		<span>所有数据</span>
+		<button disabled={pending} type="button" class:refreshed on:click={handleRefresh}><RefreshCw size={16} /></button>
 	</h1>
 
-	<a href={url('/api/applicants/download')} rel="external" download class="ml-auto btn">
+	<a href={url('/api/applicants/download')} rel="external" download class="ml-auto action-btn">
 		<div><ArrowDownToLine size={16} /></div>
-		<span>下载表格</span>
+		<span>导出Excel</span>
 	</a>
 
 	<div class="relative" use:clickOutside={() => (showFilter = false)}>
-		<button type="button" class="btn" on:click={() => (showFilter = !showFilter)}>
+		<button type="button" class="action-btn" on:click={() => (showFilter = !showFilter)}>
 			<div><Filter size={16} /></div>
-			<span>筛选表格</span>
+			<span>筛选信息</span>
 		</button>
 
 		<div class="filter" class:active={showFilter}>
@@ -97,14 +103,17 @@
 		@apply flex flex-row items-center gap-4;
 	}
 	h1 {
-		@apply flex flex-row items-center gap-0.5;
+		@apply flex flex-row items-center gap-1;
+
 		& span {
-			@apply text-gray-800;
+			@apply text-gray-800 text-lg font-semibold;
 		}
+
 		& button {
 			@apply text-gray-600 w-4;
-			&:hover {
-				@apply text-gray-800;
+
+			&.refreshed {
+				@apply rotate-180 duration-300;
 			}
 		}
 	}
@@ -114,6 +123,7 @@
 		@apply z-10 flex flex-col border border-gray-300;
 		@apply origin-top invisible opacity-0 duration-200 scale-y-95;
 		@apply rounded-md py-2.5 px-4 bg-white mt-1 absolute right-0 sm:right-1/2 sm:translate-x-1/2 top-full;
+
 		&.active {
 			@apply visible opacity-100 scale-y-100;
 		}
@@ -121,16 +131,18 @@
 
 	.option {
 		@apply whitespace-nowrap flex flex-row items-center gap-1.5;
+
 		& input {
 			appearance: none;
-			@apply relative;
-			@apply w-4 h-4 bg-gray-300 rounded-sm cursor-pointer;
+			@apply relative w-4 h-4 bg-gray-300 rounded-sm cursor-pointer;
+
 			&::before {
 				content: '';
 				@apply block w-2.5 h-2.5 bg-white scale-0 duration-100;
 				@apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
 				clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
 			}
+
 			&:checked {
 				@apply bg-blue-600;
 				&::before {
@@ -140,13 +152,7 @@
 		}
 	}
 
-	.btn {
-		@apply text-sm flex flex-row items-center text-gray-600;
-		&:hover {
-			@apply text-black border-gray-500;
-		}
-		& div {
-			width: 17px;
-		}
+	.action-btn {
+		@apply flex flex-row items-center;
 	}
 </style>

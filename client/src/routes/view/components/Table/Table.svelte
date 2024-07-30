@@ -1,11 +1,12 @@
 <script lang="ts">
-	import pagination from '$stores/pagination';
 	import formatDate from '$lib/utils/formatDate';
 	import type { TableFilter } from '$types/tableFilter';
 	import type { ApplicantType } from '$types/applicant';
+	import type { PaginationType } from '$types/pagination';
 
 	export let tableFilter: TableFilter;
 	export let applicants: ApplicantType[];
+	export let pagination: PaginationType;
 </script>
 
 <div class="w-full overflow-x-auto">
@@ -54,12 +55,12 @@
 		<tbody>
 			{#each applicants as applicant, index (applicant.id)}
 				<tr>
-					<td>{index + 1 + ($pagination.page - 1) * $pagination.page_size}</td>
+					<td>{index + 1 + (pagination.page - 1) * pagination.page_size}</td>
 					{#if tableFilter.name}
 						<td>{applicant.name}</td>
 					{/if}
 					{#if tableFilter.gender}
-						<td>{applicant.gender}</td>
+						<td>{applicant.gender === 'boy' ? '男' : '女'}</td>
 					{/if}
 					{#if tableFilter.phone}
 						<td>{applicant.phone}</td>
@@ -102,22 +103,21 @@
 		@apply w-full;
 	}
 	table th {
-		@apply text-gray-800 bg-gray-200 px-2 py-3;
+		@apply bg-gray-300 p-2 sm:p-3;
 	}
 	table tr {
 		@apply text-left align-text-top border-b border-b-gray-300;
-		&:hover {
-			@apply sm:bg-gray-100;
+		&:nth-last-of-type(2n) {
+			@apply bg-gray-100;
 		}
 	}
 	table td {
-		@apply text-gray-700 p-2;
+		@apply text-gray-700 p-2 sm:p-3;
 	}
 	table tr :is(th, td:not(:last-of-type)) {
 		@apply whitespace-nowrap;
 	}
 	table tr td:last-of-type {
-		width: 600px;
-		min-width: 300px;
+		@apply min-w-72 max-w-2xl;
 	}
 </style>

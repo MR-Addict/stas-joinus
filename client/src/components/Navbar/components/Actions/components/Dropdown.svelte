@@ -40,7 +40,7 @@
 
 	{#if $auth}
 		<div class="menu">
-			<a href="/table" class="btn">
+			<a href="/view" class="btn">
 				<span>报名数据</span>
 				<span class="icon">
 					<Table size={16} />
@@ -77,9 +77,10 @@
 	}
 
 	.menu {
+		box-shadow: 0 0 5px #d1d5db;
 		@apply w-44 absolute -bottom-2 right-1.5 translate-y-full;
 		@apply delay-100 origin-top-right duration-300 scale-50 opacity-0 invisible;
-		@apply shadow-md bg-white border border-gray-300 rounded-md py-1;
+		@apply bg-white border border-gray-300 rounded-md py-1;
 	}
 
 	.btn {

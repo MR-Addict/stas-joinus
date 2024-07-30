@@ -2,9 +2,8 @@
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 
+	import view from '$stores/view';
 	import auth from '$stores/auth';
-	import applicants from '$stores/applicants';
-	import fetchApplicants from '$lib/applicant/fetchApplicants';
 	import type { TableFilter } from '$types/tableFilter';
 
 	import Table from './components/Table/Table.svelte';
@@ -27,7 +26,7 @@
 	};
 
 	onMount(async () => {
-		if ($auth || (await auth.ping())) fetchApplicants();
+		if ($auth || (await auth.ping())) view.refersh();
 		else goto('/', { replaceState: true });
 	});
 </script>
@@ -37,13 +36,13 @@
 </svelte:head>
 
 <main>
-	{#if $applicants}
-		{#if $applicants.length > 0}
+	{#if $view}
+		{#if $view.applicants.length > 0}
 			<Header bind:tableFilter />
-			<Table applicants={$applicants} {tableFilter} />
-			<Pagination />
+			<Table applicants={$view.applicants} pagination={$view.pagination} {tableFilter} />
+			<Pagination pagination={$view.pagination} />
 		{:else}
-			<p>Woops！还没有任何数据哦</p>
+			<p>糟糕！还没有人提交</p>
 		{/if}
 	{:else}
 		<p>数据加载中，请稍后...</p>
@@ -52,7 +51,7 @@
 
 <style lang="postcss">
 	main {
-		@apply flex-1 py-5 sm:py-10 px-4 sm:px-20 flex flex-col gap-2;
+		@apply flex-1 py-5 sm:py-10 px-4 sm:px-10 flex flex-col gap-3;
 	}
 	p {
 		@apply w-full flex-1 flex items-center justify-center;

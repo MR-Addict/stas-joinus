@@ -1,24 +1,30 @@
 import z from 'zod';
 import url from '$lib/utils/url';
-import { get } from 'svelte/store';
 
-import applicants from '$stores/applicants';
-import pagination from '$stores/pagination';
-import { Applicant } from '$types/applicant';
-import { Pagination } from '$types/pagination';
+import type { ApiResultType } from '$types/app';
+import { Applicant, type ApplicantType } from '$types/applicant';
+import { Pagination, type PaginationType } from '$types/pagination';
 
-export default async function fetchApplicants(page?: number) {
+export default async function fetchApplicantsApi(
+	page: number = 1,
+	pageSize: number = 20
+): Promise<ApiResultType<{ applicants: ApplicantType[]; pagination: PaginationType }>> {
+	const defaultMessage = '报名信息获取失败';
+
 	try {
-		const pageData = get(pagination);
-		const path = `/api/applicants?page=${page || pageData.page}&page_size=${pageData.page_size}`;
+		const path = `/api/applicants?page=${page}&page_size=${pageSize}`;
 		const res = await fetch(url(path), { credentials: 'include' }).then((res) => res.json());
-		const result = z.object({ data: z.array(Applicant), pagination: Pagination }).parse(res);
-		applicants.set(result.data);
-		pagination.set(result.pagination);
-		return true;
+
+		const parsed = z.object({ data: z.array(Applicant), pagination: Pagination, message: z.string() }).safeParse(res);
+		if (parsed.success)
+			return {
+				success: true,
+				message: parsed.data.message,
+				data: { applicants: parsed.data.data, pagination: parsed.data.pagination }
+			};
+		else return { success: false, message: res.message || defaultMessage };
 	} catch (err) {
 		console.error(err);
-		applicants.set([]);
-		return false;
+		return { success: false, message: defaultMessage };
 	}
 }

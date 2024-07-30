@@ -30,6 +30,6 @@
 
 <style lang="postcss">
 	main {
-		@apply flex-1 flex flex-col items-center justify-center px-4 py-5 sm:py-10;
+		@apply flex flex-col items-center justify-center px-4 py-5 sm:py-10;
 	}
 </style>

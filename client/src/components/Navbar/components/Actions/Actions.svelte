@@ -23,7 +23,7 @@
 		@apply py-1.5 px-3 sm:py-2 sm:px-4 rounded-md duration-300 text-white bg-teal-700 text-sm;
 
 		&:hover {
-			@apply sm:bg-teal-800;
+			@apply bg-teal-800;
 		}
 	}
 </style>

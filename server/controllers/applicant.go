@@ -98,7 +98,7 @@ func ApplicantQuery(c *fiber.Ctx) error {
 	if findResult.Error != nil {
 		return c.Status(500).JSON(models.Response{Success: false, Message: "服务器内部错误", Data: findResult.Error.Error()})
 	} else {
-		return c.Status(200).JSON(models.Response{Success: true, Message: "数据读取成功", Data: applicants, Pagination: models.Pagination{Page: page, Total: total, Page_Size: pageSize}})
+		return c.Status(200).JSON(models.Response{Success: true, Message: "报名信息获取成功", Data: applicants, Pagination: models.Pagination{Page: page, Total: total, Page_Size: pageSize}})
 	}
 }
 

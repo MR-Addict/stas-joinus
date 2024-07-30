@@ -40,7 +40,7 @@
 
 <style lang="postcss">
 	main {
-		@apply flex-1 flex flex-col items-center justify-center px-4;
+		@apply flex flex-col items-center justify-center px-4;
 	}
 	img {
 		@apply max-w-sm w-full;
