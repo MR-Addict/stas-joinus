@@ -13,11 +13,12 @@ function createStore() {
 
 	function register(id: string, value: string, ref: HTMLDivElement, validate: (vale: string) => string) {
 		store.update((inputs) => {
+			const error = value ? validate(value) : '';
 			const inputIndex = inputs.findIndex((input) => input.id === id);
 			// alreay exists, update it
-			if (inputIndex !== -1) inputs[inputIndex] = { id, ref, value, error: '', validate };
+			if (inputIndex !== -1) inputs[inputIndex] = { id, ref, value, error, validate };
 			// new input, add it
-			else inputs.push({ id, ref, value, error: '', validate });
+			else inputs.push({ id, ref, value, error, validate });
 			return inputs;
 		});
 	}

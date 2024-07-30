@@ -24,7 +24,7 @@
 	}
 </script>
 
-<Modal bind:showModal>
+<Modal bind:showModal disabled={pending}>
 	<form on:submit|preventDefault={handleSubmit}>
 		<h1>用户登录</h1>
 		<p>非管理员请勿尝试登录</p>

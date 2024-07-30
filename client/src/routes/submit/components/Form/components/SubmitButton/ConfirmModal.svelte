@@ -7,7 +7,7 @@
 	export let showModal: boolean;
 </script>
 
-<Modal bind:showModal>
+<Modal bind:showModal disabled={pending}>
 	<div class="wrapper">
 		<h1>{`确认${$form.localApplicant === null ? '提交' : '修改'}`}</h1>
 
@@ -18,7 +18,7 @@
 		{/if}
 
 		<div class="btns">
-			<button type="button" on:click={() => (showModal = false)}>取消</button>
+			<button type="button" on:click={() => (showModal = false)} disabled={pending}>取消</button>
 			<button type="submit" disabled={pending}>
 				{#if pending}
 					<Spinner />
@@ -53,19 +53,20 @@
 		& button {
 			@apply py-2 w-full border-2 border-black rounded-md font-semibold duration-300;
 
-			&[type='button']:hover {
+			&:first-of-type:enabled:hover {
 				@apply bg-gray-200;
 			}
 
-			&[type='submit'] {
+			&:last-of-type {
 				@apply flex flex-row items-center justify-center gap-1 bg-yellow-400;
 
 				&:enabled:hover {
 					@apply bg-yellow-500;
 				}
-				&:disabled {
-					@apply bg-gray-300 text-gray-400 cursor-not-allowed;
-				}
+			}
+
+			&:disabled {
+				@apply bg-gray-300 text-gray-400 cursor-not-allowed;
 			}
 		}
 	}

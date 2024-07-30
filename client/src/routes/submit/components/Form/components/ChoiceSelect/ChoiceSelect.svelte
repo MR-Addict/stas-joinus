@@ -9,29 +9,43 @@
 	const first_label = 'first_choice';
 	const second_label = 'second_choice';
 
-	let error = '';
-	let ref: HTMLDivElement;
+	let first_error = '';
+	let second_error = '';
+	let firstRef: HTMLDivElement;
+	let secondRef: HTMLDivElement;
 	let first_choice = $form.localApplicant?.first_choice || '';
 	let second_choice = $form.localApplicant?.second_choice || '';
 
-	$: error = $inputs.find((input) => input.id === first_label)?.error || '';
+	$: first_error = $inputs.find((input) => input.id === first_label)?.error || '';
+	$: second_error = $inputs.find((input) => input.id === second_label)?.error || '';
 
-	onMount(() => inputs.register(first_label, first_choice + ',' + second_choice, ref, validate));
+	onMount(() => {
+		inputs.register(first_label, first_choice, firstRef, validateFirst);
+		inputs.register(second_label, second_choice, secondRef, validateSecond);
+	});
 
-	function handleChange() {
-		inputs.update(first_label, first_choice + ',' + second_choice);
+	function handleFirstChange() {
+		inputs.update(first_label, first_choice);
 	}
 
-	function validate(value: string) {
-		const [first, second] = value.split(',');
-		if (!first) return '请选择第一志愿';
-		else if (!second) return '请选择第二志愿';
-		else if (first === second) return '志愿重复，请修改第一或第二志愿';
+	function handleSecondChange() {
+		inputs.update(second_label, second_choice);
+	}
+
+	function validateFirst(value: string) {
+		if (!value) return '请选择第一志愿';
+		else if (value === second_choice) return '志愿重复，请修改第一或第二志愿';
+		else return '';
+	}
+
+	function validateSecond(value: string) {
+		if (!value) return '请选择第二志愿';
+		else if (value === first_choice) return '志愿重复，请修改第一或第二志愿';
 		else return '';
 	}
 </script>
 
-<div bind:this={ref} class="form" class:error>
+<div bind:this={firstRef} class="form" class:error={first_error}>
 	<h1 class="title">
 		<FlaskConical size={18} />
 		<span>第一志愿</span>
@@ -43,7 +57,7 @@
 		class="input"
 		disabled={$form.localApplicant?.modified}
 		bind:value={first_choice}
-		on:change={handleChange}
+		on:change={handleFirstChange}
 	>
 		<option disabled value="">--选择部门--</option>
 		<option value="技术开发部">技术开发部</option>
@@ -53,10 +67,10 @@
 		<option value="对外联络部">对外联络部</option>
 		<option value="双创联合服务部">双创联合服务部</option>
 	</select>
-	<p class="err-msg">{error}</p>
+	<p class="err-msg">{first_error}</p>
 </div>
 
-<div class="form" class:error>
+<div bind:this={secondRef} class="form" class:error={second_error}>
 	<h1 class="title">
 		<FlaskConical size={18} />
 		<span>第二志愿</span>
@@ -70,7 +84,7 @@
 		class="input"
 		disabled={$form.localApplicant?.modified}
 		bind:value={second_choice}
-		on:change={handleChange}
+		on:change={handleSecondChange}
 	>
 		<option disabled value="">--选择部门--</option>
 		<option value="技术开发部">技术开发部</option>
@@ -80,5 +94,5 @@
 		<option value="对外联络部">对外联络部</option>
 		<option value="双创联合服务部">双创联合服务部</option>
 	</select>
-	<p class="err-msg">{error}</p>
+	<p class="err-msg">{second_error}</p>
 </div>

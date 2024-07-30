@@ -25,13 +25,7 @@
 		pending = true;
 
 		const formData = new FormData();
-		$inputs.forEach((input) => {
-			if (input.id === 'first_choice') {
-				const [first, second] = input.value.split(',');
-				formData.append('first_choice', first);
-				formData.append('second_choice', second);
-			} else formData.append(input.id, input.value);
-		});
+		$inputs.forEach((input) => formData.append(input.id, input.value));
 
 		const res = await submitApplicantApi(formData);
 		if (res.success) {

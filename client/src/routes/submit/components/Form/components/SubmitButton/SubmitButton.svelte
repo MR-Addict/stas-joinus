@@ -3,7 +3,6 @@
 	import inputs from '$stores/inputs';
 
 	import ConfirmModal from './ConfirmModal.svelte';
-	import Spinner from '$components/Spinner/Spinner.svelte';
 
 	export let pending: boolean;
 
@@ -28,11 +27,8 @@
 	{/if}
 
 	{#if !$form.localApplicant?.modified}
-		<button data-type="action" disabled={pending} type="button" on:click={handleConfirm}>
-			{#if pending}
-				<Spinner />
-			{/if}
-			<span>{$form.localApplicant === null ? '提交' : '修改'}</span>
+		<button data-type="action" type="button" on:click={handleConfirm}>
+			{$form.localApplicant === null ? '提交' : '修改'}
 		</button>
 	{/if}
 </div>
@@ -42,7 +38,7 @@
 		@apply w-full flex flex-row items-center justify-center gap-4;
 
 		& button {
-			@apply py-2 w-full border-2 border-black rounded-md font-semibold duration-300;
+			@apply py-3 w-full border-2 border-black rounded-md font-semibold duration-300;
 
 			&:first-of-type:hover {
 				@apply bg-gray-200;
@@ -51,11 +47,8 @@
 			&[data-type='action'] {
 				@apply flex flex-row items-center justify-center gap-1 bg-yellow-400;
 
-				&:enabled:hover {
+				&:hover {
 					@apply bg-yellow-500;
-				}
-				&:disabled {
-					@apply bg-gray-300 text-gray-400 cursor-not-allowed;
 				}
 			}
 		}

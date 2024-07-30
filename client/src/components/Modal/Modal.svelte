@@ -2,6 +2,7 @@
 	import { scale } from 'svelte/transition';
 	import { browser } from '$app/environment';
 
+	export let disabled = false;
 	export let showModal: boolean;
 
 	$: if (browser) document.body.style.overflowY = showModal ? 'hidden' : 'auto';
@@ -13,7 +14,7 @@
 		<!-- svelte-ignore a11y-click-events-have-key-events -->
 		<div
 			class="modal"
-			on:click|self={() => (showModal = false)}
+			on:click|self={() => !disabled && (showModal = false)}
 			transition:scale={{ duration: 400, start: 0.4, opacity: 0 }}
 		>
 			<slot />
