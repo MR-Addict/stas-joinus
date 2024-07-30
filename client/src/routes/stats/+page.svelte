@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import stats from '$stores/stats';
-	import DoughnutChart from './DoughnutChart.svelte';
+
+	import DoughnutChart from './components/DoughnutChart.svelte';
 
 	onMount(stats.refersh);
 </script>

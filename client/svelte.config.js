@@ -10,6 +10,7 @@ const config = {
 		adapter: adapter(),
 		alias: {
 			$lib: path.resolve('./src/lib'),
+			$data: path.resolve('./src/data'),
 			$hooks: path.resolve('./src/hooks'),
 			$types: path.resolve('./src/types'),
 			$stores: path.resolve('./src/stores'),

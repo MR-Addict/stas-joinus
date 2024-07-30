@@ -1,13 +1,15 @@
 <script lang="ts">
 	import * as d3 from 'd3';
+	import { draw } from 'svelte/transition';
+
+	import colors from '$data/colors';
 
 	type DoughnutDataType = { label: string; value: number };
 
 	export let title: string;
+	export let data: DoughnutDataType[] = [];
 	export let size = { width: 380, height: 370 };
 	export let margin = { top: 0, right: 0, bottom: 0, left: 0 };
-
-	export let data: DoughnutDataType[] = [];
 
 	let total = 0;
 	let radius = 0;
@@ -18,8 +20,7 @@
 
 	const config = {
 		textAnchor: 'middle',
-		padding: { top: 5, right: 50, bottom: 30, left: 0 },
-		colorPalette: d3.scaleOrdinal(d3.schemeCategory10)
+		padding: { top: 5, right: 50, bottom: 30, left: 0 }
 	};
 
 	$: {
@@ -36,24 +37,22 @@
 
 		pie = d3
 			.pie<DoughnutDataType>()
-			.sort(null)
+			.sort((a, b) => b.label.localeCompare(a.label))
 			.value((d) => d.value);
 	}
 </script>
 
-{#if total <= 0}
-	<svg width={size.width} height={size.height}>
+<svg width={size.width} height={size.height}>
+	{#if total <= 0}
 		<circle cx={size.width / 2} cy={radius + config.padding.top} r={radius} fill="lightgray" />
 		<text x={size.width / 2} y={size.height / 2} text-anchor={config.textAnchor}>暂无数据</text>
 		<text x={size.width / 2} y={radius * 2 + config.padding.top + 20} text-anchor={config.textAnchor} font-weight="600">
 			{title}
 		</text>
-	</svg>
-{:else}
-	<svg width={size.width} height={size.height}>
+	{:else}
 		<g transform="translate({size.width / 2},{radius + config.padding.top})">
 			{#each pie(data.filter((d) => d.value > 0)) as d, i (d.data.label)}
-				<path d={arc(d)} fill={config.colorPalette(i.toString())} />
+				<path d={arc(d)} fill={colors[i % colors.length]} out:draw={{ duration: 300 }} />
 				<g transform="translate({arc.centroid(d)})">
 					<text text-anchor={config.textAnchor} dy="0" fill="white">
 						{d.data.value}
@@ -76,12 +75,12 @@
 		<g transform="translate({size.width / 2 + radius - config.padding.right}, {config.padding.top})">
 			{#each data as d, i (d.label)}
 				<g transform={`translate(0, ${i * 22})`}>
-					<rect width="12" height="12" fill={config.colorPalette(i.toString())} />
+					<rect width="12" height="12" fill={colors[i % colors.length]} />
 					<text x="17" y="5" dy=".35em" font-size="0.85rem">
 						{`${d.label}(${((d.value / total) * 100).toFixed(0)}%)`}
 					</text>
 				</g>
 			{/each}
 		</g>
-	</svg>
-{/if}
+	{/if}
+</svg>
