@@ -1,5 +1,7 @@
 <script lang="ts">
+	import mapGender from '$lib/utils/mapGender';
 	import formatDate from '$lib/utils/formatDate';
+
 	import type { TableFilter } from '$types/tableFilter';
 	import type { ApplicantType } from '$types/applicant';
 	import type { PaginationType } from '$types/pagination';
@@ -60,7 +62,7 @@
 						<td>{applicant.name}</td>
 					{/if}
 					{#if tableFilter.gender}
-						<td>{applicant.gender === 'boy' ? '男' : '女'}</td>
+						<td>{mapGender(applicant.gender)}</td>
 					{/if}
 					{#if tableFilter.phone}
 						<td>{applicant.phone}</td>
@@ -98,7 +100,7 @@
 	</table>
 </div>
 
-<style lang="postcss">
+<style>
 	table {
 		@apply w-full;
 	}

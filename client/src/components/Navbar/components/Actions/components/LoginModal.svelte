@@ -43,7 +43,7 @@
 	</form>
 </Modal>
 
-<style lang="postcss">
+<style>
 	form {
 		@apply flex flex-col items-center gap-2;
 		@apply bg-white p-7 w-full max-w-xs rounded-lg text-center;

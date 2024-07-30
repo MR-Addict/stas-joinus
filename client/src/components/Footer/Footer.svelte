@@ -29,7 +29,7 @@
 	</p>
 </footer>
 
-<style lang="postcss">
+<style>
 	footer {
 		@apply bg-slate-800 text-white px-4 sm:px-32 py-10 flex flex-col gap-4;
 	}

@@ -22,7 +22,7 @@
 	</div>
 {/if}
 
-<style lang="postcss">
+<style>
 	.backdrop {
 		@apply backdrop-blur-sm bg-black/30 fixed inset-0 z-20;
 	}

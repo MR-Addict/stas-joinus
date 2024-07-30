@@ -8,7 +8,7 @@
 
 <main>{$page.status} | {$page.error?.message || 'Error'}</main>
 
-<style lang="postcss">
+<style>
 	main {
 		min-height: calc(100vh - 60px);
 		min-height: calc(100svh - 60px);

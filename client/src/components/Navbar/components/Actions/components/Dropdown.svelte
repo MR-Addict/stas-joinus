@@ -47,7 +47,7 @@
 				</span>
 			</a>
 
-			<a href="/chart" class="btn">
+			<a href="/stats" class="btn">
 				<span>报名统计</span>
 				<span class="icon">
 					<ChartArea size={16} />
@@ -67,7 +67,7 @@
 	{/if}
 </div>
 
-<style lang="postcss">
+<style>
 	.menu-wrapper {
 		@apply relative flex items-center justify-center;
 

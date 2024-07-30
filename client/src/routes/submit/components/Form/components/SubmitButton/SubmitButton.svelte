@@ -33,7 +33,7 @@
 	{/if}
 </div>
 
-<style lang="postcss">
+<style>
 	.btns {
 		@apply w-full flex flex-row items-center justify-center gap-4;
 

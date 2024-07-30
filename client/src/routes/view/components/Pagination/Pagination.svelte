@@ -45,7 +45,7 @@
 	</div>
 {/if}
 
-<style lang="postcss">
+<style>
 	.wrapper {
 		@apply w-full flex flex-row items-center flex-wrap gap-2;
 	}

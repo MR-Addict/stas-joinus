@@ -29,7 +29,7 @@
 	</div>
 </Modal>
 
-<style lang="postcss">
+<style>
 	.wrapper {
 		@apply max-w-sm bg-white p-7 sm:p-10 flex flex-col items-center rounded-xl gap-2;
 	}

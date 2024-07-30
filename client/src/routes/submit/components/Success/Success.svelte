@@ -11,7 +11,7 @@
 	<button type="button" on:click={() => form.updateShowForm(true)}>查看志愿</button>
 </div>
 
-<style lang="postcss">
+<style>
 	div {
 		@apply w-full flex flex-col items-center justify-center gap-2;
 	}

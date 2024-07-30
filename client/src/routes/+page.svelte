@@ -38,7 +38,7 @@
 	<a href="/submit">现在报名</a>
 </main>
 
-<style lang="postcss">
+<style>
 	main {
 		@apply flex flex-col items-center justify-center px-4;
 	}

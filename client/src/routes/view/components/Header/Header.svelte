@@ -98,7 +98,7 @@
 	</div>
 </header>
 
-<style lang="postcss">
+<style>
 	header {
 		@apply flex flex-row items-center gap-4;
 	}

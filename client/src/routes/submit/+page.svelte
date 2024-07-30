@@ -15,7 +15,7 @@
 </script>
 
 <svelte:head>
-	<title>校大学生科协 • 参与报名</title>
+	<title>参与报名 • 校大学生科协</title>
 </svelte:head>
 
 <main>
@@ -28,7 +28,7 @@
 	</TimeValidation>
 </main>
 
-<style lang="postcss">
+<style>
 	main {
 		@apply flex flex-col items-center justify-center px-4 py-5 sm:py-10;
 	}

@@ -58,7 +58,7 @@
 	<SubmitButton {pending} />
 </form>
 
-<style lang="postcss">
+<style>
 	form {
 		@apply w-full max-w-xl flex flex-col gap-7;
 	}

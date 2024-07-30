@@ -32,7 +32,7 @@
 </script>
 
 <svelte:head>
-	<title>校大学生科协 • 后台管理</title>
+	<title>报名数据 • 校大学生科协</title>
 </svelte:head>
 
 <main>
@@ -49,9 +49,9 @@
 	{/if}
 </main>
 
-<style lang="postcss">
+<style>
 	main {
-		@apply flex-1 py-5 sm:py-10 px-4 sm:px-10 flex flex-col gap-3;
+		@apply py-5 sm:py-10 px-4 sm:px-10 flex flex-col gap-3;
 	}
 	p {
 		@apply w-full flex-1 flex items-center justify-center;

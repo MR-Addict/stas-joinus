@@ -14,7 +14,7 @@
 	<Dropdown bind:showModal={showModal.login} />
 </div>
 
-<style lang="postcss">
+<style>
 	.wrapper {
 		@apply relative flex items-center justify-center gap-3 sm:gap-5;
 	}

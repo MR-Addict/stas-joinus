@@ -11,7 +11,7 @@
 	</div>
 </Modal>
 
-<style lang="postcss">
+<style>
 	div {
 		@apply w-full h-full pointer-events-none flex items-center justify-center p-10;
 	}
