@@ -36,7 +36,8 @@
 		pie = d3
 			.pie<DoughnutChartDataType>()
 			.sort(null)
-			.value((d) => d.value);
+			.value((d) => d.value)
+			.padAngle(0.01);
 	}
 </script>
 
@@ -49,7 +50,7 @@
 	{:else}
 		<g transform="translate({size.width / 2},{radius + config.padding.top})">
 			{#each pie(data.filter((d) => d.value > 0)) as d, i (d.data.label)}
-				<path d={arc(d)} fill={colors[i % colors.length]} class="pie" stroke="white" stroke-width="0.125rem" />
+				<path d={arc(d)} fill={colors[i % colors.length]} class="pie" />
 				<g transform="translate({arc.centroid(d)})">
 					<text text-anchor="middle" fill="white" alignment-baseline="middle">
 						{d.data.value}
