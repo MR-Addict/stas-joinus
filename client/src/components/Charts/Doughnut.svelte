@@ -6,9 +6,6 @@
 
 	export let title: string;
 	export let data: DoughnutChartDataType[] = [];
-	export let ref: SVGElement | undefined = undefined;
-	export let size = { width: 380, height: 370 };
-	export let margin = { top: 0, right: 0, bottom: 0, left: 0 };
 
 	let total = 0;
 	let radius = 0;
@@ -18,14 +15,15 @@
 	let arc: d3.Arc<any, d3.PieArcDatum<DoughnutChartDataType>>;
 
 	const config = {
-		padding: { top: 5, right: 50, bottom: 30, left: 0 }
+		view: { width: 400, height: 400 },
+		padding: { top: 10, right: 50, bottom: 0, left: 0 }
 	};
 
 	$: {
 		total = data.reduce((acc, d) => acc + d.value, 0);
 
-		innerSize.width = size.width - margin.left - margin.right - config.padding.left - config.padding.right;
-		innerSize.height = size.height - margin.top - margin.bottom - config.padding.top - config.padding.bottom;
+		innerSize.width = config.view.width - config.padding.left - config.padding.right;
+		innerSize.height = config.view.height - config.padding.top - config.padding.bottom;
 		radius = Math.min(innerSize.width, innerSize.height) / 2;
 
 		arc = d3
@@ -41,60 +39,62 @@
 	}
 </script>
 
-<svg bind:this={ref} width={size.width} height={size.height}>
-	{#if total <= 0}
-		<g transform="translate({size.width / 2},{radius + config.padding.top})">
-			<circle r={radius} fill="lightgray" />
-			<!-- animation circle -->
-			{#key data}
-				<circle r={Math.ceil(radius / 2 + 1)} fill="none" stroke="white" stroke-width={radius} class="animation" />
-			{/key}
-			<text text-anchor="middle" alignment-baseline="middle">暂无数据</text>
-		</g>
-	{:else}
-		<g transform="translate({size.width / 2},{radius + config.padding.top})">
-			{#each pie(data.filter((d) => d.value > 0)) as d, i (d.data.label)}
-				<path d={arc(d)} fill={colors[i % colors.length]} />
-				<text transform="translate({arc.centroid(d)})" text-anchor="middle" fill="white" alignment-baseline="middle">
-					{d.data.value}
-				</text>
-			{/each}
-
-			<!-- animation circle -->
-			{#key data}
-				<circle r={Math.ceil(radius / 2 + 1)} fill="none" stroke="white" stroke-width={radius} class="animation" />
-			{/key}
-
-			<!-- add total number in the center of doughnut -->
-			<text x="0" y="0" text-anchor="middle" alignment-baseline="middle">
-				{total}
-			</text>
-		</g>
-
-		<!-- put lengends at the top right corner -->
-		<g transform="translate({size.width / 2 + radius - config.padding.right}, {config.padding.top})">
-			{#each data.filter((d) => d.value > 0) as d, i (d.label)}
-				<g transform={`translate(0, ${i * 22})`}>
-					<rect width="10" height="10" fill={colors[i % colors.length]} />
-					<text x="15" dy=".4em" font-size="0.85rem" alignment-baseline="middle">
-						{`${d.label}(${((d.value / total) * 100).toFixed(0)}%)`}
+<div class="w-full">
+	<svg viewBox="0 0 {config.view.width} {config.view.height}" style="width: 100%;height:100%;">
+		{#if total <= 0}
+			<g transform="translate({config.view.width / 2},{radius + config.padding.top})">
+				<circle r={radius} fill="lightgray" />
+				<!-- animation circle -->
+				{#key data}
+					<circle r={Math.ceil(radius / 2 + 1)} fill="none" stroke="white" stroke-width={radius} class="animation" />
+				{/key}
+				<text text-anchor="middle" alignment-baseline="middle">暂无数据</text>
+			</g>
+		{:else}
+			<g transform="translate({config.view.width / 2},{radius + config.padding.top})">
+				{#each pie(data) as d, i (d.data.label)}
+					<path d={arc(d)} fill={colors[i % colors.length]} />
+					<text transform="translate({arc.centroid(d)})" text-anchor="middle" fill="white" alignment-baseline="middle">
+						{d.data.value}
 					</text>
-				</g>
-			{/each}
-		</g>
-	{/if}
+				{/each}
 
-	<!-- add title under the doughnut -->
-	<text
-		x={size.width / 2}
-		y={radius * 2 + config.padding.top + 20}
-		text-anchor="middle"
-		alignment-baseline="middle"
-		font-weight="600"
-	>
-		{title}
-	</text>
-</svg>
+				<!-- animation circle -->
+				{#key data}
+					<circle r={Math.ceil(radius / 2 + 1)} fill="none" stroke="white" stroke-width={radius} class="animation" />
+				{/key}
+
+				<!-- add total number in the center of doughnut -->
+				<text x="0" y="0" text-anchor="middle" alignment-baseline="middle">
+					{total}
+				</text>
+			</g>
+
+			<!-- put lengends at the top right corner -->
+			<g transform="translate({config.view.width / 2 + radius - config.padding.right}, {config.padding.top})">
+				{#each data as d, i (d.label)}
+					<g transform={`translate(0, ${i * 22})`}>
+						<rect width="10" height="10" fill={colors[i % colors.length]} />
+						<text x="15" dy=".4em" font-size="0.85rem" alignment-baseline="middle">
+							{`${d.label}(${((d.value / total) * 100).toFixed(0)}%)`}
+						</text>
+					</g>
+				{/each}
+			</g>
+		{/if}
+
+		<!-- add title under the doughnut -->
+		<text
+			x={config.view.width / 2}
+			y={radius * 2 + config.padding.top + 20}
+			text-anchor="middle"
+			alignment-baseline="middle"
+			font-weight="600"
+		>
+			{title}
+		</text>
+	</svg>
+</div>
 
 <style>
 	.animation {
