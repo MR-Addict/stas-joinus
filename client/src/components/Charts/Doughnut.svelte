@@ -3,11 +3,11 @@
 	import { draw } from 'svelte/transition';
 
 	import colors from '$data/colors';
-
-	type DoughnutDataType = { label: string; value: number };
+	import type { DoughnutChartDataType } from '$types/chart';
 
 	export let title: string;
-	export let data: DoughnutDataType[] = [];
+	export let data: DoughnutChartDataType[] = [];
+	export let ref: SVGElement | undefined = undefined;
 	export let size = { width: 380, height: 370 };
 	export let margin = { top: 0, right: 0, bottom: 0, left: 0 };
 
@@ -15,11 +15,10 @@
 	let radius = 0;
 	let innerSize = { width: 0, height: 0 };
 
-	let pie: d3.Pie<any, DoughnutDataType>;
-	let arc: d3.Arc<any, d3.PieArcDatum<DoughnutDataType>>;
+	let pie: d3.Pie<any, DoughnutChartDataType>;
+	let arc: d3.Arc<any, d3.PieArcDatum<DoughnutChartDataType>>;
 
 	const config = {
-		textAnchor: 'middle',
 		padding: { top: 5, right: 50, bottom: 30, left: 0 }
 	};
 
@@ -31,56 +30,61 @@
 		radius = Math.min(innerSize.width, innerSize.height) / 2;
 
 		arc = d3
-			.arc<d3.PieArcDatum<DoughnutDataType>>()
+			.arc<d3.PieArcDatum<DoughnutChartDataType>>()
 			.innerRadius(radius * 0.5)
 			.outerRadius(radius * 1);
 
 		pie = d3
-			.pie<DoughnutDataType>()
-			.sort((a, b) => b.label.localeCompare(a.label))
+			.pie<DoughnutChartDataType>()
+			.sort(null)
 			.value((d) => d.value);
 	}
 </script>
 
-<svg width={size.width} height={size.height}>
+<svg bind:this={ref} width={size.width} height={size.height}>
 	{#if total <= 0}
 		<circle cx={size.width / 2} cy={radius + config.padding.top} r={radius} fill="lightgray" />
-		<text x={size.width / 2} y={size.height / 2} text-anchor={config.textAnchor}>暂无数据</text>
-		<text x={size.width / 2} y={radius * 2 + config.padding.top + 20} text-anchor={config.textAnchor} font-weight="600">
-			{title}
-		</text>
+		<text x={size.width / 2} y={size.height / 2} text-anchor="middle" alignment-baseline="middle">暂无数据</text>
 	{:else}
 		<g transform="translate({size.width / 2},{radius + config.padding.top})">
 			{#each pie(data.filter((d) => d.value > 0)) as d, i (d.data.label)}
-				<path d={arc(d)} fill={colors[i % colors.length]} out:draw={{ duration: 300 }} />
+				{#key d.data}
+					<path d={arc(d)} fill={colors[i % colors.length]} transition:draw={{ duration: 300 }} />
+				{/key}
 				<g transform="translate({arc.centroid(d)})">
-					<text text-anchor={config.textAnchor} dy="0" fill="white">
+					<text text-anchor="middle" fill="white" alignment-baseline="middle">
 						{d.data.value}
 					</text>
 				</g>
 			{/each}
 
 			<!-- add total number in the center of doughnut -->
-			<text x="0" y="0" text-anchor={config.textAnchor} dy=".45rem">
+			<text x="0" y="0" text-anchor="middle" alignment-baseline="middle">
 				{total}
 			</text>
 		</g>
-
-		<!-- add title under the doughnut -->
-		<text x={size.width / 2} y={radius * 2 + config.padding.top + 20} text-anchor={config.textAnchor} font-weight="600">
-			{title}
-		</text>
 
 		<!-- put lengends at the top right corner -->
 		<g transform="translate({size.width / 2 + radius - config.padding.right}, {config.padding.top})">
 			{#each data as d, i (d.label)}
 				<g transform={`translate(0, ${i * 22})`}>
-					<rect width="12" height="12" fill={colors[i % colors.length]} />
-					<text x="17" y="5" dy=".35em" font-size="0.85rem">
+					<rect width="10" height="10" fill={colors[i % colors.length]} />
+					<text x="15" dy=".4em" font-size="0.85rem" alignment-baseline="middle">
 						{`${d.label}(${((d.value / total) * 100).toFixed(0)}%)`}
 					</text>
 				</g>
 			{/each}
 		</g>
 	{/if}
+
+	<!-- add title under the doughnut -->
+	<text
+		x={size.width / 2}
+		y={radius * 2 + config.padding.top + 20}
+		text-anchor="middle"
+		alignment-baseline="middle"
+		font-weight="600"
+	>
+		{title}
+	</text>
 </svg>

@@ -1,25 +1,19 @@
 <script lang="ts">
-	import mapGender from '$lib/utils/mapGender';
-	import type { ApplicantChoiceStatsType, ApplicantStatsType, GenderType } from '$types/applicant';
+	import type { ApplicantStatsType } from '$types/applicant';
 
-	import Doughnut from '$components/Charts/Doughnut.svelte';
+	import DoughnutChart from './DoughnutChart.svelte';
 
 	export let data: ApplicantStatsType[];
 
-	console.log(data);
-
 	const firstChoice = { name: '第一志愿', label: 'first_choice' } as const;
 	const secondChoice = { name: '第二志愿', label: 'second_choice' } as const;
+
 	type ChoiceType = typeof firstChoice | typeof secondChoice;
 
 	let toggleChoice = true;
 	let choice: ChoiceType = firstChoice;
 
 	$: choice = toggleChoice ? firstChoice : secondChoice;
-
-	function mapData(data: ApplicantChoiceStatsType) {
-		return Object.entries(data).map(([label, value]) => ({ label: mapGender(label as GenderType), value }));
-	}
 </script>
 
 <div class="wrapper">
@@ -33,7 +27,7 @@
 
 	<div class="doughnuts">
 		{#each data as d (d.name)}
-			<Doughnut data={mapData(d[choice.label])} title={`${d.name}（${choice.name}）`} />
+			<DoughnutChart data={d[choice.label]} title={`${d.name}（${choice.name}）`} />
 		{/each}
 	</div>
 </div>
@@ -67,6 +61,6 @@
 	}
 
 	.doughnuts {
-		@apply w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 place-items-center gap-5 sm:gap-10;
+		@apply w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 place-items-center gap-10;
 	}
 </style>

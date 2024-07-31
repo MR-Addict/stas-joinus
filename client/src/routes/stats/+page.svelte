@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import stats from '$stores/stats';
 
-	import DoughnutChart from './components/DoughnutChart.svelte';
+	import DoughnutCharts from './components/DoughnutCharts/DoughnutCharts.svelte';
 
 	onMount(stats.refersh);
 </script>
@@ -13,7 +13,7 @@
 
 <main>
 	{#if $stats}
-		<DoughnutChart data={$stats} />
+		<DoughnutCharts data={$stats} />
 	{:else}
 		<p>数据加载中，请稍后...</p>
 	{/if}
