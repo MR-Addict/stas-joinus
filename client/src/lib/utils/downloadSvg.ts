@@ -1,4 +1,4 @@
-export default function downloadSvg(svg: SVGElement, filename: string, scale = 2) {
+export default function downloadSvg(svg: SVGElement, filename: string, scale = 3) {
 	if (!svg.hasAttribute('xmlns')) svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
 
 	const svgData = new XMLSerializer().serializeToString(svg);

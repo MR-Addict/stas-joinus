@@ -1,32 +1,46 @@
 <script lang="ts">
-	import mapGender from '$lib/utils/mapGender';
+	import { onMount, onDestroy } from 'svelte';
 	import { ArrowDownToLine } from 'lucide-svelte';
 	import type { ApplicantChoiceStatsType, GenderType } from '$types/applicant';
 
+	import mapGender from '$lib/utils/mapGender';
 	import downloadSvg from '$lib/utils/downloadSvg';
 	import Doughnut from '$components/Charts/Doughnut.svelte';
 
 	export let title: string;
 	export let data: ApplicantChoiceStatsType;
 
-	let ref: SVGElement;
+	let svgRef: SVGElement;
+	let wrapperRef: HTMLDivElement;
+	let dimensions: { width: number; height: number };
 
 	function mapData(data: ApplicantChoiceStatsType) {
 		return Object.entries(data).map(([label, value]) => ({ label: mapGender(label as GenderType), value }));
 	}
+
+	const observer = new ResizeObserver((entries) => {
+		for (let entry of entries) {
+			const { width, height } = entry.contentRect;
+			dimensions = { width, height };
+		}
+	});
+
+	onMount(() => observer.observe(wrapperRef));
+	onDestroy(() => observer.disconnect());
 </script>
 
-<div>
-	<Doughnut data={mapData(data)} {title} bind:ref />
+<div bind:this={wrapperRef}>
+	<Doughnut data={mapData(data)} {title} bind:ref={svgRef} size={dimensions} />
 
-	<button type="button" on:click={() => downloadSvg(ref, title)}>
+	<button type="button" on:click={() => downloadSvg(svgRef, title)}>
 		<ArrowDownToLine size={16} />
 	</button>
 </div>
 
 <style>
 	div {
-		@apply relative shadow-md rounded-xl p-5 border border-gray-300;
+		height: 420px;
+		@apply w-full flex items-center justify-center relative shadow-md rounded-xl p-5 border border-gray-300;
 	}
 
 	button {

@@ -37,6 +37,10 @@
 		@apply w-full flex flex-col items-center justify-center gap-5;
 	}
 
+	.doughnuts {
+		@apply w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 place-items-center gap-10;
+	}
+
 	button {
 		@apply relative flex flex-row items-center gap-2 rounded-md py-2 px-2 bg-black/10 isolate;
 
@@ -58,9 +62,5 @@
 				transform: translateX(calc(-100% - var(--px)));
 			}
 		}
-	}
-
-	.doughnuts {
-		@apply w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 place-items-center gap-10;
 	}
 </style>

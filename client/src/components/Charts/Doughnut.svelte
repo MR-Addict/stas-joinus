@@ -44,7 +44,9 @@
 <svg bind:this={ref} width={size.width} height={size.height}>
 	{#if total <= 0}
 		<circle cx={size.width / 2} cy={radius + config.padding.top} r={radius} fill="lightgray" />
-		<text x={size.width / 2} y={size.height / 2} text-anchor="middle" alignment-baseline="middle">暂无数据</text>
+		<text x={size.width / 2} y={radius + config.padding.top} text-anchor="middle" alignment-baseline="middle">
+			暂无数据
+		</text>
 	{:else}
 		<g transform="translate({size.width / 2},{radius + config.padding.top})">
 			{#each pie(data.filter((d) => d.value > 0)) as d, i (d.data.label)}
