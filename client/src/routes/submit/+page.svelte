@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 
 	import form from '$stores/form';
+	import config from '$stores/config';
 
 	import Form from './components/Form/Form.svelte';
 	import Success from './components/Success/Success.svelte';
@@ -19,13 +20,17 @@
 </svelte:head>
 
 <main>
-	<TimeValidation>
-		{#if $form.showForm}
-			<Form />
-		{:else}
-			<Success />
-		{/if}
-	</TimeValidation>
+	{#if $config}
+		<TimeValidation config={$config}>
+			{#if $form.showForm}
+				<Form />
+			{:else}
+				<Success />
+			{/if}
+		</TimeValidation>
+	{:else}
+		<p>数据加载中，请稍后...</p>
+	{/if}
 </main>
 
 <style>

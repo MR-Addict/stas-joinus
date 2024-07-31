@@ -14,22 +14,12 @@ func UserPing(c *fiber.Ctx) error {
 }
 
 func UserLogout(c *fiber.Ctx) error {
-	secure := true
-	httpOnly := true
-	sameSite := "Lax"
-	if configs.Config.Server.Cors != "" {
-		secure = false
-		httpOnly = false
-		sameSite = "None"
-	}
-
 	cookie := fiber.Cookie{
 		Name:     "joinus_token",
 		Value:    "",
 		Path:     "/",
-		Secure:   secure,
-		HTTPOnly: httpOnly,
-		SameSite: sameSite,
+		HTTPOnly: true,
+		SameSite: "Lax",
 		Expires:  time.Now().Add(-time.Hour),
 	}
 
@@ -59,22 +49,12 @@ func UserLogin(c *fiber.Ctx) error {
 		return c.Status(500).JSON(models.Response{Success: false, Message: "无法生成token"})
 	}
 
-	secure := true
-	httpOnly := true
-	sameSite := "Lax"
-	if configs.Config.Server.Cors != "" {
-		secure = false
-		httpOnly = false
-		sameSite = "None"
-	}
-
 	cookie := fiber.Cookie{
 		Name:     "joinus_token",
 		Value:    s,
 		Path:     "/",
-		Secure:   secure,
-		HTTPOnly: httpOnly,
-		SameSite: sameSite,
+		HTTPOnly: true,
+		SameSite: "Lax",
 		MaxAge:   60 * 60 * 24 * 30,
 	}
 

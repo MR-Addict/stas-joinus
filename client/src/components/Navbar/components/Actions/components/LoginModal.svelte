@@ -16,9 +16,12 @@
 
 		pending = true;
 
-		const loginRes = await auth.login(formData);
-		if (!loginRes.success) toast.error(loginRes.message);
-		else showModal = false;
+		const res = await auth.login(formData);
+		if (!res.success) toast.error(res.message);
+		else {
+			toast.success(res.message);
+			showModal = false;
+		}
 
 		pending = false;
 	}

@@ -24,7 +24,7 @@
 
 <style>
 	.backdrop {
-		@apply backdrop-blur-sm bg-black/30 fixed inset-0 z-20;
+		@apply backdrop-blur-sm bg-black/30 fixed inset-0 z-30;
 	}
 	.modal {
 		@apply w-full h-full flex flex-col items-center justify-center p-4;

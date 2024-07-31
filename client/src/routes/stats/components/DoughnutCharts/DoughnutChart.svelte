@@ -39,8 +39,8 @@
 
 <style>
 	div {
-		height: 420px;
-		@apply w-full flex items-center justify-center relative shadow-md rounded-xl p-5 border border-gray-300;
+		@apply shadow-md rounded-xl p-5 border border-gray-300;
+		@apply h-[350px] sm:h-[420px] w-full flex items-center justify-center relative;
 	}
 
 	button {

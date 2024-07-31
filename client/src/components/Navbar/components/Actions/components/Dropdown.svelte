@@ -17,6 +17,7 @@
 
 		const res = await auth.logout();
 		if (res.success) {
+			toast.success(res.message);
 			if ($page.url.pathname !== '/' && $page.url.pathname !== '/submit/') goto('/');
 		} else toast.error(res.message);
 

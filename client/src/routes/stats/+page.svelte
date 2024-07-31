@@ -25,6 +25,6 @@
 
 <style>
 	main {
-		@apply px-4 py-5 lg:px-20 sm:py-10 flex flex-col items-center gap-3;
+		@apply px-4 py-5 lg:px-20 sm:py-10 flex flex-col items-center justify-center gap-3;
 	}
 </style>

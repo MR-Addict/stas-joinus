@@ -55,11 +55,9 @@
 		<g transform="translate({size.width / 2},{radius + config.padding.top})">
 			{#each pie(data.filter((d) => d.value > 0)) as d, i (d.data.label)}
 				<path d={arc(d)} fill={colors[i % colors.length]} />
-				<g transform="translate({arc.centroid(d)})">
-					<text text-anchor="middle" fill="white" alignment-baseline="middle">
-						{d.data.value}
-					</text>
-				</g>
+				<text transform="translate({arc.centroid(d)})" text-anchor="middle" fill="white" alignment-baseline="middle">
+					{d.data.value}
+				</text>
 			{/each}
 
 			<!-- animation circle -->
@@ -75,7 +73,7 @@
 
 		<!-- put lengends at the top right corner -->
 		<g transform="translate({size.width / 2 + radius - config.padding.right}, {config.padding.top})">
-			{#each data as d, i (d.label)}
+			{#each data.filter((d) => d.value > 0) as d, i (d.label)}
 				<g transform={`translate(0, ${i * 22})`}>
 					<rect width="10" height="10" fill={colors[i % colors.length]} />
 					<text x="15" dy=".4em" font-size="0.85rem" alignment-baseline="middle">
@@ -105,7 +103,7 @@
 
 	@keyframes draw {
 		from {
-			stroke-dasharray: 1000, 20;
+			stroke-dasharray: 1000, 0;
 		}
 
 		to {
