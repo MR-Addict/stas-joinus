@@ -32,7 +32,7 @@
 <div bind:this={wrapperRef}>
 	<Doughnut data={mapData(data)} {title} bind:ref={svgRef} size={dimensions} />
 
-	<button type="button" on:click={() => downloadSvg(svgRef, title)}>
+	<button type="button" on:click={() => downloadSvg(svgRef, title)} aria-label="download">
 		<ArrowDownToLine size={16} />
 	</button>
 </div>

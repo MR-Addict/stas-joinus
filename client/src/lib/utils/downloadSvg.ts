@@ -1,5 +1,7 @@
 export default function downloadSvg(svg: SVGElement, filename: string, scale = 3) {
 	if (!svg.hasAttribute('xmlns')) svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+	// remove circles which has .animation class
+	svg.querySelectorAll('circle.animation').forEach((el) => el.remove());
 
 	const svgData = new XMLSerializer().serializeToString(svg);
 	const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });

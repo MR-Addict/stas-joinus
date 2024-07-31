@@ -11,14 +11,12 @@ function createStore() {
 	async function login(formData: FormData) {
 		const res = await userLoginApi(formData);
 		authorized.set(res.success);
-		toast(res.message);
 		return res;
 	}
 
 	async function ping() {
 		const res = await userPingApi();
 		authorized.set(res.success);
-		toast(res.message);
 		return res;
 	}
 

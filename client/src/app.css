@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 main {
-	@apply flex-1 bg-gray-50;
+	@apply flex-1;
 }

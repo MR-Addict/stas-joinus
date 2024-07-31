@@ -43,20 +43,29 @@
 
 <svg bind:this={ref} width={size.width} height={size.height}>
 	{#if total <= 0}
-		<circle cx={size.width / 2} cy={radius + config.padding.top} r={radius} fill="lightgray" />
-		<text x={size.width / 2} y={radius + config.padding.top} text-anchor="middle" alignment-baseline="middle">
-			暂无数据
-		</text>
+		<g transform="translate({size.width / 2},{radius + config.padding.top})">
+			<circle r={radius} fill="lightgray" />
+			<!-- animation circle -->
+			{#key data}
+				<circle r={Math.ceil(radius / 2 + 1)} fill="none" stroke="white" stroke-width={radius} class="animation" />
+			{/key}
+			<text text-anchor="middle" alignment-baseline="middle">暂无数据</text>
+		</g>
 	{:else}
 		<g transform="translate({size.width / 2},{radius + config.padding.top})">
 			{#each pie(data.filter((d) => d.value > 0)) as d, i (d.data.label)}
-				<path d={arc(d)} fill={colors[i % colors.length]} class="pie" />
+				<path d={arc(d)} fill={colors[i % colors.length]} />
 				<g transform="translate({arc.centroid(d)})">
 					<text text-anchor="middle" fill="white" alignment-baseline="middle">
 						{d.data.value}
 					</text>
 				</g>
 			{/each}
+
+			<!-- animation circle -->
+			{#key data}
+				<circle r={Math.ceil(radius / 2 + 1)} fill="none" stroke="white" stroke-width={radius} class="animation" />
+			{/key}
 
 			<!-- add total number in the center of doughnut -->
 			<text x="0" y="0" text-anchor="middle" alignment-baseline="middle">
@@ -88,3 +97,19 @@
 		{title}
 	</text>
 </svg>
+
+<style>
+	.animation {
+		animation: draw 1.5s forwards;
+	}
+
+	@keyframes draw {
+		from {
+			stroke-dasharray: 1000, 20;
+		}
+
+		to {
+			stroke-dasharray: 0, 1000;
+		}
+	}
+</style>
