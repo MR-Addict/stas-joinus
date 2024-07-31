@@ -42,7 +42,7 @@
 	}
 
 	button {
-		@apply relative flex flex-row items-center gap-2 rounded-md py-2 px-2 bg-black/10 isolate;
+		@apply relative flex flex-row items-center gap-2 rounded-md py-2 px-2 bg-black/10 isolate 2xl:mb-5;
 
 		& .option {
 			@apply py-1 px-2 rounded-md duration-300;

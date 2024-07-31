@@ -1,6 +1,5 @@
 <script lang="ts">
 	import * as d3 from 'd3';
-	import { draw } from 'svelte/transition';
 
 	import colors from '$data/colors';
 	import type { DoughnutChartDataType } from '$types/chart';
@@ -50,9 +49,7 @@
 	{:else}
 		<g transform="translate({size.width / 2},{radius + config.padding.top})">
 			{#each pie(data.filter((d) => d.value > 0)) as d, i (d.data.label)}
-				{#key d.data}
-					<path d={arc(d)} fill={colors[i % colors.length]} transition:draw={{ duration: 300 }} />
-				{/key}
+				<path d={arc(d)} fill={colors[i % colors.length]} class="pie" stroke="white" stroke-width="0.125rem" />
 				<g transform="translate({arc.centroid(d)})">
 					<text text-anchor="middle" fill="white" alignment-baseline="middle">
 						{d.data.value}
