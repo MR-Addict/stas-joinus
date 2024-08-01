@@ -44,6 +44,7 @@
 		{#if total <= 0}
 			<g transform="translate({config.view.width / 2},{radius + config.padding.top})">
 				<circle r={radius} fill="lightgray" />
+
 				<!-- animation circle -->
 				{#key data}
 					<circle r={Math.ceil(radius / 2 + 1)} fill="none" stroke="white" stroke-width={radius} class="animation" />
@@ -65,9 +66,11 @@
 				{/key}
 
 				<!-- add total number in the center of doughnut -->
-				<text text-anchor="middle" alignment-baseline="middle">
-					{total}
-				</text>
+				{#key data}
+					<text class="bar-value" text-anchor="middle" alignment-baseline="middle">
+						{total}
+					</text>
+				{/key}
 			</g>
 
 			<!-- put lengends at the top right corner -->
@@ -97,6 +100,17 @@
 </div>
 
 <style>
+	.bar-value {
+		opacity: 0;
+		animation: scaelUp 0.5s forwards;
+		animation-delay: 0.5s;
+	}
+	@keyframes scaelUp {
+		to {
+			opacity: 1;
+		}
+	}
+
 	.animation {
 		animation: draw 1.5s forwards;
 	}

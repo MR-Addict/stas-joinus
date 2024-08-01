@@ -1,6 +1,6 @@
 <script lang="ts">
-	import formatDate from '$lib/utils/formatDate';
 	import config from '$stores/config';
+	import formatDate from '$lib/utils/formatDate';
 	import billboard from './images/billboard.png';
 </script>
 

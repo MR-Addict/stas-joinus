@@ -56,14 +56,17 @@
 					height={Math.max(innerSize.height - y(d.value), config.minBarHeight)}
 					fill={colors[i % colors.length]}
 				/>
-				<text
-					x={(x(d.label) || 0) + x.bandwidth() / 2}
-					y={Math.min(y(d.value), innerSize.height - config.minBarHeight) - 4}
-					text-anchor="top"
-					font-size="0.9rem"
-				>
-					{d.value}
-				</text>
+				{#key data}
+					<text
+						x={(x(d.label) || 0) + x.bandwidth() / 2}
+						y={Math.min(y(d.value), innerSize.height - config.minBarHeight) - 4}
+						text-anchor="top"
+						font-size="0.9rem"
+						class="bar-value"
+					>
+						{d.value}
+					</text>
+				{/key}
 				<text
 					x={(x(d.label) || 0) + x.bandwidth() / 2}
 					y={innerSize.height}
@@ -99,6 +102,21 @@
 </svg>
 
 <style>
+	.bar-value {
+		opacity: 0;
+		animation: slideIn 0.5s forwards;
+		animation-delay: 0.5s;
+	}
+	@keyframes slideIn {
+		from {
+			transform: translateY(-10px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
 	.bar {
 		opacity: 0.9;
 		transition:
