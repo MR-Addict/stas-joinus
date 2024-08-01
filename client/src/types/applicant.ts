@@ -1,6 +1,7 @@
 import z from 'zod';
 
-const Gender = z.enum(['boy', 'girl']);
+import { firstChoice, secondChoice } from '$data/choice';
+
 const Options = z.enum(['技术开发部', '组织策划部', '科普活动部', '新闻宣传部', '对外联络部', '双创联合服务部']);
 
 const ApplicantChoiceStats = z.object({ boy: z.number(), girl: z.number() });
@@ -11,9 +12,11 @@ const ApplicantStats = z.object({
 	second_choice: ApplicantChoiceStats
 });
 
+type ChoiceType = typeof firstChoice | typeof secondChoice;
+
 const ApplicantSubmit = z.object({
 	name: z.string().min(2).max(20),
-	gender: Gender,
+	gender: z.enum(['boy', 'girl']),
 	phone: z.string().length(11),
 	email: z.string().email().max(320),
 	qq: z.string().min(5).max(11),
@@ -27,11 +30,10 @@ const ApplicantSubmit = z.object({
 
 const Applicant = z.object({ id: z.number(), modified: z.boolean(), submitted_at: z.string() }).merge(ApplicantSubmit);
 
-type GenderType = z.TypeOf<typeof Gender>;
 type ApplicantChoiceStatsType = z.TypeOf<typeof ApplicantChoiceStats>;
 type ApplicantStatsType = z.TypeOf<typeof ApplicantStats>;
 type ApplicantSubmitType = z.TypeOf<typeof ApplicantSubmit>;
 type ApplicantType = z.TypeOf<typeof Applicant>;
 
-export { Applicant, ApplicantSubmit, ApplicantStats, ApplicantChoiceStats, Gender };
-export type { ApplicantType, ApplicantSubmitType, ApplicantStatsType, ApplicantChoiceStatsType, GenderType };
+export { Applicant, ApplicantSubmit, ApplicantStats, ApplicantChoiceStats };
+export type { ApplicantType, ApplicantSubmitType, ApplicantStatsType, ApplicantChoiceStatsType, ChoiceType };

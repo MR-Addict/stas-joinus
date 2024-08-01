@@ -1,11 +1,14 @@
 <script lang="ts">
-	export let toggleChoice: boolean;
+	import type { ChoiceType } from '$types/applicant';
+	import { firstChoice, secondChoice } from '$data/choice';
+
+	export let choice: ChoiceType;
 </script>
 
-<button type="button" on:click={() => (toggleChoice = !toggleChoice)}>
-	<span class="bubble" class:active={toggleChoice} />
-	<span class="option" class:active={toggleChoice}>第一志愿</span>
-	<span class="option" class:active={!toggleChoice}>第二志愿</span>
+<button type="button" on:click={() => (choice = choice.label === 'first_choice' ? secondChoice : firstChoice)}>
+	<span class="bubble" class:active={choice.label === 'first_choice'} />
+	<span class="option" class:active={choice.label === 'first_choice'}>第一志愿</span>
+	<span class="option" class:active={choice.label === 'second_choice'}>第二志愿</span>
 </button>
 
 <style>

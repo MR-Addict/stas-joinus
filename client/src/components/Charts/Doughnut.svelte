@@ -2,17 +2,17 @@
 	import * as d3 from 'd3';
 
 	import colors from '$data/colors';
-	import type { DoughnutChartDataType } from '$types/chart';
+	import type { ChartDataType } from '$types/chart';
 
 	export let title: string;
-	export let data: DoughnutChartDataType[] = [];
+	export let data: ChartDataType[];
 
 	let total = 0;
 	let radius = 0;
 	let innerSize = { width: 0, height: 0 };
 
-	let pie: d3.Pie<any, DoughnutChartDataType>;
-	let arc: d3.Arc<any, d3.PieArcDatum<DoughnutChartDataType>>;
+	let pie: d3.Pie<any, ChartDataType>;
+	let arc: d3.Arc<any, d3.PieArcDatum<ChartDataType>>;
 
 	const config = {
 		view: { width: 400, height: 400 },
@@ -27,12 +27,12 @@
 		radius = Math.min(innerSize.width, innerSize.height) / 2;
 
 		arc = d3
-			.arc<d3.PieArcDatum<DoughnutChartDataType>>()
+			.arc<d3.PieArcDatum<ChartDataType>>()
 			.innerRadius(radius * 0.5)
 			.outerRadius(radius * 1);
 
 		pie = d3
-			.pie<DoughnutChartDataType>()
+			.pie<ChartDataType>()
 			.sort(null)
 			.value((d) => d.value)
 			.padAngle(0.01);
@@ -40,7 +40,7 @@
 </script>
 
 <div class="w-full">
-	<svg viewBox="0 0 {config.view.width} {config.view.height}" style="width: 100%;height:100%;">
+	<svg viewBox="0 0 {config.view.width} {config.view.height}" style="width: 100%; height:100%;">
 		{#if total <= 0}
 			<g transform="translate({config.view.width / 2},{radius + config.padding.top})">
 				<circle r={radius} fill="lightgray" />
@@ -65,7 +65,7 @@
 				{/key}
 
 				<!-- add total number in the center of doughnut -->
-				<text x="0" y="0" text-anchor="middle" alignment-baseline="middle">
+				<text text-anchor="middle" alignment-baseline="middle">
 					{total}
 				</text>
 			</g>
@@ -75,7 +75,7 @@
 				{#each data as d, i (d.label)}
 					<g transform={`translate(0, ${i * 22})`}>
 						<rect width="10" height="10" fill={colors[i % colors.length]} />
-						<text x="15" dy=".4em" font-size="0.85rem" alignment-baseline="middle">
+						<text x="15" dy=".4rem" font-size="0.85rem" alignment-baseline="middle">
 							{`${d.label}(${((d.value / total) * 100).toFixed(0)}%)`}
 						</text>
 					</g>

@@ -1,18 +1,15 @@
 <script lang="ts">
-	import DoughnutChart from './DoughnutChart.svelte';
-	import type { ApplicantStatsType } from '$types/applicant';
+	import Doughnut from '$components/Charts/Doughnut.svelte';
 
-	export let toggleChoice: boolean;
+	import mapGender from '$lib/utils/mapGender';
+	import type { ApplicantStatsType, ApplicantChoiceStatsType, ChoiceType } from '$types/applicant';
+
+	export let choice: ChoiceType;
 	export let data: ApplicantStatsType[];
 
-	const firstChoice = { name: '第一志愿', label: 'first_choice' } as const;
-	const secondChoice = { name: '第二志愿', label: 'second_choice' } as const;
-
-	type ChoiceType = typeof firstChoice | typeof secondChoice;
-
-	let choice: ChoiceType = firstChoice;
-
-	$: choice = toggleChoice ? firstChoice : secondChoice;
+	function mapData(data: ApplicantChoiceStatsType) {
+		return Object.entries(data).map(([label, value]) => ({ label: mapGender(label), value }));
+	}
 </script>
 
 <div class="wrapper">
@@ -20,14 +17,14 @@
 
 	<div class="doughnuts">
 		{#each data as d (d.name)}
-			<DoughnutChart data={d[choice.label]} title={`${d.name}（${choice.name}）`} />
+			<Doughnut data={mapData(d[choice.label])} title={`${d.name}（${choice.name}）`} />
 		{/each}
 	</div>
 </div>
 
 <style>
 	.wrapper {
-		@apply w-full flex flex-col items-center justify-center gap-5 isolate;
+		@apply w-full flex flex-col items-center justify-center gap-5;
 	}
 
 	.doughnuts {

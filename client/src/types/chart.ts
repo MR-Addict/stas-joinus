@@ -1,3 +1,3 @@
-type DoughnutChartDataType = { label: string; value: number };
+type ChartDataType = { label: string; value: number };
 
-export type { DoughnutChartDataType };
+export type { ChartDataType };
