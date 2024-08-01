@@ -1,12 +1,10 @@
 <script lang="ts">
-	import url from '$lib/utils/url';
+	import { Filter, RefreshCw } from 'lucide-svelte';
+
 	import view from '$stores/view';
 	import toast from 'svelte-french-toast';
 	import clickOutside from '$hooks/clickOutside';
-
 	import type { TableFilter } from '$types/tableFilter';
-
-	import { ArrowDownToLine, Filter, RefreshCw } from 'lucide-svelte';
 
 	export let tableFilter: TableFilter;
 
@@ -34,12 +32,7 @@
 		<button disabled={pending} type="button" class:refreshed on:click={handleRefresh}><RefreshCw size={16} /></button>
 	</h1>
 
-	<a href={url('/api/applicants/download')} rel="external" download class="ml-auto action-btn">
-		<div><ArrowDownToLine size={16} /></div>
-		<span>导出Excel</span>
-	</a>
-
-	<div class="relative" use:clickOutside={() => (showFilter = false)}>
+	<div class="ml-auto relative" use:clickOutside={() => (showFilter = false)}>
 		<button type="button" class="action-btn" on:click={() => (showFilter = !showFilter)}>
 			<div><Filter size={16} /></div>
 			<span>筛选信息</span>

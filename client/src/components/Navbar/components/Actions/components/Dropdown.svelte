@@ -2,9 +2,10 @@
 	import toast from 'svelte-french-toast';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
-	import { ChartArea, GripVertical, LogOut, Table, User } from 'lucide-svelte';
+	import { ChartArea, GripVertical, ArrowDownToLine, LogOut, Table, User } from 'lucide-svelte';
 
 	import auth from '$stores/auth';
+	import url from '$lib/utils/url';
 
 	import Spinner from '$components/Spinner/Spinner.svelte';
 
@@ -43,16 +44,17 @@
 		<div class="menu">
 			<a href="/view" class="btn">
 				<span>报名数据</span>
-				<span class="icon">
-					<Table size={16} />
-				</span>
+				<span class="icon"><Table size={16} /></span>
 			</a>
 
 			<a href="/stats" class="btn">
 				<span>报名统计</span>
-				<span class="icon">
-					<ChartArea size={16} />
-				</span>
+				<span class="icon"><ChartArea size={16} /></span>
+			</a>
+
+			<a href={url('/api/applicants/download')} rel="external" download class="btn">
+				<span>下载表格</span>
+				<span class="icon"><ArrowDownToLine size={16} /></span>
 			</a>
 
 			<button type="button" class="btn" on:click={handleLogout} disabled={pending}>
@@ -60,9 +62,7 @@
 					<Spinner />
 				{/if}
 				<span>退出登录</span>
-				<span class="icon">
-					<LogOut size={16} />
-				</span>
+				<span class="icon"><LogOut size={16} /></span>
 			</button>
 		</div>
 	{/if}
