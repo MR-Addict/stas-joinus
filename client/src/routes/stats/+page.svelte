@@ -4,10 +4,10 @@
 	import stats from '$stores/stats';
 	import { firstChoice } from '$data/choice';
 	import type { ChoiceType } from '$types/applicant';
-
+	
+	import BarCharts from './components/BarCharts/BarCharts.svelte';
 	import ToggleChoice from './components/ToggleChoice/ToggleChoice.svelte';
 	import DoughnutCharts from './components/DoughnutCharts/DoughnutCharts.svelte';
-	import BarCharts from './components/BarCharts/BarCharts.svelte';
 
 	let choice: ChoiceType = firstChoice;
 
