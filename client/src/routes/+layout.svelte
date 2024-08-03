@@ -4,10 +4,10 @@
 
 	import '../app.css';
 	import auth from '$stores/auth';
+	import config from '$stores/config';
 
 	import Footer from '$components/Footer/Footer.svelte';
 	import Navbar from '$components/Navbar/Navbar.svelte';
-	import config from '$stores/config';
 
 	onMount(() => {
 		auth.ping();

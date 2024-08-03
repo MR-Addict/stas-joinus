@@ -12,6 +12,16 @@
 	export let showModal = false;
 
 	let pending = false;
+	let showDropdown = false;
+
+	function closeDropwdown() {
+		showDropdown = false;
+	}
+
+	function handleClick() {
+		if (!$auth) showModal = true;
+		else showDropdown = !showDropdown;
+	}
 
 	async function handleLogout() {
 		pending = true;
@@ -31,7 +41,7 @@
 		type="button"
 		aria-label="action button"
 		class="text-gray-600 hover:bg-black/10 rounded-full p-1 duration-300"
-		on:click={() => !$auth && (showModal = true)}
+		on:click={handleClick}
 	>
 		{#if $auth}
 			<GripVertical />
@@ -41,18 +51,18 @@
 	</button>
 
 	{#if $auth}
-		<div class="menu">
-			<a href="/view" class="btn">
+		<div class="menu" class:active={showDropdown}>
+			<a href="/view" class="btn" on:click={closeDropwdown}>
 				<span>报名数据</span>
 				<span class="icon"><Table size={16} /></span>
 			</a>
 
-			<a href="/stats" class="btn">
+			<a href="/stats" class="btn" on:click={closeDropwdown}>
 				<span>报名统计</span>
 				<span class="icon"><ChartArea size={16} /></span>
 			</a>
 
-			<a href={url('/api/applicants/download')} rel="external" download class="btn">
+			<a href={url('/api/applicants/download')} rel="external" download class="btn" on:click={closeDropwdown}>
 				<span>下载表格</span>
 				<span class="icon"><ArrowDownToLine size={16} /></span>
 			</a>
@@ -71,10 +81,6 @@
 <style>
 	.menu-wrapper {
 		@apply relative flex items-center justify-center;
-
-		&:hover .menu {
-			@apply scale-100 opacity-100 visible;
-		}
 	}
 
 	.menu {
@@ -82,6 +88,10 @@
 		@apply w-44 absolute -bottom-2 right-1.5 translate-y-full;
 		@apply delay-100 origin-top-right duration-300 scale-50 opacity-0 invisible;
 		@apply bg-white border border-gray-300 rounded-md py-1;
+
+		&.active {
+			@apply scale-100 opacity-100 visible;
+		}
 	}
 
 	.btn {
