@@ -6,6 +6,7 @@
 
 	import auth from '$stores/auth';
 	import url from '$lib/utils/url';
+	import clickOutside from '$hooks/clickOutside';
 
 	import Spinner from '$components/Spinner/Spinner.svelte';
 
@@ -15,7 +16,7 @@
 	let showDropdown = false;
 
 	function closeDropwdown() {
-		showDropdown = false;
+		if ($auth) showDropdown = false;
 	}
 
 	function handleClick() {
@@ -36,7 +37,7 @@
 	}
 </script>
 
-<div class="menu-wrapper">
+<div class="menu-wrapper" use:clickOutside={closeDropwdown}>
 	<button
 		type="button"
 		aria-label="action button"
@@ -84,9 +85,9 @@
 	}
 
 	.menu {
-		box-shadow: 0 0 5px #d1d5db;
+		box-shadow: 0 0 5px #71737680;
 		@apply w-44 absolute -bottom-2 right-1.5 translate-y-full;
-		@apply delay-100 origin-top-right duration-300 scale-50 opacity-0 invisible;
+		@apply origin-top-right duration-300 scale-50 opacity-0 invisible;
 		@apply bg-white border border-gray-300 rounded-md py-1;
 
 		&.active {

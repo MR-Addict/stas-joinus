@@ -26,7 +26,7 @@
 	};
 
 	onMount(async () => {
-		if ($auth || (await auth.ping())) view.refersh();
+		if ($auth || (await auth.ping()).success) view.refersh();
 		else goto('/', { replaceState: true });
 	});
 </script>
