@@ -49,7 +49,8 @@
 		@apply flex flex-row items-center text-gray-500;
 
 		& .skeleton {
-			@apply w-36 h-5 rounded-sm bg-gray-300 animate-pulse;
+			width: 144.88px;
+			@apply h-5 rounded-sm bg-gray-300 animate-pulse;
 		}
 	}
 	a {

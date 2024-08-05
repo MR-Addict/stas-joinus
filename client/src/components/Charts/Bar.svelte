@@ -104,8 +104,7 @@
 <style>
 	.bar-value {
 		opacity: 0;
-		animation: slideIn 0.5s forwards;
-		animation-delay: 0.5s;
+		animation: 500ms slideIn 300ms forwards;
 	}
 	@keyframes slideIn {
 		from {
@@ -120,8 +119,8 @@
 	.bar {
 		opacity: 0.9;
 		transition:
-			height 0.5s ease,
-			y 0.5s ease;
+			height 500ms ease,
+			y 500ms ease;
 	}
 	.animate {
 		animation: fadeIn 2s;
@@ -130,7 +129,6 @@
 		from {
 			opacity: 0;
 		}
-
 		to {
 			opacity: 1;
 		}
