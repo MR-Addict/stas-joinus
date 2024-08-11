@@ -2,11 +2,11 @@
 	import mapGender from '$lib/utils/mapGender';
 	import formatDate from '$lib/utils/formatDate';
 
-	import type { TableFilter } from '$types/tableFilter';
 	import type { ApplicantType } from '$types/applicant';
 	import type { PaginationType } from '$types/pagination';
+	import type { TableFilterType } from '$types/tableFilter';
 
-	export let tableFilter: TableFilter;
+	export let tableFilter: TableFilterType;
 	export let applicants: ApplicantType[];
 	export let pagination: PaginationType;
 </script>
@@ -114,7 +114,7 @@
 		}
 	}
 	table td {
-		@apply text-gray-700 p-2 sm:p-3;
+		@apply text-gray-700 p-2 sm:py-3;
 	}
 	table tr :is(th, td:not(:last-of-type)) {
 		@apply whitespace-nowrap;

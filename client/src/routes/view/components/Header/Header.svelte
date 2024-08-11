@@ -4,9 +4,9 @@
 	import view from '$stores/view';
 	import toast from 'svelte-french-toast';
 	import clickOutside from '$hooks/clickOutside';
-	import type { TableFilter } from '$types/tableFilter';
+	import type { TableFilterType } from '$types/tableFilter';
 
-	export let tableFilter: TableFilter;
+	export let tableFilter: TableFilterType;
 
 	let pending = false;
 	let refreshed = false;
@@ -106,7 +106,7 @@
 			@apply text-gray-600 w-4;
 
 			&.refreshed {
-				@apply rotate-180 duration-300;
+				@apply rotate-180 duration-500;
 			}
 		}
 	}

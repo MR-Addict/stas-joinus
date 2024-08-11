@@ -1,33 +1,27 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
+	import { browser } from '$app/environment';
 
 	import view from '$stores/view';
 	import auth from '$stores/auth';
-	import type { TableFilter } from '$types/tableFilter';
+	import filter from './lib/filter';
 
 	import Table from './components/Table/Table.svelte';
 	import Header from './components/Header/Header.svelte';
 	import Pagination from './components/Pagination/Pagination.svelte';
 
-	let tableFilter: TableFilter = {
-		name: true,
-		gender: true,
-		phone: false,
-		qq: false,
-		email: false,
-		student_id: true,
-		college: false,
-		major: false,
-		created_at: false,
-		first_choice: true,
-		second_choice: true,
-		introduction: true
-	};
+	let loaded = false;
+	let tableFilter = filter.default;
+
+	$: if (browser && loaded) filter.save(tableFilter);
 
 	onMount(async () => {
 		if ($auth || (await auth.ping()).success) view.refersh();
 		else goto('/', { replaceState: true });
+
+		tableFilter = filter.load();
+		loaded = true;
 	});
 </script>
 

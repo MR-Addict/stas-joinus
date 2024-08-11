@@ -1,16 +1,21 @@
-interface TableFilter {
-	name: boolean;
-	gender: boolean;
-	phone: boolean;
-	qq: boolean;
-	email: boolean;
-	student_id: boolean;
-	college: boolean;
-	major: boolean;
-	created_at: boolean;
-	first_choice: boolean;
-	second_choice: boolean;
-	introduction: boolean;
-}
+import { z } from 'zod';
 
-export type { TableFilter };
+const TableFilter = z.object({
+	name: z.boolean(),
+	gender: z.boolean(),
+	phone: z.boolean(),
+	qq: z.boolean(),
+	email: z.boolean(),
+	student_id: z.boolean(),
+	college: z.boolean(),
+	major: z.boolean(),
+	created_at: z.boolean(),
+	first_choice: z.boolean(),
+	second_choice: z.boolean(),
+	introduction: z.boolean()
+});
+
+type TableFilterType = z.infer<typeof TableFilter>;
+
+export type { TableFilterType };
+export { TableFilter };
