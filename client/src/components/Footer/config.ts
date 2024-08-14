@@ -2,7 +2,7 @@ export const links = [
 	{
 		group: '关于技术部',
 		items: [
-			{ name: '值班笔记', path: 'https://punch.mraddict.top' },
+			{ name: '值班笔记', path: 'https://punch.doiry.cn' },
 			{ name: '本站仓库', path: 'https://github.com/MR-Addict/stas-joinus' },
 			{ name: '技术部文档', path: 'https://github.com/NJTUSTAS' }
 		]

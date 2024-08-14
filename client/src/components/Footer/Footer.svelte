@@ -8,7 +8,7 @@
 	<ul class="w-full grid grid-cols-2 md:grid-cols-3 gap-5">
 		{#each links as category (category.group)}
 			<li class="space-y-2">
-				<h1 class="font-semibold text-gray-200">{category.group}</h1>
+				<h1 class="font-semibold">{category.group}</h1>
 				<ul>
 					{#each category.items as item (item.name)}
 						<li>
@@ -23,27 +23,25 @@
 		{/each}
 	</ul>
 
-	<p class="copyright">
-		<span>Copyright &copy; {new Date().getFullYear()} 校大学生科协.</span>
-		<a href="https://beian.miit.gov.cn" target="_blank">苏ICP备2022032826号</a>
+	<p>
+		{`Copyright © ${new Date().getFullYear()} 校大学生科协`}
 	</p>
 </footer>
 
 <style>
 	footer {
-		@apply bg-slate-800 text-white px-4 sm:px-32 py-10 flex flex-col gap-4;
+		@apply px-4 sm:px-32 py-10 flex flex-col gap-4 border-t border-t-gray-300;
 	}
 
 	a {
-		@apply flex flex-row items-center gap-1 w-fit duration-300;
+		@apply flex flex-row items-center gap-1 w-fit duration-300 text-gray-700;
+
 		&:hover {
 			@apply text-green-600;
 		}
+
 		& .icon {
 			@apply block w-4;
 		}
-	}
-	.copyright {
-		@apply flex flex-row flex-wrap gap-2;
 	}
 </style>

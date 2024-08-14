@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+	@apply bg-white font-sans;
+}
+
 main {
-	@apply flex-1 bg-white;
+	@apply flex-1;
 }
