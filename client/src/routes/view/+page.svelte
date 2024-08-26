@@ -47,6 +47,7 @@
 	main {
 		@apply py-5 sm:py-10 px-4 sm:px-10 flex flex-col gap-3;
 	}
+
 	p {
 		@apply w-full flex-1 flex items-center justify-center;
 	}

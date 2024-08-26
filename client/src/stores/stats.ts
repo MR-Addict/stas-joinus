@@ -8,7 +8,6 @@ function createStore() {
 	async function refersh() {
 		const res = await fetchStats();
 		if (res.success) store.set(res.data);
-		else store.set(null);
 		return res;
 	}
 

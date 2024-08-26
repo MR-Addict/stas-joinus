@@ -3,7 +3,7 @@
 	import Actions from './components/Actions/Actions.svelte';
 </script>
 
-<nav>
+<nav class="gradienter">
 	<Header />
 	<Actions />
 </nav>

@@ -35,6 +35,6 @@
 
 <style>
 	main {
-		@apply flex flex-col items-center justify-center px-4 py-5 sm:py-10;
+		@apply flex flex-col items-center justify-center px-4 pb-20 pt-5 sm:pt-10;
 	}
 </style>

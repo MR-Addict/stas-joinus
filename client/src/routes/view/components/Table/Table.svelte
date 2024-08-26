@@ -109,9 +109,6 @@
 	}
 	table tr {
 		@apply text-left align-text-top border-b border-b-gray-300;
-		&:nth-last-of-type(2n) {
-			@apply bg-gray-100;
-		}
 	}
 	table td {
 		@apply text-gray-700 p-2 sm:py-3;

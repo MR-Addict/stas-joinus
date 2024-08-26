@@ -4,7 +4,7 @@
 
 <style>
 	header {
-		@apply w-full mb-3 flex flex-row items-center justify-center gap-2;
+		@apply w-full flex flex-row items-center justify-center gap-2;
 	}
 	h1 {
 		@apply text-2xl font-semibold text-gray-800;

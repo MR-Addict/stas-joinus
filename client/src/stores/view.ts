@@ -8,8 +8,7 @@ function createStore() {
 
 	async function refersh(page: number = 1) {
 		const res = await fetchApplicantsApi(page, get(store)?.pagination.page_size || 50);
-		if (!res.success) store.set(null);
-		else store.set(res.data);
+		if (res.success) store.set(res.data);
 		return res;
 	}
 

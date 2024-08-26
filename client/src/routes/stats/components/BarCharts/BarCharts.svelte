@@ -1,7 +1,8 @@
 <script lang="ts">
+	import { onDestroy, onMount } from 'svelte';
+
 	import Bar from '$components/Charts/Bar.svelte';
 	import type { ApplicantStatsType, ChoiceType } from '$types/applicant';
-	import { onDestroy, onMount } from 'svelte';
 
 	export let choice: ChoiceType;
 	export let data: ApplicantStatsType[];

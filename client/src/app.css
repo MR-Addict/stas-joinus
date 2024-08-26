@@ -2,8 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+	.gradienter {
+		@apply bg-gradient-to-br from-blue-50 to-purple-50;
+	}
+}
+
 body {
-	@apply bg-white font-sans;
+	@apply bg-white font-sans gradienter;
 }
 
 main {

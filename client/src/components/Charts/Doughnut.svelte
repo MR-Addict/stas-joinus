@@ -112,7 +112,7 @@
 	}
 
 	.animation {
-		animation: draw 1.5s forwards;
+		animation: draw 1s forwards;
 	}
 
 	@keyframes draw {

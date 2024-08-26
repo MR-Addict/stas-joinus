@@ -1,6 +1,6 @@
 .form {
-	box-shadow: 0 0 5px #d1d5db;
-	@apply w-full p-5 rounded-md flex flex-col gap-2 border border-gray-300;
+	box-shadow: 0 0 5px #4b556340;
+	@apply w-full flex flex-col gap-2 p-5 border border-gray-400 rounded-md;
 }
 
 .form .title {
@@ -12,11 +12,12 @@
 }
 
 .form .input {
-	@apply outline-none bg-gray-100 rounded-none px-2 py-2 border-b-2 border-b-gray-400;
+	@apply outline-none bg-transparent px-2 py-2 border border-gray-500 rounded-sm;
 
 	&:enabled:focus {
-		@apply border-b-teal-600;
+		@apply outline outline-2 outline-teal-600;
 	}
+
 	&:disabled {
 		@apply text-gray-400 cursor-not-allowed;
 	}
@@ -29,8 +30,9 @@
 
 .form.error {
 	& .input {
-		@apply border-b-red-600;
+		outline: 2px solid #f56565 !important;
 	}
+
 	& .err-msg {
 		@apply text-red-600 max-h-10;
 	}
