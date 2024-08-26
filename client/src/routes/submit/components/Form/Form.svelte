@@ -5,7 +5,6 @@
 	import inputs from '$stores/inputs';
 	import submitApplicantApi from '$lib/applicant/submitApplicant';
 
-	import Header from './components/Header/Header.svelte';
 	import SubmitButton from './components/SubmitButton/SubmitButton.svelte';
 
 	import NameInput from './components/NameInput/NameInput.svelte';
@@ -42,8 +41,6 @@
 </script>
 
 <form on:submit|preventDefault={handleSubmit}>
-	<Header />
-
 	<div class="group">
 		<p>个人信息</p>
 		<NameInput />

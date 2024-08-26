@@ -45,7 +45,7 @@
 
 <style>
 	main {
-		@apply py-5 sm:py-10 px-4 sm:px-10 flex flex-col gap-3;
+		@apply px-4 sm:px-10 pb-20 pt-5 sm:pt-10 flex flex-col gap-3;
 	}
 
 	p {

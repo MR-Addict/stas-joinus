@@ -36,7 +36,7 @@
 
 <style>
 	main {
-		@apply px-4 py-5 lg:px-20 sm:py-10 flex flex-col items-center justify-center gap-5;
+		@apply px-4 lg:px-20 pb-20 pt-5 sm:pt-10 flex flex-col items-center justify-center gap-5;
 	}
 	hr {
 		@apply w-full border-t border-gray-300 my-5;
