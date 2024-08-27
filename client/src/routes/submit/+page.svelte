@@ -20,7 +20,11 @@
 </svelte:head>
 
 <main>
-	{#if $config}
+	{#if $config === undefined}
+		<p>数据加载中，请稍后...</p>
+	{:else if $config === null}
+		<p>无法连接至服务器，请联系我们</p>
+	{:else if $config}
 		<TimeValidation config={$config}>
 			{#if $form.showForm}
 				<Form />
@@ -28,8 +32,6 @@
 				<Success />
 			{/if}
 		</TimeValidation>
-	{:else}
-		<p>数据加载中，请稍后...</p>
 	{/if}
 </main>
 

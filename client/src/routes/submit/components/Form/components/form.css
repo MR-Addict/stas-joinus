@@ -1,6 +1,6 @@
 .form {
 	box-shadow: 0 0 5px #4b556340;
-	@apply w-full flex flex-col gap-2 p-5 border border-gray-400 rounded-md;
+	@apply w-full flex flex-col gap-2 p-5 border border-gray-400 rounded-md bg-white;
 }
 
 .form .title {

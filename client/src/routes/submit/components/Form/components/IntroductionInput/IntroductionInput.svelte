@@ -39,7 +39,7 @@
 	<textarea
 		{id}
 		name={id}
-		class="input h-40"
+		class="input h-48"
 		placeholder="你的自我介绍"
 		disabled={$form.localApplicant?.modified}
 		bind:value

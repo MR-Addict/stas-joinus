@@ -4,7 +4,7 @@ import type { AppConfigType } from '$types/app';
 import fetchAppConfigApi from '$lib/app/config';
 
 function createStore() {
-	const store = writable<AppConfigType | null>(null);
+	const store = writable<AppConfigType | null | undefined>(undefined);
 
 	async function ping() {
 		const res = await fetchAppConfigApi();
