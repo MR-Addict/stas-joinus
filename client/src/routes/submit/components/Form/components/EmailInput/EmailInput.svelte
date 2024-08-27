@@ -23,17 +23,19 @@
 	function validate(value: string) {
 		if (value.length === 0) return '邮箱不能为空';
 		else if (value.length > 320) return '你的邮箱太长啦';
-		else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return '请输入正确格式的邮箱';
+		else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return '邮箱格式不正确';
 		else return '';
 	}
 </script>
 
 <div bind:this={ref} class="form" class:error>
-	<h1 class="title">
-		<Mail size={18} />
-		<span>邮箱</span>
-	</h1>
-	<label for={id} class="label">我们会将面试信息及面试结果通过邮件的形式发送给你</label>
+	<label for={id}>
+		<h1>
+			<Mail size={18} />
+			<span>邮箱</span>
+		</h1>
+		<p>我们会将面试信息及面试结果通过邮件的形式发送给你</p>
+	</label>
 	<input
 		{id}
 		name={id}

@@ -28,11 +28,13 @@
 </script>
 
 <div bind:this={ref} class="form" class:error>
-	<h1 class="title">
-		<Smartphone size={18} />
-		<span>手机</span>
-	</h1>
-	<label for={id} class="label">我们会将面试信息及面试结果通过短信的形式发送给你</label>
+	<label for={id}>
+		<h1>
+			<Smartphone size={18} />
+			<span>手机</span>
+		</h1>
+		<p>我们会将面试信息及面试结果通过短信的形式发送给你</p>
+	</label>
 	<input
 		{id}
 		name={id}

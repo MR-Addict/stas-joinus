@@ -52,7 +52,7 @@
 		@apply max-w-xs w-full;
 	}
 	.config-time {
-		@apply flex flex-row items-center text-gray-500 sm:text-sm;
+		@apply flex flex-row items-center text-gray-500 text-sm sm:text-base;
 
 		& .skeleton {
 			width: 144.88px;

@@ -28,11 +28,13 @@
 </script>
 
 <div bind:this={ref} class="form" class:error>
-	<h1 class="title">
-		<GraduationCap size={18} />
-		<span>专业</span>
-	</h1>
-	<label for={id} class="label">你所学的专业</label>
+	<label for={id}>
+		<h1>
+			<GraduationCap size={18} />
+			<span>专业</span>
+		</h1>
+		<p>你所学的专业</p>
+	</label>
 	<input
 		{id}
 		name={id}

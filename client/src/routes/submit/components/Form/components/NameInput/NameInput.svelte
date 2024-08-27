@@ -29,11 +29,13 @@
 </script>
 
 <div bind:this={ref} class="form" class:error>
-	<h1 class="title">
-		<User size={18} />
-		<span>姓名</span>
-	</h1>
-	<label for={id} class="label">你的姓名</label>
+	<label for={id}>
+		<h1>
+			<User size={18} />
+			<span>姓名</span>
+		</h1>
+		<p>你的姓名</p>
+	</label>
 	<input
 		{id}
 		name={id}

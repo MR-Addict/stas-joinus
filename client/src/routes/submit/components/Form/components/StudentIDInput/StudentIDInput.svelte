@@ -28,11 +28,13 @@
 </script>
 
 <div bind:this={ref} class="form" class:error>
-	<h1 class="title">
-		<CreditCard size={18} />
-		<span>学号</span>
-	</h1>
-	<label for={id} class="label">你的学号</label>
+	<label for={id}>
+		<h1>
+			<CreditCard size={18} />
+			<span>学号</span>
+		</h1>
+		<p>你的学号</p>
+	</label>
 	<input
 		{id}
 		name={id}

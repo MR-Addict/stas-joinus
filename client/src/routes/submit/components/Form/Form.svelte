@@ -62,7 +62,7 @@
 	</div>
 
 	<div class="group">
-		<p>选择志愿</p>
+		<p>志愿选择</p>
 		<ChoiceSelect />
 	</div>
 

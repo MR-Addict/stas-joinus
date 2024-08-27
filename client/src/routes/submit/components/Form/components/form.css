@@ -1,14 +1,18 @@
 .form {
 	box-shadow: 0 0 5px #4b556340;
 	@apply w-full flex flex-col gap-2 p-5 border border-gray-400 rounded-md bg-white;
-}
 
-.form .title {
-	@apply font-semibold flex flex-row items-center gap-1;
-}
+	& label {
+		@apply flex flex-col gap-2;
 
-.form .label {
-	@apply text-sm text-gray-500;
+		& h1 {
+			@apply font-semibold flex flex-row items-center gap-1;
+		}
+
+		& p {
+			@apply text-sm text-gray-500;
+		}
+	}
 }
 
 .form .input {

@@ -29,12 +29,12 @@
 </script>
 
 <div bind:this={ref} class="form" class:error>
-	<h1 class="title">
-		<NotebookPen size={18} />
-		<span>自我介绍</span>
-	</h1>
-	<label for={id} class="label">
-		写写你的性格、爱好、特长、个人项目、取得的成就等等，内容尽可能丰富，让我们对你有更好的了解
+	<label for={id}>
+		<h1>
+			<NotebookPen size={18} />
+			<span>自我介绍</span>
+		</h1>
+		<p>写写你的性格、爱好、特长、个人项目、取得的成就等等，内容尽可能丰富，让我们对你有更好的了解</p>
 	</label>
 	<textarea
 		{id}

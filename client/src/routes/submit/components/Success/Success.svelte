@@ -16,7 +16,7 @@
 		@apply w-full flex flex-col items-center justify-center gap-2;
 	}
 	h1 {
-		@apply text-2xl font-semibold text-gray-800;
+		@apply text-xl font-semibold text-gray-800;
 	}
 	p {
 		text-wrap: balance;

@@ -28,11 +28,13 @@
 </script>
 
 <div bind:this={ref} class="form" class:error>
-	<h1 class="title">
-		<School size={18} />
-		<span>学院</span>
-	</h1>
-	<label for={id} class="label">你所在的学院</label>
+	<label for={id}>
+		<h1>
+			<School size={18} />
+			<span>学院</span>
+		</h1>
+		<p>你所在的学院</p>
+	</label>
 	<input
 		{id}
 		name={id}

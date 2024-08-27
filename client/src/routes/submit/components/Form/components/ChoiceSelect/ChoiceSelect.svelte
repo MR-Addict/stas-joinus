@@ -46,11 +46,13 @@
 </script>
 
 <div bind:this={firstRef} class="form" class:error={first_error}>
-	<h1 class="title">
-		<FlaskConical size={18} />
-		<span>第一志愿</span>
-	</h1>
-	<label for={first_label} class="label">校大学生科协你最想加入的部门，我们会优先考虑你的第一志愿</label>
+	<label for={first_label}>
+		<h1>
+			<FlaskConical size={18} />
+			<span>第一志愿</span>
+		</h1>
+		<p>校大学生科协你最想加入的部门，我们会优先考虑你的第一志愿</p>
+	</label>
 	<select
 		id={first_label}
 		name={first_label}
@@ -71,12 +73,12 @@
 </div>
 
 <div bind:this={secondRef} class="form" class:error={second_error}>
-	<h1 class="title">
-		<FlaskConical size={18} />
-		<span>第二志愿</span>
-	</h1>
-	<label for={second_label} class="label">
-		校大学生科协你同样感兴趣的部门，或是可以接受调剂的志愿，请勿与第一志愿相同
+	<label for={second_label}>
+		<h1>
+			<FlaskConical size={18} />
+			<span>第二志愿</span>
+		</h1>
+		<p>校大学生科协你同样感兴趣的部门，或是可以接受调剂的志愿，请勿与第一志愿相同</p>
 	</label>
 	<select
 		id={second_label}

@@ -29,11 +29,13 @@
 </script>
 
 <div bind:this={ref} class="form" class:error>
-	<h1 class="title">
-		<PawPrint size={18} />
-		<span>QQ</span>
-	</h1>
-	<label for={id} class="label">我们联系你的备用方案</label>
+	<label for={id}>
+		<h1>
+			<PawPrint size={18} />
+			<span>QQ</span>
+		</h1>
+		<p>我们联系你的备用方案</p>
+	</label>
 	<input
 		{id}
 		name={id}
