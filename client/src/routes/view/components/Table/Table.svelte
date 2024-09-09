@@ -59,7 +59,7 @@
 				<tr>
 					<td>{index + 1 + (pagination.page - 1) * pagination.page_size}</td>
 					{#if tableFilter.name}
-						<td>{applicant.name}</td>
+						<td>{applicant.name + (applicant.modified ? '*' : '')}</td>
 					{/if}
 					{#if tableFilter.gender}
 						<td>{mapGender(applicant.gender)}</td>
@@ -99,6 +99,7 @@
 		</tbody>
 	</table>
 </div>
+<p>注: 姓名后带有 <strong>*</strong> 表示志愿或自我介绍经过了二次修改</p>
 
 <style>
 	table {
@@ -118,5 +119,8 @@
 	}
 	table tr td:last-of-type {
 		@apply min-w-72 max-w-2xl;
+	}
+	p {
+		@apply text-sm text-right text-gray-600;
 	}
 </style>

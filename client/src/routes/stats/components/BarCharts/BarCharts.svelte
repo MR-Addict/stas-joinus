@@ -23,7 +23,7 @@
 <div bind:this={wrapperRef} class="wrapper">
 	<Bar
 		data={mapData(data, choice)}
-		title={`各个部门的人数对比（${choice.name}）`}
+		title={`各部门人数对比（${choice.name}）`}
 		size={{ width: Math.min(800, width), height: 400 }}
 	/>
 </div>

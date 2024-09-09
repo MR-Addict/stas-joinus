@@ -34,12 +34,12 @@
 			<NotebookPen size={18} />
 			<span>自我介绍</span>
 		</h1>
-		<p>写写你的性格、爱好、特长、个人项目、取得的成就等等，内容尽可能丰富，让我们对你有更好的了解</p>
+		<p>写写你的性格、爱好、特长、获奖经历、班级职务等等，内容尽可能丰富具体，让我们对你有更好的了解</p>
 	</label>
 	<textarea
 		{id}
 		name={id}
-		class="input h-48"
+		class="input h-64 sm:h-48"
 		placeholder="你的自我介绍"
 		disabled={$form.localApplicant?.modified}
 		bind:value

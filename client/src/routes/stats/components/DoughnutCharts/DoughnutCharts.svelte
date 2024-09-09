@@ -13,7 +13,7 @@
 </script>
 
 <div class="wrapper">
-	<h1 class="text-center text-lg font-semibold">各个部门的总人数及男女分布</h1>
+	<h1 class="text-center text-lg font-semibold">各部门总人数及男女分布</h1>
 
 	<div class="doughnuts">
 		{#each data as d (d.name)}
