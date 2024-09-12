@@ -1,17 +1,21 @@
 <script lang="ts">
 	import Dropdown from './components/Dropdown.svelte';
+	import ExportModal from './components/ExportModal.svelte';
 	import LoginModal from './components/LoginModal.svelte';
+	import LogoutModal from './components/LogoutModal.svelte';
 	import QrCodeModal from './components/QRCodeModal.svelte';
 
-	let showModal = { login: false, qrcode: false };
+	let showModal = { login: false, logout: false, qrcode: false, export: false };
 </script>
 
 <LoginModal bind:showModal={showModal.login} />
+<LogoutModal bind:showModal={showModal.logout} />
 <QrCodeModal bind:showModal={showModal.qrcode} />
+<ExportModal bind:showModal={showModal.export} />
 
 <div class="wrapper">
 	<button type="button" class="btn" on:click={() => (showModal.qrcode = true)}>加群了解</button>
-	<Dropdown bind:showModal={showModal.login} />
+	<Dropdown bind:showModal />
 </div>
 
 <style>

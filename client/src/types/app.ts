@@ -1,5 +1,8 @@
 import { z } from 'zod';
 
+const exportFormats = ['xlsx', 'json', 'csv'] as const;
+const ExportFormat = z.enum(exportFormats);
+
 type ApiResultType<T = undefined> =
 	| ({
 			readonly success: true;
@@ -15,7 +18,8 @@ const AppConfig = z.object({
 	end_time: z.string().transform((value) => new Date(value))
 });
 
+type ExportFormatType = z.infer<typeof ExportFormat>;
 type AppConfigType = z.infer<typeof AppConfig>;
 
-export { AppConfig };
-export type { ApiResultType, AppConfigType };
+export { AppConfig, ExportFormat, exportFormats };
+export type { ApiResultType, ExportFormatType, AppConfigType };

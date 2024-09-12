@@ -7,7 +7,7 @@ function createStore() {
 	const store = writable<{ applicants: ApplicantType[]; pagination: PaginationType } | null>(null);
 
 	async function refersh(page: number = 1) {
-		const res = await fetchApplicantsApi(page, get(store)?.pagination.page_size || 50);
+		const res = await fetchApplicantsApi({ page, pageSize: get(store)?.pagination.page_size || 50, all: false });
 		if (res.success) store.set(res.data);
 		return res;
 	}

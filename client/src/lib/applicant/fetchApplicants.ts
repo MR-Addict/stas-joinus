@@ -5,14 +5,15 @@ import type { ApiResultType } from '$types/app';
 import { Applicant, type ApplicantType } from '$types/applicant';
 import { Pagination, type PaginationType } from '$types/pagination';
 
-export default async function fetchApplicantsApi(
-	page: number = 1,
-	pageSize: number = 20
-): Promise<ApiResultType<{ applicants: ApplicantType[]; pagination: PaginationType }>> {
+type Props = { page: number; pageSize: number; all: false } | { all: true };
+type Return = Promise<ApiResultType<{ applicants: ApplicantType[]; pagination: PaginationType }>>;
+
+export default async function fetchApplicantsApi(props: Props): Return {
 	const defaultMessage = '报名信息获取失败';
 
 	try {
-		const path = `/api/applicants?page=${page}&page_size=${pageSize}`;
+		let path = '/api/applicants?all=true';
+		if (!props.all) path = `/api/applicants?page=${props.page}&page_size=${props.pageSize}`;
 		const res = await fetch(url(path), { credentials: 'include' }).then((res) => res.json());
 
 		const parsed = z.object({ data: z.array(Applicant), pagination: Pagination, message: z.string() }).safeParse(res);

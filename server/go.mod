@@ -8,7 +8,6 @@ require (
 	github.com/gofiber/fiber/v2 v2.52.5
 	github.com/golang-jwt/jwt/v5 v5.2.1
 	github.com/joho/godotenv v1.5.1
-	github.com/xuri/excelize/v2 v2.8.1
 	gorm.io/gorm v1.25.11
 )
 

@@ -4,9 +4,10 @@
 	import view from '$stores/view';
 	import toast from 'svelte-french-toast';
 	import clickOutside from '$hooks/clickOutside';
+	import type { Writable } from 'svelte/store';
 	import type { TableFilterType } from '$types/tableFilter';
 
-	export let tableFilter: TableFilterType;
+	export let tableFilter: Writable<TableFilterType>;
 
 	let pending = false;
 	let refreshed = false;
@@ -24,6 +25,11 @@
 
 		pending = false;
 	}
+
+	function updateFilter(e: Event) {
+		const target = e.target as HTMLInputElement;
+		tableFilter.update((t) => ({ ...t, [target.id]: target.checked }));
+	}
 </script>
 
 <header>
@@ -40,51 +46,51 @@
 
 		<div class="filter" class:active={showFilter}>
 			<div class="option">
-				<input type="checkbox" id="name" bind:checked={tableFilter.name} />
+				<input type="checkbox" id="name" checked={$tableFilter.name} on:change={updateFilter} />
 				<label for="name">姓名</label>
 			</div>
 			<div class="option">
-				<input type="checkbox" id="gender" bind:checked={tableFilter.gender} />
+				<input type="checkbox" id="gender" checked={$tableFilter.gender} on:change={updateFilter} />
 				<label for="gender">性别</label>
 			</div>
 			<div class="option">
-				<input type="checkbox" id="phone" bind:checked={tableFilter.phone} />
+				<input type="checkbox" id="phone" checked={$tableFilter.phone} on:change={updateFilter} />
 				<label for="phone">手机</label>
 			</div>
 			<div class="option">
-				<input type="checkbox" id="email" bind:checked={tableFilter.email} />
+				<input type="checkbox" id="email" checked={$tableFilter.email} on:change={updateFilter} />
 				<label for="email">邮箱</label>
 			</div>
 			<div class="option">
-				<input type="checkbox" id="qq" bind:checked={tableFilter.qq} />
+				<input type="checkbox" id="qq" checked={$tableFilter.qq} on:change={updateFilter} />
 				<label for="qq">QQ</label>
 			</div>
 			<div class="option">
-				<input type="checkbox" id="student_id" bind:checked={tableFilter.student_id} />
+				<input type="checkbox" id="student_id" checked={$tableFilter.student_id} on:change={updateFilter} />
 				<label for="student_id">学号</label>
 			</div>
 			<div class="option">
-				<input type="checkbox" id="college" bind:checked={tableFilter.college} />
+				<input type="checkbox" id="college" checked={$tableFilter.college} on:change={updateFilter} />
 				<label for="college">学院</label>
 			</div>
 			<div class="option">
-				<input type="checkbox" id="major" bind:checked={tableFilter.major} />
+				<input type="checkbox" id="major" checked={$tableFilter.major} on:change={updateFilter} />
 				<label for="major">专业</label>
 			</div>
 			<div class="option">
-				<input type="checkbox" id="created_at" bind:checked={tableFilter.created_at} />
+				<input type="checkbox" id="created_at" checked={$tableFilter.created_at} on:change={updateFilter} />
 				<label for="created_at">提交时间</label>
 			</div>
 			<div class="option">
-				<input type="checkbox" id="first_choice" bind:checked={tableFilter.first_choice} />
+				<input type="checkbox" id="first_choice" checked={$tableFilter.first_choice} on:change={updateFilter} />
 				<label for="first_choice">第一志愿</label>
 			</div>
 			<div class="option">
-				<input type="checkbox" id="second_choice" bind:checked={tableFilter.second_choice} />
+				<input type="checkbox" id="second_choice" checked={$tableFilter.second_choice} on:change={updateFilter} />
 				<label for="second_choice">第二志愿</label>
 			</div>
 			<div class="option">
-				<input type="checkbox" id="introduction" bind:checked={tableFilter.introduction} />
+				<input type="checkbox" id="introduction" checked={$tableFilter.introduction} on:change={updateFilter} />
 				<label for="introduction">自我介绍</label>
 			</div>
 		</div>

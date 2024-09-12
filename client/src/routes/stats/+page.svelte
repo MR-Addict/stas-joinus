@@ -10,8 +10,9 @@
 	import BarCharts from './components/BarCharts/BarCharts.svelte';
 	import ToggleChoice from './components/ToggleChoice/ToggleChoice.svelte';
 	import DoughnutCharts from './components/DoughnutCharts/DoughnutCharts.svelte';
+	import persistantStore from '$lib/utils/persistantStore';
 
-	let choice: ChoiceType = firstChoice;
+	let choice = persistantStore<ChoiceType>('choice', firstChoice);
 
 	onMount(async () => {
 		if ($auth || (await auth.ping()).success) stats.refersh();
@@ -25,10 +26,10 @@
 
 <main>
 	{#if $stats}
-		<ToggleChoice bind:choice />
-		<BarCharts data={$stats} {choice} />
+		<ToggleChoice {choice} />
+		<BarCharts data={$stats} choice={$choice} />
 		<hr />
-		<DoughnutCharts data={$stats} {choice} />
+		<DoughnutCharts data={$stats} choice={$choice} />
 	{:else}
 		<p>数据加载中，请稍后...</p>
 	{/if}

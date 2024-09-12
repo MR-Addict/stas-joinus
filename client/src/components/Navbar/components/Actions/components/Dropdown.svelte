@@ -1,39 +1,30 @@
 <script lang="ts">
-	import toast from 'svelte-french-toast';
-	import { page } from '$app/stores';
-	import { goto } from '$app/navigation';
 	import { ChartArea, GripVertical, ArrowDownToLine, LogOut, Table, User } from 'lucide-svelte';
 
 	import auth from '$stores/auth';
-	import url from '$lib/utils/url';
 	import clickOutside from '$hooks/clickOutside';
 
-	import Spinner from '$components/Spinner/Spinner.svelte';
+	export let showModal = { login: false, logout: false, export: false };
 
-	export let showModal = false;
-
-	let pending = false;
 	let showDropdown = false;
 
 	function closeDropwdown() {
 		if ($auth) showDropdown = false;
 	}
 
-	function handleClick() {
-		if (!$auth) showModal = true;
-		else showDropdown = !showDropdown;
+	function showLogout() {
+		showDropdown = false;
+		showModal.logout = true;
 	}
 
-	async function handleLogout() {
-		pending = true;
+	function showExport() {
+		showDropdown = false;
+		showModal.export = true;
+	}
 
-		const res = await auth.logout();
-		if (res.success) {
-			toast.success(res.message);
-			if ($page.url.pathname !== '/' && $page.url.pathname !== '/submit/') goto('/');
-		} else toast.error(res.message);
-
-		pending = false;
+	function handleClick() {
+		if (!$auth) showModal.login = true;
+		else showDropdown = !showDropdown;
 	}
 </script>
 
@@ -63,15 +54,12 @@
 				<span class="icon"><ChartArea size={16} /></span>
 			</a>
 
-			<a href={url('/api/applicants/download')} rel="external" download class="btn" on:click={closeDropwdown}>
-				<span>下载表格</span>
+			<button type="button" class="btn" on:click={showExport}>
+				<span>导出数据</span>
 				<span class="icon"><ArrowDownToLine size={16} /></span>
-			</a>
+			</button>
 
-			<button type="button" class="btn" on:click={handleLogout} disabled={pending}>
-				{#if pending}
-					<Spinner />
-				{/if}
+			<button type="button" class="btn" on:click={showLogout}>
 				<span>退出登录</span>
 				<span class="icon"><LogOut size={16} /></span>
 			</button>
