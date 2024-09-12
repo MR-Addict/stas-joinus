@@ -88,11 +88,21 @@ func ApplicantCreate(c *fiber.Ctx) error {
 
 func ApplicantQuery(c *fiber.Ctx) error {
 	var applicants []models.Applicant
-	page, _ := strconv.Atoi(c.Query("page", "1"))
-	pageSize, _ := strconv.Atoi(c.Query("page_size", "20"))
+	getAll, _ := strconv.ParseBool(c.Query("all", "false"))
 
 	var total int64
 	configs.Db.Model(&models.Applicant{}).Count(&total)
+
+	page := 1
+	pageSize := 20
+
+	if getAll {
+		page = 1
+		pageSize = int(total)
+	} else {
+		page, _ = strconv.Atoi(c.Query("page", "1"))
+		pageSize, _ = strconv.Atoi(c.Query("page_size", "20"))
+	}
 
 	findResult := configs.Db.Order("submitted_at desc").Offset((page - 1) * pageSize).Limit(pageSize).Find(&applicants)
 	if findResult.Error != nil {
