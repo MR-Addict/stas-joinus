@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-const exportFormats = ['xlsx', 'json', 'csv'] as const;
+const exportFormats = ['xlsx', 'json'] as const;
 const ExportFormat = z.enum(exportFormats);
 
 type ApiResultType<T = undefined> =

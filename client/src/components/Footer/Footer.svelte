@@ -37,7 +37,7 @@
 		@apply flex flex-row items-center gap-1 w-fit duration-300 text-gray-700;
 
 		&:hover {
-			@apply text-green-600;
+			@apply sm:text-green-600;
 		}
 
 		& .icon {

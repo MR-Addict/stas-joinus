@@ -15,15 +15,6 @@ function exportJSON<T>(filename: string, data: T) {
 	downloadFile(filename, encodedUri);
 }
 
-function exportCSV<T>(filename: string, data: T[]) {
-	const header = 'data:text/csv;charset=utf-8,\uFEFF';
-	const content =
-		Object.keys(data[0] as any).join(',') + '\n' + data.map((row: any) => Object.values(row).join(',')).join('\n');
-	const encodedUri = header + encodeURIComponent(content);
-
-	downloadFile(filename, encodedUri);
-}
-
 async function exportXlsx<T>(
 	filename: string,
 	data: T[],
@@ -56,7 +47,6 @@ async function exportXlsx<T>(
 
 const exportData = {
 	json: exportJSON,
-	csv: exportCSV,
 	xlsx: exportXlsx
 };
 

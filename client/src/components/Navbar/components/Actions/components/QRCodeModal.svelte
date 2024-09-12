@@ -14,6 +14,7 @@
 		if (!navigator.clipboard) return toast.error('当前浏览器环境不支持复制操作');
 
 		copied = true;
+		toast.success('群号复制成功');
 		navigator.clipboard.writeText(groupId);
 		setTimeout(() => (copied = false), 1000);
 	}

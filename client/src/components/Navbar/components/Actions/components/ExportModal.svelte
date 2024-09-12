@@ -23,6 +23,7 @@
 		const res = await fetchApplicantsApi({ all: true });
 		if (!res.success) {
 			toast.error(res.message);
+			pending = false;
 			return;
 		}
 
@@ -33,7 +34,6 @@
 
 		const fileName = `科协报名表单-${formatDate(new Date()).replaceAll(':', '-')}.${$exportFormat}`;
 		if ($exportFormat === 'json') exportData.json(fileName, applicants);
-		else if ($exportFormat === 'csv') exportData.csv(fileName, applicants);
 		else if ($exportFormat === 'xlsx') {
 			await exportData.xlsx(fileName, applicants, (sheet, key, index) => {
 				const column = sheet.getColumn(index + 1);
@@ -44,6 +44,7 @@
 			});
 		}
 
+		showModal = false;
 		pending = false;
 	}
 </script>
@@ -52,7 +53,7 @@
 	<form on:submit|preventDefault={handleExport}>
 		<h1>导出数据</h1>
 
-		<p>请选择需要导出的数据格式</p>
+		<p>请选择导出的数据格式</p>
 
 		<div class="options-wrapper" style="grid-template-columns: repeat({exportFormats.length}, minmax(0, 1fr));">
 			<div class="bubble" data-active-format-index={exportFormats.indexOf($exportFormat)} />
@@ -91,28 +92,24 @@
 	.options-wrapper {
 		--py: 0.45rem;
 		--px: 0.5rem;
-		--gap: 0.25rem;
+		--gap: 0.5rem;
 		padding: var(--py) var(--px);
 		gap: var(--gap);
 		@apply bg-black/10 isolate backdrop-blur-lg grid rounded-md;
 
 		& .option {
-			@apply py-1 px-2 rounded-md;
+			@apply py-2 px-4 rounded-md;
 		}
 
 		& .bubble {
 			top: var(--py);
 			left: var(--px);
 			height: calc(100% - var(--py) * 2);
-			width: calc((100% - var(--px) * 2 - var(--gap) * 2) / 3);
+			width: calc((100% - var(--px) * 2 - var(--gap)) / 2);
 			@apply absolute bg-black/20 -z-10 rounded-md duration-500 ease-in-out;
 
 			&[data-active-format-index='1'] {
 				transform: translateX(calc(100% * 1 + var(--gap)));
-			}
-
-			&[data-active-format-index='2'] {
-				transform: translateX(calc(100% * 2 + var(--gap) * 2));
 			}
 		}
 	}

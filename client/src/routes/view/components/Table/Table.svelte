@@ -99,7 +99,7 @@
 		</tbody>
 	</table>
 </div>
-<p>注: 姓名后带有 <strong>*</strong> 表示志愿或自我介绍经过了二次修改</p>
+<p>注: 姓名后带有 <strong>*</strong> 表示经过了二次修改</p>
 
 <style>
 	table {
