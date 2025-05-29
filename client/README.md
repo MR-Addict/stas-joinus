@@ -4,7 +4,7 @@
 
 > 注意：
 >
-> 开发前配置好环境变量，变量内容可参考根目录的 [.env.example](.env.example) 文件。
+> 开发前配置好环境变量，变量内容可参考根目录的 [.env.development.local.example](.env.development.local.example) 文件。
 
 安装依赖：
 

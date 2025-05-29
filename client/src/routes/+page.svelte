@@ -60,7 +60,7 @@
 		}
 	}
 	a {
-		@apply w-72 text-center mt-4 text-lg bg-yellow-400 border-2 border-black;
+		@apply w-56 text-center mt-4 text-lg bg-yellow-400 border-2 border-black;
 		@apply font-semibold py-2.5 px-7 rounded-md duration-300;
 
 		&:hover {

@@ -1,6 +1,6 @@
 # 校大学生科协报名表单 ![docker](https://github.com/MR-Addict/stas-joinus/actions/workflows/docker.yml/badge.svg)
 
-<img src="preview.png" alt="preview" width="400">
+<img src="preview.jpg" alt="preview" width="400">
 
 本项目采用 monorepo 的形式，将前后端放在一个 git 仓库当中。
 
@@ -10,13 +10,13 @@
 
 本项目用到了以下几个环境变量：
 
-| 变量名     | 解释                     | 备注                 |
-| :--------- | :----------------------- | :------------------- |
-| START_TIME | 报名开始时间             | 必需                 |
-| END_TIME   | 报名结束时间             | 必需                 |
-| ADMIN_PASS | 用来登录后台的管理员密码 | 必需                 |
-| CORS       | 跨域域名设置             | 可选，默认不允许跨域 |
-| PORT       | 项目监听端口             | 可选，默认为 4000    |
+| 变量名     | 解释                     | 备注                                 |
+| :--------- | :----------------------- | :----------------------------------- |
+| START_TIME | 报名开始时间             | 必需                                 |
+| END_TIME   | 报名结束时间             | 必需                                 |
+| ADMIN_PASS | 用来登录后台的管理员密码 | 必需                                 |
+| PORT       | 项目监听端口             | 可选，默认为 4000                    |
+| CORS       | 跨域域名设置             | 可选，默认不允许跨域，且不能设为 `*` |
 
 ## 2. 部署项目
 

@@ -31,7 +31,7 @@
 	<div class="wrapper">
 		<img src={qrcode} alt="qrcode" />
 
-		<div class="flex flex-row items-center gap-2 mt-4">
+		<div class="flex flex-row items-center gap-3 mt-4">
 			<p class="text-gray-600">
 				<span>群号: </span>
 				<span>{groupId}</span>
@@ -56,10 +56,14 @@
 
 <style>
 	.wrapper {
-		@apply bg-white rounded-xl flex flex-col items-center justify-center p-10 gap-1;
+		@apply bg-white rounded-xl flex flex-col items-center justify-center p-10 gap-3;
 	}
 	.btn {
 		@apply w-7 aspect-square relative text-gray-600 rounded-full bg-black/10 grid place-content-center;
+
+		&:hover {
+			@apply bg-black/20;
+		}
 
 		& div {
 			@apply absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 scale-0 invisible opacity-0;
@@ -68,5 +72,8 @@
 				@apply transform scale-100 visible opacity-100 duration-300;
 			}
 		}
+	}
+	img {
+		@apply max-w-sm;
 	}
 </style>

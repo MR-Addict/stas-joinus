@@ -8,7 +8,7 @@ export default async function userLoginApi(formData: FormData): Promise<ApiResul
 
 	try {
 		const path = url('/api/user/login');
-		const res = await fetch(path, { method: 'POST', body: formData }).then((res) => res.json());
+		const res = await fetch(path, { method: 'POST', body: formData, credentials: 'include' }).then((res) => res.json());
 		const parsed = z.object({ success: z.boolean(), message: z.string() }).safeParse(res);
 		if (parsed.success && parsed.data.success) return { success: true, message: parsed.data.message };
 		else return { success: false, message: res.message || defaultMessage };
