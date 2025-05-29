@@ -40,6 +40,10 @@ func LoadConfig() {
 }
 
 func SetupCors(app *fiber.App) {
+	if Config.Server.Cors == "*"{
+		log.Fatal("CORS cannot be set to '*' for security reasons. Please specify allowed origins.")
+	}
+
 	if Config.Server.Cors != "" {
 		app.Use(cors.New(cors.Config{
 			AllowCredentials: true,

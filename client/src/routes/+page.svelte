@@ -17,7 +17,9 @@
 		填写下面的表单加入校大学生科协技术协会，和我们一起度过一个精彩的大学生活吧
 	</p>
 
-	<div class="mt-1 flex flex-col">
+	<a href="/submit">现在报名</a>
+
+	<div class="mt-3 flex flex-col">
 		<p class="config-time">
 			<span>开始时间：</span>
 			{#if $config === null}
@@ -40,8 +42,6 @@
 			{/if}
 		</p>
 	</div>
-
-	<a href="/submit">现在报名</a>
 </main>
 
 <style>
@@ -60,7 +60,7 @@
 		}
 	}
 	a {
-		@apply mt-4 text-lg bg-yellow-400 border-2 border-black;
+		@apply w-72 text-center mt-4 text-lg bg-yellow-400 border-2 border-black;
 		@apply font-semibold py-2.5 px-7 rounded-md duration-300;
 
 		&:hover {

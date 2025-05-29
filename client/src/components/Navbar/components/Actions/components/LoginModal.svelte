@@ -30,6 +30,7 @@
 <Modal bind:showModal disabled={pending}>
 	<form on:submit|preventDefault={handleSubmit}>
 		<h1>用户登录</h1>
+
 		<p>非管理员请勿尝试登录</p>
 
 		<div class="input">
@@ -55,7 +56,7 @@
 		@apply font-semibold text-xl;
 	}
 	p {
-		@apply text-sm text-gray-500;
+		@apply text-gray-600 text-sm;
 	}
 	.input {
 		@apply bg-white w-full flex flex-row items-center gap-2;

@@ -42,32 +42,32 @@
 
 <form on:submit|preventDefault={handleSubmit}>
 	<div class="group">
-		<p>个人信息</p>
+		<h2>个人信息</h2>
 		<NameInput />
 		<GenderSelect />
 	</div>
 
 	<div class="group">
-		<p>联系方式</p>
+		<h2>联系方式</h2>
 		<PhoneInput />
 		<EmailInput />
 		<QQInput />
 	</div>
 
 	<div class="group">
-		<p>学院及专业</p>
+		<h2>学院及专业</h2>
 		<StudentIdInput />
 		<CollegeInput />
 		<MajorInput />
 	</div>
 
 	<div class="group">
-		<p>志愿选择</p>
+		<h2>志愿选择</h2>
 		<ChoiceSelect />
 	</div>
 
 	<div class="group">
-		<p>自我介绍</p>
+		<h2>自我介绍</h2>
 		<IntroductionInput />
 	</div>
 
@@ -76,13 +76,13 @@
 
 <style>
 	form {
-		@apply w-full max-w-xl flex flex-col gap-6;
+		@apply w-full max-w-xl flex flex-col gap-14;
 	}
 
 	div {
 		@apply flex flex-col gap-6;
 
-		& > p {
+		& > h2 {
 			@apply mx-auto text-xl font-bold;
 		}
 	}

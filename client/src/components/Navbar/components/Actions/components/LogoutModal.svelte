@@ -29,6 +29,8 @@
 	<form on:submit|preventDefault={handleLogout}>
 		<h1>确认退出登录？</h1>
 
+		<p>退出后将无法访问管理页面</p>
+
 		<button disabled={pending} type="submit">
 			<span>退出登录</span>
 			{#if pending}
@@ -40,15 +42,18 @@
 
 <style>
 	form {
-		@apply flex flex-col items-center gap-4;
+		@apply flex flex-col gap-2;
 		@apply bg-white p-7 w-full max-w-xs rounded-lg text-center;
 	}
 	h1 {
 		@apply font-semibold text-xl;
 	}
+	p {
+		@apply text-gray-600 text-sm;
+	}
 	button {
-		@apply flex items-center justify-center gap-2;
-		@apply py-2 px-4 rounded-md duration-300 text-white bg-teal-600;
+		@apply mt-2 flex items-center justify-center gap-2;
+		@apply py-2.5 px-4 rounded-md duration-300 text-white bg-teal-600;
 
 		&:enabled:hover {
 			@apply bg-teal-700;

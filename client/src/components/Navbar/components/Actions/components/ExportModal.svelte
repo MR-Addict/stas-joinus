@@ -1,16 +1,21 @@
 <script lang="ts">
 	import { z } from 'zod';
-	import toast from 'svelte-french-toast';
-	import Modal from '$components/Modal/Modal.svelte';
+	import { Database, Table } from 'lucide-svelte';
 
+	import toast from 'svelte-french-toast';
+
+	import Modal from '$components/Modal/Modal.svelte';
 	import Spinner from '$components/Spinner/Spinner.svelte';
-	import fetchApplicantsApi from '$lib/applicant/fetchApplicants';
-	import persistantStore from '$lib/utils/persistantStore';
-	import formatDate from '$lib/utils/formatDate';
-	import exportData from '$lib/utils/exportData';
-	import mapGender from '$lib/utils/mapGender';
+
 	import { Applicant } from '$types/applicant';
 	import { exportFormats, type ExportFormatType } from '$types/app';
+
+	import view from '$stores/view';
+	import mapGender from '$lib/utils/mapGender';
+	import formatDate from '$lib/utils/formatDate';
+	import exportData from '$lib/utils/exportData';
+	import persistantStore from '$lib/utils/persistantStore';
+	import fetchApplicantsApi from '$lib/applicant/fetchApplicants';
 
 	export let showModal = false;
 
@@ -64,12 +69,18 @@
 					class:active={$exportFormat === format}
 					on:click={() => exportFormat.set(format)}
 				>
-					{'.' + format}
+					{#if format === 'xlsx'}
+						<Table size={18} />
+						<span>Excel</span>
+					{:else if format === 'json'}
+						<Database size={18} />
+						<span>JSON</span>
+					{/if}
 				</button>
 			{/each}
 		</div>
 
-		<button type="submit" disabled={pending}>
+		<button type="submit" disabled={pending || !$view?.applicants.length}>
 			<span>导出数据</span>
 			{#if pending}
 				<Spinner />
@@ -80,14 +91,14 @@
 
 <style>
 	form {
-		@apply flex flex-col items-center gap-2;
+		@apply flex flex-col gap-2;
 		@apply bg-white p-7 w-full max-w-xs rounded-lg text-center;
 	}
 	h1 {
 		@apply font-semibold text-xl;
 	}
 	p {
-		@apply text-gray-600;
+		@apply text-gray-600 text-sm;
 	}
 	.options-wrapper {
 		--py: 0.45rem;
@@ -98,7 +109,8 @@
 		@apply bg-black/10 isolate backdrop-blur-lg grid rounded-md;
 
 		& .option {
-			@apply py-2 px-4 rounded-md;
+			@apply flex items-center justify-center gap-1;
+			@apply py-2.5 px-4 rounded-md;
 		}
 
 		& .bubble {
@@ -106,7 +118,7 @@
 			left: var(--px);
 			height: calc(100% - var(--py) * 2);
 			width: calc((100% - var(--px) * 2 - var(--gap)) / 2);
-			@apply absolute bg-black/20 -z-10 rounded-md duration-500 ease-in-out;
+			@apply absolute bg-white -z-10 rounded-md duration-500 ease-in-out;
 
 			&[data-active-format-index='1'] {
 				transform: translateX(calc(100% * 1 + var(--gap)));
@@ -115,7 +127,7 @@
 	}
 	button[type='submit'] {
 		@apply flex items-center justify-center gap-2 mt-2;
-		@apply py-2 px-4 rounded-md duration-300 text-white bg-teal-600;
+		@apply py-2.5 px-4 rounded-md duration-300 text-white bg-teal-600;
 
 		&:enabled:hover {
 			@apply bg-teal-700;

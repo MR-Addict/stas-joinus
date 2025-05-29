@@ -54,6 +54,8 @@
 				<span class="icon"><ChartArea size={16} /></span>
 			</a>
 
+			<hr />
+
 			<button type="button" class="btn" on:click={showExport}>
 				<span>导出数据</span>
 				<span class="icon"><ArrowDownToLine size={16} /></span>
@@ -73,8 +75,8 @@
 	}
 
 	.menu {
-		box-shadow: 0 0 5px #71737680;
-		@apply w-44 absolute -bottom-2 right-1.5 translate-y-full;
+		box-shadow: 0 0 5px #dbdee2;
+		@apply w-48 absolute -bottom-2 right-1.5 translate-y-full;
 		@apply origin-top-right duration-300 scale-50 opacity-0 invisible;
 		@apply bg-white border border-gray-300 rounded-md py-1;
 
@@ -87,7 +89,7 @@
 		@apply flex flex-row items-center w-full py-2 px-4;
 
 		&:not(:last-child) {
-			@apply border-b-[3px] border-gray-300;
+			@apply border-b border-gray-300;
 		}
 
 		&:hover {
@@ -101,5 +103,9 @@
 		& .icon {
 			@apply ml-auto text-gray-600;
 		}
+	}
+
+	hr {
+		@apply h-1 bg-gray-300;
 	}
 </style>
