@@ -31,7 +31,7 @@
 <div class="menu-wrapper" use:clickOutside={closeDropwdown}>
 	<button
 		type="button"
-		aria-label="action button"
+		aria-label="login button"
 		class="text-gray-600 hover:bg-black/10 rounded-full p-1 duration-300"
 		on:click={handleClick}
 	>
@@ -75,7 +75,7 @@
 	}
 
 	.menu {
-		box-shadow: 0 0 5px #dbdee2;
+		box-shadow: 0 0 5px #55555540;
 		@apply w-48 absolute -bottom-2 right-1.5 translate-y-full;
 		@apply origin-top-right duration-300 scale-50 opacity-0 invisible;
 		@apply bg-white border border-gray-300 rounded-md py-1;
@@ -88,7 +88,7 @@
 	.btn {
 		@apply flex flex-row items-center w-full py-2 px-4;
 
-		&:not(:last-child) {
+		&:nth-of-type(2n + 1) {
 			@apply border-b border-gray-300;
 		}
 

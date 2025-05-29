@@ -31,7 +31,7 @@
 	<div class="wrapper">
 		<img src={qrcode} alt="qrcode" />
 
-		<div class="flex flex-row items-center gap-3 mt-4">
+		<div class="flex flex-row items-center flex-wrap gap-3 mt-4">
 			<p class="text-gray-600">
 				<span>群号: </span>
 				<span>{groupId}</span>
@@ -74,6 +74,6 @@
 		}
 	}
 	img {
-		@apply max-w-sm;
+		@apply w-full max-w-xs;
 	}
 </style>

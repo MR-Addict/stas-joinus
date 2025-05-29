@@ -99,7 +99,7 @@
 		</tbody>
 	</table>
 </div>
-<p>注: 姓名后带有 <strong>*</strong> 表示经过了二次修改</p>
+<p>注: 姓名后带有 <strong>*</strong> 表示 <strong>志愿</strong>/<strong>自我介绍</strong> 经过了二次修改</p>
 
 <style>
 	table {
@@ -121,6 +121,6 @@
 		@apply min-w-72 max-w-2xl;
 	}
 	p {
-		@apply text-sm text-right text-gray-600;
+		@apply text-sm text-gray-600;
 	}
 </style>

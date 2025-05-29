@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store';
 
-import type { AppConfigType } from '$types/app';
 import fetchAppConfigApi from '$lib/app/config';
+import type { AppConfigType } from '$types/app';
 
 function createStore() {
 	const store = writable<AppConfigType | null | undefined>(undefined);

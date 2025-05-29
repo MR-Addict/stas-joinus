@@ -7,6 +7,11 @@ import userLogoutApi from '$lib/admin/logout';
 function createStore() {
 	const authorized = writable(false);
 
+	function open(){
+		const loginButton = document.querySelector('button[aria-label="login button"]')
+		if(loginButton) (loginButton as HTMLButtonElement).click();
+	}
+
 	async function ping() {
 		const res = await userPingApi();
 		authorized.set(res.success);
@@ -48,6 +53,7 @@ function createStore() {
 	}
 
 	return {
+		open,
 		ping,
 		login,
 		logout,

@@ -10,7 +10,6 @@
 	import { Applicant } from '$types/applicant';
 	import { exportFormats, type ExportFormatType } from '$types/app';
 
-	import view from '$stores/view';
 	import mapGender from '$lib/utils/mapGender';
 	import formatDate from '$lib/utils/formatDate';
 	import exportData from '$lib/utils/exportData';
@@ -28,6 +27,10 @@
 		const res = await fetchApplicantsApi({ all: true });
 		if (!res.success) {
 			toast.error(res.message);
+			pending = false;
+			return;
+		} else if (res.data.pagination.total === 0) {
+			toast.error('没有可导出的数据');
 			pending = false;
 			return;
 		}
@@ -80,7 +83,7 @@
 			{/each}
 		</div>
 
-		<button type="submit" disabled={pending || !$view?.applicants.length}>
+		<button type="submit" disabled={pending}>
 			<span>导出数据</span>
 			{#if pending}
 				<Spinner />

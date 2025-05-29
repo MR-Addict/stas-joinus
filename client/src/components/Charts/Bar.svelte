@@ -72,7 +72,7 @@
 					y={innerSize.height}
 					dy="0.2rem"
 					text-anchor="middle"
-					font-size="0.6rem"
+					font-size={x.bandwidth() < 80 ? '0.6rem' : '0.9rem'}
 					alignment-baseline="before-edge"
 				>
 					{d.label}

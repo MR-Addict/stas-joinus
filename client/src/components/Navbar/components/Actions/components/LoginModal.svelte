@@ -3,6 +3,8 @@
 	import { LockKeyhole } from 'lucide-svelte';
 
 	import auth from '$stores/auth';
+	import view from '$stores/view';
+	import stats from '$stores/stats';
 
 	import Modal from '$components/Modal/Modal.svelte';
 	import Spinner from '$components/Spinner/Spinner.svelte';
@@ -19,8 +21,10 @@
 		const res = await auth.login(formData);
 		if (!res.success) toast.error(res.message);
 		else {
-			toast.success(res.message);
+			view.refersh();
+			stats.refersh();
 			showModal = false;
+			toast.success(res.message);
 		}
 
 		pending = false;

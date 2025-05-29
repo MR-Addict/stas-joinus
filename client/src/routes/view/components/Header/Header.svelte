@@ -136,7 +136,7 @@
 	}
 
 	.search-input {
-		@apply outline-none py-1 px-1 bg-transparent border-b border-gray-300 text-right;
+		@apply outline-none rounded-none py-1 px-1 bg-transparent border-b border-b-gray-300 text-right;
 
 		&:focus,
 		&:not(:placeholder-shown) {

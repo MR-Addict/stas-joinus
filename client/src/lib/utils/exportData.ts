@@ -18,7 +18,7 @@ function exportJSON<T>(filename: string, data: T) {
 async function exportXlsx<T>(
 	filename: string,
 	data: T[],
-	setStyle: (column: ExcelJS.Worksheet, key: string, index: number) => void
+	setStyle: (sheet: ExcelJS.Worksheet, key: string, index: number) => void
 ) {
 	// create workbook and sheet
 	const workbook = new ExcelJS.Workbook();

@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { goto } from '$app/navigation';
 
 	import auth from '$stores/auth';
 	import stats from '$stores/stats';
+
 	import { firstChoice } from '$data/choice';
 	import type { ChoiceType } from '$types/applicant';
 
@@ -16,7 +16,7 @@
 
 	onMount(async () => {
 		if ($auth || (await auth.ping()).success) stats.refersh();
-		else goto('/', { replaceState: true });
+		else auth.open();
 	});
 </script>
 
