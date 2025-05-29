@@ -76,7 +76,7 @@
 
 <style>
 	form {
-		@apply w-full max-w-xl flex flex-col gap-14;
+		@apply w-full max-w-xl flex flex-col gap-6;
 	}
 
 	div {

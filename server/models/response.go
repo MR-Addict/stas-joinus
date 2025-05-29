@@ -1,9 +1,10 @@
 package models
 
 type Pagination struct {
-	Page      int   `json:"page"`
-	Total     int64 `json:"total"`
-	Page_Size int   `json:"page_size"`
+	Page      int    `json:"page"`
+	Total     int64  `json:"total"`
+	Page_Size int    `json:"page_size"`
+	Query     string `json:"query,omitempty"`
 }
 
 type Response struct {

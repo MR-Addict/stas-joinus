@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Filter, RefreshCw } from 'lucide-svelte';
+	import { Filter, RefreshCw, Search } from 'lucide-svelte';
 
 	import view from '$stores/view';
 	import toast from 'svelte-french-toast';
@@ -30,17 +30,36 @@
 		const target = e.target as HTMLInputElement;
 		tableFilter.update((t) => ({ ...t, [target.id]: target.checked }));
 	}
+
+	function handleInputChange(e: Event) {
+		const target = e.target as HTMLInputElement;
+		const value = target.value;
+		view.refersh(1, undefined, value);
+	}
 </script>
 
 <header>
 	<h1>
-		<span>所有数据</span>
-		<button disabled={pending} type="button" class:refreshed on:click={handleRefresh}><RefreshCw size={16} /></button>
+		<p>所有数据</p>
+
+		<button disabled={pending} type="button" class:refreshed on:click={handleRefresh}>
+			<RefreshCw size={16} />
+		</button>
 	</h1>
 
-	<div class="ml-auto relative" use:clickOutside={() => (showFilter = false)}>
+	<div class="right-actions" use:clickOutside={() => (showFilter = false)}>
+		<input
+			size="10"
+			type="text"
+			name="search"
+			class="search-input"
+			placeholder="搜索..."
+			value={$view?.pagination.query ?? ''}
+			on:change={handleInputChange}
+		/>
+
 		<button type="button" class="action-btn" on:click={() => (showFilter = !showFilter)}>
-			<div><Filter size={16} /></div>
+			<Filter size={16} />
 		</button>
 
 		<div class="filter" class:active={showFilter}>
@@ -101,19 +120,36 @@
 		@apply flex flex-row items-center gap-4;
 	}
 	h1 {
-		@apply flex flex-row items-center gap-1;
+		@apply flex flex-row items-center gap-2;
 
-		& span {
+		p {
 			@apply text-gray-800 text-lg font-semibold;
 		}
 
-		& button {
-			@apply text-gray-600 w-4;
-
-			&.refreshed {
-				@apply rotate-180 duration-500;
-			}
+		button.refreshed {
+			@apply rotate-180 duration-500;
 		}
+	}
+
+	.right-actions {
+		@apply flex flex-row items-center gap-3 ml-auto relative;
+	}
+
+	.search-input {
+		@apply outline-none py-1 px-1 bg-transparent border-b border-gray-300 text-right;
+
+		&:focus,
+		&:not(:placeholder-shown) {
+			@apply text-left;
+		}
+
+		&:focus {
+			@apply border-teal-600;
+		}
+	}
+
+	.action-btn {
+		@apply flex flex-row items-center;
 	}
 
 	.filter {
@@ -148,9 +184,5 @@
 				}
 			}
 		}
-	}
-
-	.action-btn {
-		@apply flex flex-row items-center;
 	}
 </style>

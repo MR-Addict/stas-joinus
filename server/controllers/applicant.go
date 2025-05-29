@@ -88,9 +88,33 @@ func ApplicantQuery(c *fiber.Ctx) error {
 	var applicants []models.Applicant
 	getAll, _ := strconv.ParseBool(c.Query("all", "false"))
 
-	var total int64
-	configs.Db.Model(&models.Applicant{}).Count(&total)
+	// Add query param
+	search := c.Query("query", "")
 
+	var total int64
+	query := configs.Db.Model(&models.Applicant{})
+
+	// If the search query is not empty, add a where clause to filter applicants
+	// using LIKE for multiple fields
+	if search != "" {
+		command := ""
+		like := "%" + search + "%"
+		fields := []string{"name", "gender", "phone", "email", "qq", "student_id", "college", "major", "first_choice", "second_choice", "introduction"}
+
+		for i, field := range fields {
+			if i > 0 {
+				command += " OR "
+			}
+			command += field + " LIKE ?"
+		}
+
+		query = query.Where(command, like, like, like, like, like, like, like, like, like, like, like)
+	}
+
+	// Count total applicants
+	query.Count(&total)
+
+	// Get pagination parameters
 	page := 1
 	pageSize := 20
 
@@ -102,11 +126,12 @@ func ApplicantQuery(c *fiber.Ctx) error {
 		pageSize, _ = strconv.Atoi(c.Query("page_size", "20"))
 	}
 
-	findResult := configs.Db.Order("submitted_at desc").Offset((page - 1) * pageSize).Limit(pageSize).Find(&applicants)
+	// Query applicants with pagination
+	findResult := query.Order("submitted_at desc").Offset((page - 1) * pageSize).Limit(pageSize).Find(&applicants)
 	if findResult.Error != nil {
 		return c.Status(500).JSON(models.Response{Success: false, Message: "服务器内部错误", Data: findResult.Error.Error()})
 	} else {
-		return c.Status(200).JSON(models.Response{Success: true, Message: "报名信息获取成功", Data: applicants, Pagination: models.Pagination{Page: page, Total: total, Page_Size: pageSize}})
+		return c.Status(200).JSON(models.Response{Success: true, Message: "报名信息获取成功", Data: applicants, Pagination: models.Pagination{Page: page, Total: total, Page_Size: pageSize, Query: search}})
 	}
 }
 

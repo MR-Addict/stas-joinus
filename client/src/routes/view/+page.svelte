@@ -40,12 +40,12 @@
 
 <main>
 	{#if $view}
+		<Header {tableFilter} />
 		{#if $view.applicants.length > 0}
-			<Header {tableFilter} />
 			<Table applicants={$view.applicants} pagination={$view.pagination} tableFilter={$tableFilter} />
 			<Pagination pagination={$view.pagination} />
 		{:else}
-			<p>糟糕！还没有人提交😢</p>
+			<p>这里什么都没有😢</p>
 		{/if}
 	{:else}
 		<p>数据加载中，请稍后...</p>
