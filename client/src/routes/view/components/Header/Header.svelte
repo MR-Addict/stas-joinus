@@ -41,7 +41,6 @@
 	<div class="ml-auto relative" use:clickOutside={() => (showFilter = false)}>
 		<button type="button" class="action-btn" on:click={() => (showFilter = !showFilter)}>
 			<div><Filter size={16} /></div>
-			<span>筛选信息</span>
 		</button>
 
 		<div class="filter" class:active={showFilter}>
@@ -121,7 +120,7 @@
 		box-shadow: 0 0 5px #d1d5db;
 		@apply z-10 flex flex-col border border-gray-300;
 		@apply origin-top invisible opacity-0 duration-200 scale-y-95;
-		@apply rounded-md py-2.5 px-4 bg-white mt-1 absolute right-0 sm:right-1/2 sm:translate-x-1/2 top-full;
+		@apply rounded-md py-3 px-4 bg-white mt-1 absolute right-0 top-full;
 
 		&.active {
 			@apply visible opacity-100 scale-y-100;
@@ -129,7 +128,7 @@
 	}
 
 	.option {
-		@apply whitespace-nowrap flex flex-row items-center gap-1.5;
+		@apply whitespace-nowrap flex flex-row items-center gap-2;
 
 		& input {
 			appearance: none;

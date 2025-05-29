@@ -6,8 +6,10 @@ import fetchApplicantsApi from '$lib/applicant/fetchApplicants';
 function createStore() {
 	const store = writable<{ applicants: ApplicantType[]; pagination: PaginationType } | null>(null);
 
-	async function refersh(page: number = 1) {
-		const res = await fetchApplicantsApi({ page, pageSize: get(store)?.pagination.page_size || 50, all: false });
+	async function refersh(page?: number) {
+		if (page === undefined) page = get(store)?.pagination.page || 1;
+		const pageSize = get(store)?.pagination.page_size || 50;
+		const res = await fetchApplicantsApi({ page, pageSize, all: false });
 		if (res.success) store.set(res.data);
 		return res;
 	}

@@ -37,7 +37,7 @@
 			.parse(res.data.applicants)
 			.map((a) => ({ ...a, gender: mapGender(a.gender), submitted_at: formatDate(new Date(a.submitted_at)) }));
 
-		const fileName = `科协报名表单-${formatDate(new Date()).replaceAll(':', '-')}.${$exportFormat}`;
+		const fileName = `科协报名表单 ${formatDate(new Date()).replaceAll(':', '-')}.${$exportFormat}`;
 		if ($exportFormat === 'json') exportData.json(fileName, applicants);
 		else if ($exportFormat === 'xlsx') {
 			await exportData.xlsx(fileName, applicants, (sheet, key, index) => {

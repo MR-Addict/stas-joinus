@@ -15,8 +15,8 @@
 			<p>每人仅有一次修改机会，提交后<strong>志愿选择</strong>和<strong>自我介绍</strong>等所有内容将不可修改</p>
 		{:else}
 			<p>
-				请确认信息填写正确，提交后<strong>个人信息</strong>、<strong>联系方式</strong>和
-				<strong>学院专业</strong>这些内容将不可修改
+				请确认信息填写正确，提交后<strong>个人信息</strong>、<strong>联系方式</strong>和<strong>学院及专业</strong
+				>这些内容将不可修改
 			</p>
 		{/if}
 
