@@ -1,8 +1,8 @@
 # builder for svelte
-FROM node:18-slim AS svelte-builder
+FROM node:22-alpine AS svelte-builder
 WORKDIR /client
 COPY client .
-RUN npm install
+RUN npm install --force
 RUN npm run build
 
 # builder for go

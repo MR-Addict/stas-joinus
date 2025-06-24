@@ -1,10 +1,11 @@
 <script lang="ts">
-	import { Filter, RefreshCw, Search } from 'lucide-svelte';
+	import { Funnel, RefreshCw } from 'lucide-svelte';
+
+	import toast from 'svelte-french-toast';
+	import type { Writable } from 'svelte/store';
 
 	import view from '$stores/view';
-	import toast from 'svelte-french-toast';
 	import clickOutside from '$hooks/clickOutside';
-	import type { Writable } from 'svelte/store';
 	import type { TableFilterType } from '$types/tableFilter';
 
 	export let tableFilter: Writable<TableFilterType>;
@@ -59,7 +60,7 @@
 		/>
 
 		<button type="button" class="action-btn" on:click={() => (showFilter = !showFilter)}>
-			<Filter size={16} />
+			<Funnel size={16} />
 		</button>
 
 		<div class="filter" class:active={showFilter}>

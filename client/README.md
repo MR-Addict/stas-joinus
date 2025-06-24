@@ -9,31 +9,31 @@
 安装依赖：
 
 ```sh
-npm install
+pnpm install
 ```
 
 开发项目：
 
 ```sh
-npm run dev
+pnpm run dev
 ```
 
 编译项目：
 
 ```sh
-npm run build
+pnpm run build
 ```
 
 预览项目：
 
 ```sh
-npm run preview
+pnpm run preview
 ```
 
 格式化代码：
 
 ```sh
-npm run format
+pnpm run format
 ```
 
 ## 2. 部署项目

@@ -64,7 +64,7 @@
 		<p>请选择导出的数据格式</p>
 
 		<div class="options-wrapper" style="grid-template-columns: repeat({exportFormats.length}, minmax(0, 1fr));">
-			<div class="bubble" data-active-format-index={exportFormats.indexOf($exportFormat)} />
+			<div class="bubble" data-active-format-index={exportFormats.indexOf($exportFormat)}></div>
 			{#each exportFormats as format (format)}
 				<button
 					type="button"

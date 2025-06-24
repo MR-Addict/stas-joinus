@@ -12,13 +12,11 @@ export const links = [
 		items: [
 			{ name: '南工 OJ', path: 'https://acm.online.njtech.edu.cn' },
 			{ name: '南工在线', path: 'https://online.njtech.edu.cn' },
-			{ name: '南工快传', path: 'https://send.online.njtech.edu.cn' },
+			{ name: '南工快传', path: 'https://send.online.njtech.edu.cn' }
 		]
 	},
 	{
 		group: '友链',
-		items: [
-			{ name: 'Mars工作室', path: 'https://studio.online.njtech.edu.cn' }
-		]
+		items: [{ name: 'Mars工作室', path: 'https://studio.online.njtech.edu.cn' }]
 	}
 ];

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { goto } from '$app/navigation';
 
 	import view from '$stores/view';
 	import auth from '$stores/auth';
@@ -29,7 +30,7 @@
 
 	onMount(async () => {
 		if ($auth || (await auth.ping()).success) view.refersh();
-		else auth.open();
+		else goto('/login/?callback=/view', { replaceState: true });
 	});
 </script>
 

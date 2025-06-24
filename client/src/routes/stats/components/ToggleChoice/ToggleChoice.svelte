@@ -13,7 +13,7 @@
 </script>
 
 <button type="button" on:click={handleToggle}>
-	<span class="bubble" class:active={$choice.label === 'second_choice'} />
+	<span class="bubble" class:active={$choice.label === 'second_choice'}></span>
 	<span class="option" class:active={$choice.label === 'first_choice'}>第一志愿</span>
 	<span class="option" class:active={$choice.label === 'second_choice'}>第二志愿</span>
 </button>

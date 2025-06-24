@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 </script>
 
 <svelte:head>
 	<title>校大学生科协 • 页面错误</title>
 </svelte:head>
 
-<main>{$page.status} | {$page.error?.message || 'Error'}</main>
+<main>{page.status} | {page.error?.message || 'Error'}</main>
 
 <style>
 	main {

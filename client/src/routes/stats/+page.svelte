@@ -1,22 +1,23 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { goto } from '$app/navigation';
 
 	import auth from '$stores/auth';
 	import stats from '$stores/stats';
 
 	import { firstChoice } from '$data/choice';
+	import persistantStore from '$lib/utils/persistantStore';
 	import type { ChoiceType } from '$types/applicant';
 
 	import BarCharts from './components/BarCharts/BarCharts.svelte';
 	import ToggleChoice from './components/ToggleChoice/ToggleChoice.svelte';
 	import DoughnutCharts from './components/DoughnutCharts/DoughnutCharts.svelte';
-	import persistantStore from '$lib/utils/persistantStore';
 
 	let choice = persistantStore<ChoiceType>('choice', firstChoice);
 
 	onMount(async () => {
 		if ($auth || (await auth.ping()).success) stats.refersh();
-		else auth.open();
+		else goto('/login/?callback=/stats', { replaceState: true });
 	});
 </script>
 

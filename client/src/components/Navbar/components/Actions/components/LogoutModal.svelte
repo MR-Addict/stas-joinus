@@ -1,7 +1,7 @@
 <script lang="ts">
 	import toast from 'svelte-french-toast';
 	import { goto } from '$app/navigation';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 
 	import auth from '$stores/auth';
 	import Modal from '$components/Modal/Modal.svelte';
@@ -18,7 +18,7 @@
 		if (res.success) {
 			showModal = false;
 			toast.success(res.message);
-			if ($page.url.pathname !== '/' && $page.url.pathname !== '/submit/') goto('/');
+			if (['/stats/', '/view/'].includes(page.url.pathname)) setTimeout(() => goto('/'), 0);
 		} else toast.error(res.message);
 
 		pending = false;

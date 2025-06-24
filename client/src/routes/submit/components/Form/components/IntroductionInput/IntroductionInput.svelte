@@ -44,6 +44,6 @@
 		disabled={$form.localApplicant?.modified}
 		bind:value
 		on:change={handleChange}
-	/>
+	></textarea>
 	<p class="err-msg">{error}</p>
 </div>
