@@ -12,7 +12,6 @@
 
 	import mapGender from '$lib/utils/mapGender';
 	import formatDate from '$lib/utils/formatDate';
-	import exportData from '$lib/utils/exportData';
 	import persistantStore from '$lib/utils/persistantStore';
 	import fetchApplicantsApi from '$lib/applicant/fetchApplicants';
 
@@ -41,9 +40,12 @@
 			.map((a) => ({ ...a, gender: mapGender(a.gender), submitted_at: formatDate(new Date(a.submitted_at)) }));
 
 		const fileName = `科协报名表单 ${formatDate(new Date()).replaceAll(':', '-')}.${$exportFormat}`;
+
+		const { default: exportData } = await import('$lib/utils/exportData');
+
 		if ($exportFormat === 'json') exportData.json(fileName, applicants);
 		else if ($exportFormat === 'xlsx') {
-			await exportData.xlsx(fileName, applicants, (sheet, key, index) => {
+			await exportData.xlsx(fileName, applicants, (sheet: any, key: string, index: number) => {
 				const column = sheet.getColumn(index + 1);
 				if (['id', 'name', 'gender'].includes(key)) column.width = 10;
 				else if (key === 'introduction') column.width = 100;
